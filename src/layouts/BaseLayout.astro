@@ -3,17 +3,21 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { getEntry } from "astro:content";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-// TODO step 3: pull site name from site.yml.
-const siteName = "Terahertz Integrated Electronics Group";
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded as 'site' collection entry");
+const siteName = siteEntry.data.site.name;
+const defaultDescription = siteEntry.data.site.description;
 
 const { title, description } = Astro.props;
 const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+const metaDescription = description ?? defaultDescription;
 ---
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{fullTitle}</title>
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={metaDescription} />
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>

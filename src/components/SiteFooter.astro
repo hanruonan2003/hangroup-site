@@ -1,20 +1,24 @@
 ---
-// TODO step 3: pull address and group name from site.yml.
+import { getEntry } from "astro:content";
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+const { site, contact } = siteEntry.data;
+const { address } = contact;
 const year = new Date().getFullYear();
-const groupName = "Terahertz Integrated Electronics Group";
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p class="site-footer__address mono">
-      <span>MIT Microsystems Technology Laboratories</span>
+      <span>MIT {site.unit}</span>
       <span aria-hidden="true"> · </span>
-      <span>Building 39, Room 527A</span>
+      <span>{address.building}</span>
       <span aria-hidden="true"> · </span>
-      <span>60 Vassar Street, Cambridge, MA 02139</span>
+      <span>{address.street}, {address.city}, {address.state} {address.zip}</span>
     </p>
     <p class="site-footer__meta">
-      © {year} {groupName}, MIT
+      © {year} {site.name}, MIT
     </p>
   </div>
 </footer>

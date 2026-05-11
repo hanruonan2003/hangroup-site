@@ -1,6 +1,9 @@
 ---
-// TODO step 3: pull site name from site.yml via content collections.
-const siteName = "Terahertz Integrated Electronics Group";
+import { getEntry } from "astro:content";
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+const siteName = siteEntry.data.site.name;
 
 type NavItem = { href: string; label: string };
 const navItems: NavItem[] = [
