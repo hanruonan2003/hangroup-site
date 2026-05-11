@@ -1,0 +1,313 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PersonPhoto from "../../components/PersonPhoto.astro";
+import { getCollection } from "astro:content";
+import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../../lib/authorship.ts";
+
+export const getStaticPaths = (async () => {
+  const people = await getCollection("people");
+  return people.map((p) => ({
+    params: { slug: p.data.slug },
+    props: { person: p },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  person: Awaited<ReturnType<typeof getCollection<"people">>>[number];
+}
+
+const { person } = Astro.props;
+const d = person.data;
+
+const publications = await getCollection("publications");
+const personSet = buildPrimaryAuthorSet([d.name]);
+const personPubs = [...publications]
+  .filter((p) => p.data.authors.some((a) => isPrimaryAuthor(a, personSet)))
+  .sort((a, b) => b.data.sort_key - a.data.sort_key);
+
+const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
+---
+
+<BaseLayout title={d.name} description={`${d.name} — ${d.role}, Terahertz Integrated Electronics Group.`}>
+  <section class="container profile">
+    <p class="profile__back mono"><a href="/people/">← People</a></p>
+
+    <div class="profile__head">
+      <div class="profile__photo">
+        <PersonPhoto name={d.name} size="large" />
+      </div>
+      <div class="profile__head-body">
+        <h1 class="profile__name">{d.name}</h1>
+        <p class="profile__role mono">{d.role}</p>
+        {d.interests.length > 0 && (
+          <ul class="profile__tags mono">
+            {d.interests.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        )}
+        {d.email && (
+          <p class="profile__contact mono">
+            <a href={`mailto:${d.email}`}>{d.email}</a>
+          </p>
+        )}
+      </div>
+    </div>
+
+    <section class="profile__section">
+      <h2 class="profile__h2">Bio</h2>
+      {looksLikeTodoBio ? (
+        <p class="profile__bio profile__bio--todo">
+          <em>{`{{TODO: write a bio for ${d.name} in content/people/current.yml}}`}</em>
+        </p>
+      ) : (
+        <p class="profile__bio">{d.bio}</p>
+      )}
+    </section>
+
+    {d.awards && d.awards.length > 0 && (
+      <section class="profile__section">
+        <h2 class="profile__h2">Awards</h2>
+        <ul class="profile__awards">
+          {d.awards.map((aw) => (
+            <li>{aw}</li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="profile__section">
+      <h2 class="profile__h2">
+        <span>Publications</span>
+        <span class="profile__h2-count mono">{personPubs.length}</span>
+      </h2>
+      {personPubs.length === 0 ? (
+        <p class="profile__empty mono">
+          No publications found in our BibTeX matching {d.name}. Once papers
+          with this author land in <code>content/publications/publications.bib</code>,
+          they will appear here automatically.
+        </p>
+      ) : (
+        <ul class="profile__pubs">
+          {personPubs.map((p) => {
+            const pd = p.data;
+            const monthLabel = pd.month
+              ? new Date(pd.year, pd.month - 1, 1).toLocaleString("en-US", { month: "short" })
+              : "";
+            const dateLabel = monthLabel ? `${monthLabel} ${pd.year}` : String(pd.year);
+            return (
+              <li class="profile-pub">
+                <p class="profile-pub__meta mono">
+                  {pd.venue && <span class="profile-pub__venue">{pd.venue}</span>}
+                  <span class="profile-pub__date">{dateLabel}</span>
+                </p>
+                <h3 class="profile-pub__title">
+                  <a href={`/publications/#${pd.key}`}>{pd.title}</a>
+                </h3>
+                <p class="profile-pub__authors">{pd.authors_display}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile {
+    padding-block: var(--space-6) var(--space-10);
+  }
+
+  .profile__back {
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-5);
+  }
+
+  .profile__back a {
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+
+  .profile__back a:hover {
+    color: var(--color-accent);
+  }
+
+  .profile__head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  @media (min-width: 720px) {
+    .profile__head {
+      grid-template-columns: 180px 1fr;
+      gap: var(--space-6);
+      align-items: start;
+    }
+  }
+
+  .profile__name {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-1);
+  }
+
+  @media (min-width: 720px) {
+    .profile__name {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .profile__role {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-3);
+  }
+
+  .profile__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .profile__tags li {
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    background: var(--color-gray-tint);
+    padding: 1px 6px;
+    line-height: 1.5;
+  }
+
+  .profile__contact {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+
+  .profile__contact a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .profile__contact a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .profile__section {
+    margin-bottom: var(--space-8);
+  }
+
+  .profile__h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .profile__h2-count {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
+  .profile__bio {
+    color: var(--color-fg-muted);
+    line-height: 1.7;
+  }
+
+  .profile__bio--todo {
+    color: var(--color-fg-faint);
+  }
+
+  .profile__awards {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .profile__awards li {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .profile__empty {
+    font-size: var(--text-sm);
+    color: var(--color-fg-faint);
+    padding: var(--space-3);
+    background: var(--color-gray-tint);
+    line-height: 1.5;
+  }
+
+  .profile__empty code {
+    font-size: 0.85em;
+    background: var(--color-bg);
+    padding: 1px 4px;
+  }
+
+  .profile__pubs {
+    list-style: none;
+  }
+
+  .profile-pub {
+    padding-block: var(--space-4);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .profile-pub:first-child {
+    padding-top: 0;
+  }
+
+  .profile-pub__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-2);
+  }
+
+  .profile-pub__venue {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    padding: 1px 6px;
+  }
+
+  .profile-pub__date {
+    color: var(--color-fg-faint);
+    padding: 1px 6px;
+  }
+
+  .profile-pub__title {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-2);
+    line-height: 1.4;
+  }
+
+  .profile-pub__title a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .profile-pub__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .profile-pub__authors {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    line-height: 1.5;
+  }
+</style>

@@ -173,6 +173,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
                 return (
                   <li
                     class="entry"
+                    id={d.key}
                     data-pub-entry
                     data-pub-key={d.key}
                     data-pub-year={String(d.year)}

@@ -1,0 +1,477 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PersonPhoto from "../components/PersonPhoto.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const people = await getCollection("people");
+const alumni = await getCollection("alumni");
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+
+const pi = siteEntry.data.pi;
+
+const ROLE_GROUP_ORDER = ["phd_students", "postdocs", "masters_students"] as const;
+const ROLE_GROUP_LABELS: Record<(typeof ROLE_GROUP_ORDER)[number], string> = {
+  phd_students: "PhD students",
+  postdocs: "Postdocs",
+  masters_students: "M.Eng students",
+};
+
+const peopleByRole: Record<(typeof ROLE_GROUP_ORDER)[number], typeof people> = {
+  phd_students: people.filter((p) => p.data.role_group === "phd_students"),
+  postdocs: people.filter((p) => p.data.role_group === "postdocs"),
+  masters_students: people.filter((p) => p.data.role_group === "masters_students"),
+};
+
+const PLACEMENT_LABELS: Record<string, string> = {
+  academia: "Academia",
+  industry: "Industry",
+  national_lab: "National labs",
+  startup: "Startups",
+};
+const PLACEMENT_ORDER = ["academia", "industry", "national_lab", "startup"] as const;
+
+const alumniSorted = [...alumni].sort((a, b) => {
+  const ya = a.data.year_graduated ?? -Infinity;
+  const yb = b.data.year_graduated ?? -Infinity;
+  return yb - ya;
+});
+
+const placementCount = (key: string) =>
+  alumniSorted.filter((a) => a.data.placement_type === key).length;
+---
+
+<BaseLayout
+  title="People"
+  description={`Members of ${siteEntry.data.site.name}: PI, current PhD students, postdocs, M.Eng, and alumni.`}
+>
+  <section class="container people-page">
+    <header class="people-page__header">
+      <p class="people-page__eyebrow mono">{siteEntry.data.site.name}</p>
+      <h1 class="people-page__h1">People</h1>
+    </header>
+
+    <!-- PI section -->
+    <section class="pi" aria-labelledby="pi-heading">
+      <div class="pi__photo">
+        <PersonPhoto name={pi.name} size="large" />
+      </div>
+      <div class="pi__body">
+        <h2 id="pi-heading" class="pi__name">{pi.name}</h2>
+        <p class="pi__title">{pi.title} · {pi.appointment}</p>
+        <p class="pi__bio">
+          {/* TODO: add pi.bio to site.yml */}
+          <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
+        </p>
+        <ul class="pi__contact mono">
+          <li><a href={`mailto:${pi.email}`}>{pi.email}</a></li>
+          <li>{pi.phone}</li>
+          <li>Building {pi.office}</li>
+          {pi.scholar && (
+            <li>
+              <a href={pi.scholar} target="_blank" rel="noopener noreferrer">
+                Google Scholar
+              </a>
+            </li>
+          )}
+          {pi.cv_url && (
+            <li>
+              <a href={pi.cv_url} target="_blank" rel="noopener noreferrer">CV</a>
+            </li>
+          )}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Current members -->
+    <section class="current" aria-labelledby="current-heading">
+      <h2 id="current-heading" class="people-page__h2">
+        <span>Current members</span>
+        <span class="people-page__count mono">{people.length}</span>
+      </h2>
+
+      {ROLE_GROUP_ORDER.map((group) => {
+        const list = peopleByRole[group];
+        if (list.length === 0) return null;
+        return (
+          <div class="role-section">
+            <h3 class="role-section__h3 mono">
+              {ROLE_GROUP_LABELS[group]} <span class="role-section__count">({list.length})</span>
+            </h3>
+            <ul class="people-grid">
+              {list.map((p) => (
+                <li class="person-card">
+                  <a class="person-card__link" href={`/people/${p.data.slug}/`}>
+                    <PersonPhoto name={p.data.name} />
+                    <div class="person-card__body">
+                      <p class="person-card__name">{p.data.name}</p>
+                      <p class="person-card__role mono">{p.data.role}</p>
+                      {p.data.interests.length > 0 && (
+                        <ul class="person-card__tags mono">
+                          {p.data.interests.map((t) => (
+                            <li>{t}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </section>
+
+    <!-- Alumni -->
+    <section class="alumni" aria-labelledby="alumni-heading">
+      <h2 id="alumni-heading" class="people-page__h2">
+        <span>Alumni</span>
+        <span class="people-page__count mono">{alumniSorted.length}</span>
+      </h2>
+
+      <div class="alumni__filter" role="group" aria-label="Filter alumni by placement">
+        <button
+          type="button"
+          class="chip mono is-active"
+          data-alumni-chip="all"
+          aria-pressed="true"
+        >
+          All
+        </button>
+        {PLACEMENT_ORDER.map((p) => (
+          <button
+            type="button"
+            class="chip mono"
+            data-alumni-chip={p}
+            aria-pressed="false"
+            disabled={placementCount(p) === 0}
+          >
+            {PLACEMENT_LABELS[p]} <span class="chip__count">{placementCount(p)}</span>
+          </button>
+        ))}
+      </div>
+
+      <ul class="alumni__list">
+        {alumniSorted.map((a) => {
+          const year = a.data.year_graduated;
+          const place = [a.data.current_position, a.data.current_org]
+            .filter(Boolean)
+            .join(", ");
+          return (
+            <li
+              class="alumni__item"
+              data-alumni-row
+              data-alumni-placement={a.data.placement_type}
+            >
+              <p class="alumni__year mono">{year ?? "—"}</p>
+              <p class="alumni__name">{a.data.name}</p>
+              <p class="alumni__placement">
+                {place || <span class="alumni__placement-empty mono">{`{{TODO: placement}}`}</span>}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p class="alumni__empty mono" data-alumni-empty hidden>
+        No alumni in this category.
+      </p>
+    </section>
+  </section>
+</BaseLayout>
+
+<script>
+  const chips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-alumni-chip]"),
+  );
+  const rows = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-alumni-row]"),
+  );
+  const empty = document.querySelector<HTMLElement>("[data-alumni-empty]");
+
+  function applyFilter(active: string): void {
+    let visible = 0;
+    for (const r of rows) {
+      const match = active === "all" || r.dataset.alumniPlacement === active;
+      r.hidden = !match;
+      if (match) visible++;
+    }
+    if (empty) empty.hidden = visible > 0;
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const active = chip.dataset.alumniChip ?? "all";
+      chips.forEach((c) => {
+        c.classList.toggle("is-active", c === chip);
+        c.setAttribute("aria-pressed", c === chip ? "true" : "false");
+      });
+      applyFilter(active);
+    });
+  });
+</script>
+
+<style>
+  .people-page {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .people-page__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .people-page__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .people-page__h1 {
+    font-size: var(--text-xl);
+  }
+
+  @media (min-width: 720px) {
+    .people-page__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .people-page__h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .people-page__count {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
+  /* PI */
+
+  .pi {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-8);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  @media (min-width: 720px) {
+    .pi {
+      grid-template-columns: 180px 1fr;
+      gap: var(--space-6);
+      align-items: start;
+    }
+  }
+
+  .pi__name {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-1);
+  }
+
+  .pi__title {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .pi__bio {
+    font-size: var(--text-base);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .pi__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    list-style: none;
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+
+  .pi__contact a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .pi__contact a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  /* Current members */
+
+  .current {
+    margin-bottom: var(--space-10);
+  }
+
+  .role-section {
+    margin-bottom: var(--space-6);
+  }
+
+  .role-section__h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-4);
+  }
+
+  .role-section__count {
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-5);
+    list-style: none;
+  }
+
+  .person-card__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-fg);
+  }
+
+  .person-card__link:hover .person-card__name {
+    color: var(--color-accent);
+  }
+
+  .person-card__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .person-card__role {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-top: 2px;
+  }
+
+  .person-card__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .person-card__tags li {
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    background: var(--color-gray-tint);
+    padding: 1px 6px;
+    line-height: 1.5;
+  }
+
+  /* Alumni */
+
+  .alumni__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    background: transparent;
+    border: 0.5px solid var(--color-border);
+    padding: 4px 10px;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .chip:hover:not(:disabled) {
+    border-color: var(--color-fg);
+  }
+
+  .chip.is-active {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  .chip:disabled {
+    color: var(--color-fg-faint);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .chip__count {
+    color: var(--color-fg-faint);
+    margin-left: var(--space-1);
+  }
+
+  .chip.is-active .chip__count {
+    color: var(--color-bg);
+    opacity: 0.75;
+  }
+
+  .alumni__list {
+    list-style: none;
+    column-count: 1;
+    column-gap: var(--space-6);
+  }
+
+  @media (min-width: 720px) {
+    .alumni__list {
+      column-count: 2;
+    }
+  }
+
+  .alumni__item {
+    break-inside: avoid;
+    padding-block: var(--space-3);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .alumni__year {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+  }
+
+  .alumni__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    margin-top: 2px;
+  }
+
+  .alumni__placement {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-top: 2px;
+  }
+
+  .alumni__placement-empty {
+    color: var(--color-fg-faint);
+    font-style: italic;
+  }
+
+  .alumni__empty {
+    padding: var(--space-6);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+</style>

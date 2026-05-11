@@ -1,0 +1,56 @@
+---
+// Initials-only placeholder for now. Swap to <img src={`/people/photos/${slug}.jpg`}>
+// once headshot files land in public/people/photos/.
+
+interface Props {
+  name: string;
+  size?: "small" | "medium" | "large";
+}
+const { name, size = "medium" } = Astro.props;
+
+function getInitials(n: string): string {
+  const cleaned = n.replace(/\([^)]*\)/g, " ").trim();
+  const parts = cleaned.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0][0]!.toUpperCase();
+  return (parts[0][0]! + parts[parts.length - 1]![0]!).toUpperCase();
+}
+const initials = getInitials(name);
+---
+
+<div class={`person-photo person-photo--${size}`} aria-hidden="true">
+  <span class="person-photo__initials mono">{initials}</span>
+</div>
+
+<style>
+  .person-photo {
+    aspect-ratio: 1;
+    background: var(--color-gray-tint);
+    border: 0.5px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .person-photo--small {
+    width: 64px;
+  }
+
+  .person-photo--medium {
+    width: 100%;
+  }
+
+  .person-photo--large {
+    width: 180px;
+  }
+
+  .person-photo__initials {
+    color: var(--color-fg-muted);
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+  }
+
+  .person-photo--large .person-photo__initials {
+    font-size: var(--text-2xl);
+  }
+</style>
