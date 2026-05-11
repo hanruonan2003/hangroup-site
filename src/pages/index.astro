@@ -1,17 +1,46 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Terahertz Integrated Electronics Group"
+  description="MIT research group designing integrated circuits and systems at terahertz frequencies and above."
+>
+  <section class="container hello">
+    <p class="hello__eyebrow mono">MIT · MTL · EECS</p>
+    <h1 class="hello__headline">Hello world.</h1>
+    <p class="hello__body">
+      Step 2 placeholder. Base layout, design tokens, header, and footer are
+      wired up. The home page proper lands in step 8.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hello {
+    padding-block: var(--space-12);
+    max-width: 56ch;
+  }
+
+  .hello__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .hello__headline {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .hello__headline {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .hello__body {
+    color: var(--color-fg-muted);
+    font-size: var(--text-md);
+  }
+</style>
