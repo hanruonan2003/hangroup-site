@@ -1,17 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
-import { formatNewsDate } from "../lib/dates.ts";
+import { formatNewsDate, newsSortKey } from "../lib/dates.ts";
 
 const news = await getCollection("news");
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
 
-// Descending sort by date string. Caveat for mixed-precision dates: bare-year
-// items lexically precede precise dates in the same year, so they appear at
-// the top of that year's section. Acceptable until news.yml gets denser.
-const sorted = [...news].sort((a, b) =>
-  b.data.date.localeCompare(a.data.date),
+// Descending precision-aware sort: bare-year items rank after same-year
+// precise dates (so e.g. "2022-02-15" precedes "2022" within 2022).
+const sorted = [...news].sort(
+  (a, b) => newsSortKey(b.data.date) - newsSortKey(a.data.date),
 );
 
 // Group by year (first 4 chars of date).

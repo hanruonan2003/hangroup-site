@@ -1,4 +1,19 @@
 /**
+ * Numeric sort key for a news.yml date ("YYYY", "YYYY-MM", or "YYYY-MM-DD").
+ *
+ * Unknown month and day default to *end of year/month* so that precise dates
+ * within the same year rank higher (more recent) than bare-year entries.
+ * Sort descending — larger number = more recent.
+ */
+export function newsSortKey(s: string): number {
+  const parts = s.split("-");
+  const year = Number(parts[0]) || 0;
+  const month = parts[1] ? Number(parts[1]) : 13;
+  const day = parts[2] ? Number(parts[2]) : 32;
+  return year * 10000 + month * 100 + day;
+}
+
+/**
  * Format a news.yml date string ("YYYY", "YYYY-MM", or "YYYY-MM-DD") for display.
  *
  *   "2022"        → "2022"
