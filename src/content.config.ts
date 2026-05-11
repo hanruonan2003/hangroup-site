@@ -200,6 +200,7 @@ const publications = defineCollection({
     doi: z.string().optional(),
     pages: z.string().optional(),
     note: z.string().optional(),
+    raw_bib: z.string(),
   }),
 });
 

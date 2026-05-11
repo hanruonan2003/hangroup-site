@@ -1,0 +1,688 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../lib/authorship.ts";
+
+const publications = await getCollection("publications");
+const people = await getCollection("people");
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+
+const piName = siteEntry.data.pi.name;
+const scholarUrl = siteEntry.data.pi.scholar;
+
+const primarySet = buildPrimaryAuthorSet([
+  piName,
+  ...people.map((p) => p.data.name),
+]);
+
+// Sort newest-first.
+const sorted = [...publications].sort(
+  (a, b) => b.data.sort_key - a.data.sort_key,
+);
+
+// Group by year.
+const byYear = new Map<number, typeof sorted>();
+for (const p of sorted) {
+  const y = p.data.year;
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(p);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+
+// Filter chip options — sorted for stable order.
+const allYears = years.map(String);
+const allVenues = [
+  ...new Set(sorted.map((p) => p.data.venue).filter(Boolean)),
+].sort();
+const allTopics = [
+  ...new Set(sorted.flatMap((p) => p.data.keywords)),
+].sort();
+
+const totalCount = sorted.length;
+
+// Helper for the search index attribute — title + author display names, lowercased.
+const searchText = (pub: (typeof sorted)[number]): string =>
+  `${pub.data.title} ${pub.data.authors_display}`.toLowerCase();
+
+// Format a topic keyword for display: "imaging-radar" → "imaging radar".
+const formatTopic = (k: string): string => k.replace(/-/g, " ");
+
+// Format an author line piece — used for "et al." substitution.
+const renderAuthorText = (a: { raw: string; family: string; literal?: boolean }): string =>
+  a.literal && a.family === "others" ? "et al." : a.raw;
+---
+
+<BaseLayout
+  title="Publications"
+  description={`Selected publications from ${siteEntry.data.site.name}. ${totalCount} entries.`}
+>
+  <section class="container pubs">
+    <header class="pubs__header">
+      <div class="pubs__title-row">
+        <div>
+          <p class="pubs__eyebrow mono">{totalCount} entries · {allVenues.join(" · ")}</p>
+          <h1 class="pubs__h1">Publications</h1>
+        </div>
+        <div class="pubs__topright mono">
+          <a href="/publications.bib" download>Download .bib</a>
+          {scholarUrl && (
+            <a href={scholarUrl} target="_blank" rel="noopener noreferrer">
+              Google Scholar
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div class="pubs__controls">
+        <label class="pubs__search">
+          <span class="pubs__search-label mono">Search</span>
+          <input
+            type="search"
+            data-search
+            placeholder="Title or author…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </label>
+
+        <details class="pubs__filter-group" open>
+          <summary class="pubs__filter-summary mono">Year</summary>
+          <div class="pubs__chips">
+            {allYears.map((y) => (
+              <button
+                type="button"
+                class="chip mono"
+                data-chip={`year:${y}`}
+                aria-pressed="false"
+              >
+                {y}
+              </button>
+            ))}
+          </div>
+        </details>
+
+        <details class="pubs__filter-group" open>
+          <summary class="pubs__filter-summary mono">Venue</summary>
+          <div class="pubs__chips">
+            {allVenues.map((v) => (
+              <button
+                type="button"
+                class="chip mono"
+                data-chip={`venue:${v}`}
+                aria-pressed="false"
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </details>
+
+        <details class="pubs__filter-group" open>
+          <summary class="pubs__filter-summary mono">Topic</summary>
+          <div class="pubs__chips">
+            {allTopics.map((t) => (
+              <button
+                type="button"
+                class="chip mono"
+                data-chip={`topic:${t}`}
+                aria-pressed="false"
+              >
+                {formatTopic(t)}
+              </button>
+            ))}
+          </div>
+        </details>
+
+        <button type="button" class="pubs__clear mono" data-clear>
+          Clear filters
+        </button>
+      </div>
+
+      <p class="pubs__live mono" aria-live="polite">
+        Showing <span data-total-count>{totalCount}</span> of {totalCount}
+      </p>
+    </header>
+
+    <div class="pubs__empty mono" data-empty-state hidden>
+      No publications match the current filters.
+    </div>
+
+    <div class="pubs__list">
+      {years.map((year) => {
+        const entries = byYear.get(year)!;
+        return (
+          <section class="year-section" data-year-section={String(year)}>
+            <h2 class="year-section__h2">
+              <span class="year-section__num mono">{year}</span>
+              <span class="year-section__count mono">
+                <span data-year-count>{entries.length}</span> paper{entries.length === 1 ? "" : "s"}
+              </span>
+            </h2>
+            <ul class="year-section__list">
+              {entries.map((pub) => {
+                const d = pub.data;
+                const venueLabel = d.venue || d.container || "";
+                const monthLabel = d.month
+                  ? new Date(d.year, d.month - 1, 1).toLocaleString("en-US", {
+                      month: "short",
+                    })
+                  : "";
+                const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
+                const doiHref = d.doi ? `https://doi.org/${d.doi}` : undefined;
+                return (
+                  <li
+                    class="entry"
+                    data-pub-entry
+                    data-pub-key={d.key}
+                    data-pub-year={String(d.year)}
+                    data-pub-venue={d.venue}
+                    data-pub-topics={d.keywords.join(" ")}
+                    data-pub-text={searchText(pub)}
+                  >
+                    <div class="entry__badges mono">
+                      {venueLabel && <span class="badge badge--venue">{venueLabel}</span>}
+                      <span class="badge badge--date">{dateLabel}</span>
+                      {d.keywords.map((k) => (
+                        <span class="badge badge--topic">{formatTopic(k)}</span>
+                      ))}
+                      {d.highlight && <span class="badge badge--highlight">Highlight</span>}
+                    </div>
+                    <h3 class="entry__title">{d.title}</h3>
+                    <p class="entry__authors">
+                      {d.authors.map((a, i) => {
+                        const isPrimary = isPrimaryAuthor(a, primarySet);
+                        return (
+                          <>
+                            {i > 0 && <span class="entry__sep" aria-hidden="true">, </span>}
+                            <span class={isPrimary ? "entry__author entry__author--primary" : "entry__author entry__author--muted"}>
+                              {renderAuthorText(a)}
+                            </span>
+                          </>
+                        );
+                      })}
+                    </p>
+                    {d.container && d.container !== d.venue && (
+                      <p class="entry__container">{d.container}{d.pages ? `, pp. ${d.pages}` : ""}</p>
+                    )}
+                    {d.note && <p class="entry__note">{d.note}</p>}
+                    <div class="entry__links mono">
+                      {d.pdf && (
+                        <a href={d.pdf} class="entry__link">PDF</a>
+                      )}
+                      {doiHref && (
+                        <a href={doiHref} class="entry__link" target="_blank" rel="noopener noreferrer">DOI</a>
+                      )}
+                      {d.video && (
+                        <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
+                      )}
+                      <details class="entry__bib">
+                        <summary class="entry__link">BibTeX</summary>
+                        <pre class="entry__bib-pre">{d.raw_bib}</pre>
+                      </details>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const $ = <T extends Element = Element>(sel: string, root: ParentNode = document): T | null =>
+    root.querySelector<T>(sel);
+  const $$ = <T extends Element = Element>(sel: string, root: ParentNode = document): T[] =>
+    Array.from(root.querySelectorAll<T>(sel));
+
+  type EntryRef = {
+    el: HTMLElement;
+    year: string;
+    venue: string;
+    topics: string[];
+    text: string;
+  };
+  type YearSection = { el: HTMLElement; year: string };
+
+  const state = {
+    search: "",
+    years: new Set<string>(),
+    venues: new Set<string>(),
+    topics: new Set<string>(),
+  };
+
+  const entries: EntryRef[] = $$("[data-pub-entry]").map((el) => {
+    const html = el as HTMLElement;
+    return {
+      el: html,
+      year: html.dataset.pubYear ?? "",
+      venue: html.dataset.pubVenue ?? "",
+      topics: (html.dataset.pubTopics ?? "").split(" ").filter(Boolean),
+      text: html.dataset.pubText ?? "",
+    };
+  });
+
+  const yearSections: YearSection[] = $$("[data-year-section]").map((el) => ({
+    el: el as HTMLElement,
+    year: (el as HTMLElement).dataset.yearSection ?? "",
+  }));
+
+  const totalEl = $<HTMLElement>("[data-total-count]");
+  const emptyEl = $<HTMLElement>("[data-empty-state]");
+  const searchEl = $<HTMLInputElement>("[data-search]");
+  const clearEl = $<HTMLButtonElement>("[data-clear]");
+
+  function matches(e: EntryRef): boolean {
+    if (state.search && !e.text.includes(state.search)) return false;
+    if (state.years.size && !state.years.has(e.year)) return false;
+    if (state.venues.size && !state.venues.has(e.venue)) return false;
+    if (state.topics.size && !e.topics.some((t) => state.topics.has(t))) return false;
+    return true;
+  }
+
+  function applyFilters(): void {
+    let total = 0;
+    for (const e of entries) {
+      const visible = matches(e);
+      e.el.hidden = !visible;
+      if (visible) total++;
+    }
+    for (const sec of yearSections) {
+      let visibleInYear = 0;
+      for (const e of entries) {
+        if (e.year === sec.year && !e.el.hidden) visibleInYear++;
+      }
+      sec.el.hidden = visibleInYear === 0;
+      const yc = sec.el.querySelector<HTMLElement>("[data-year-count]");
+      if (yc) yc.textContent = String(visibleInYear);
+    }
+    if (emptyEl) emptyEl.hidden = total > 0;
+    if (totalEl) totalEl.textContent = String(total);
+  }
+
+  searchEl?.addEventListener("input", () => {
+    state.search = (searchEl.value ?? "").toLowerCase();
+    applyFilters();
+  });
+
+  $$<HTMLButtonElement>("[data-chip]").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const raw = chip.dataset.chip ?? "";
+      const idx = raw.indexOf(":");
+      if (idx === -1) return;
+      const group = raw.slice(0, idx);
+      const value = raw.slice(idx + 1);
+      const set =
+        group === "year" ? state.years :
+        group === "venue" ? state.venues :
+        group === "topic" ? state.topics :
+        null;
+      if (!set) return;
+      if (set.has(value)) {
+        set.delete(value);
+        chip.classList.remove("is-active");
+        chip.setAttribute("aria-pressed", "false");
+      } else {
+        set.add(value);
+        chip.classList.add("is-active");
+        chip.setAttribute("aria-pressed", "true");
+      }
+      applyFilters();
+    });
+  });
+
+  clearEl?.addEventListener("click", () => {
+    state.search = "";
+    state.years.clear();
+    state.venues.clear();
+    state.topics.clear();
+    if (searchEl) searchEl.value = "";
+    $$<HTMLButtonElement>("[data-chip].is-active").forEach((c) => {
+      c.classList.remove("is-active");
+      c.setAttribute("aria-pressed", "false");
+    });
+    applyFilters();
+  });
+</script>
+
+<style>
+  .pubs {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .pubs__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .pubs__title-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 720px) {
+    .pubs__title-row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+
+  .pubs__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .pubs__h1 {
+    font-size: var(--text-xl);
+  }
+
+  @media (min-width: 720px) {
+    .pubs__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .pubs__topright {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .pubs__topright a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 2px;
+  }
+
+  .pubs__topright a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .pubs__controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-block: 0.5px solid var(--color-border);
+  }
+
+  .pubs__search {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .pubs__search-label {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+  }
+
+  .pubs__search input {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-fg);
+    background: transparent;
+    border: 0;
+    border-bottom: 0.5px solid var(--color-border);
+    padding: var(--space-1) 0;
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .pubs__search input:focus {
+    outline: 0;
+    border-bottom-color: var(--color-accent);
+  }
+
+  .pubs__filter-group {
+    border: 0;
+  }
+
+  .pubs__filter-summary {
+    cursor: pointer;
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    padding-block: var(--space-1);
+    list-style: none;
+  }
+
+  .pubs__filter-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pubs__filter-summary::before {
+    content: "▸";
+    display: inline-block;
+    margin-right: var(--space-2);
+    transition: transform 0.15s ease;
+  }
+
+  .pubs__filter-group[open] .pubs__filter-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .pubs__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-top: var(--space-2);
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    background: transparent;
+    border: 0.5px solid var(--color-border);
+    padding: 4px 10px;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .chip:hover {
+    border-color: var(--color-fg);
+  }
+
+  .chip.is-active {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  .pubs__clear {
+    align-self: flex-start;
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .pubs__clear:hover {
+    color: var(--color-accent);
+  }
+
+  .pubs__live {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-top: var(--space-3);
+  }
+
+  .pubs__empty {
+    padding: var(--space-6);
+    text-align: center;
+    color: var(--color-fg-muted);
+    font-size: var(--text-sm);
+  }
+
+  .year-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .year-section__h2 {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .year-section__num {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+  }
+
+  .year-section__count {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
+  .year-section__list {
+    list-style: none;
+  }
+
+  .entry {
+    padding-block: var(--space-5);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .entry:first-child {
+    padding-top: 0;
+  }
+
+  .entry__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .badge {
+    font-size: var(--text-xs);
+    padding: 2px 8px;
+    line-height: 1.5;
+  }
+
+  .badge--venue {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+  }
+
+  .badge--date {
+    color: var(--color-fg-faint);
+  }
+
+  .badge--topic {
+    background: var(--color-gray-tint);
+    color: var(--color-fg-muted);
+  }
+
+  .badge--highlight {
+    background: var(--color-amber-tint);
+    color: var(--color-amber);
+  }
+
+  .entry__title {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-2);
+    line-height: 1.4;
+  }
+
+  .entry__authors {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-bottom: var(--space-2);
+  }
+
+  .entry__author--primary {
+    color: var(--color-fg);
+  }
+
+  .entry__author--muted {
+    color: var(--color-fg-faint);
+  }
+
+  .entry__sep {
+    color: var(--color-fg-faint);
+  }
+
+  .entry__container {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .entry__note {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    font-style: italic;
+    margin-bottom: var(--space-2);
+  }
+
+  .entry__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: baseline;
+    font-size: var(--text-xs);
+  }
+
+  .entry__link {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+    cursor: pointer;
+  }
+
+  .entry__link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .entry__bib {
+    display: inline;
+  }
+
+  .entry__bib summary {
+    list-style: none;
+    display: inline;
+  }
+
+  .entry__bib summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .entry__bib[open] summary {
+    color: var(--color-accent);
+  }
+
+  .entry__bib-pre {
+    display: block;
+    margin-top: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-gray-tint);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--color-fg);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+</style>

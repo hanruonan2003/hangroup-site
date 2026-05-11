@@ -38,6 +38,8 @@ export interface NormalizedPublication {
   doi?: string;
   pages?: string;
   note?: string;
+  /** Original BibTeX source for this entry, used for the per-entry citation disclosure. */
+  raw_bib: string;
 }
 
 function normalizeAuthor(c: Creator): Author {
@@ -75,6 +77,22 @@ function toIntOrUndef(s: string | undefined): number | undefined {
   if (!s) return undefined;
   const n = Number(s);
   return Number.isFinite(n) ? n : undefined;
+}
+
+/**
+ * The parser's `entry.input` may include trailing % comments and section
+ * separators that belong to the next entry. Trim them to keep the per-entry
+ * BibTeX disclosure clean.
+ */
+function stripTrailingCommentBlock(input: string): string {
+  // Find the closing brace of the entry — entries end with `}` on a line by itself.
+  const trimmed = input.trimEnd();
+  // If the trimmed input ends with `}`, return as-is.
+  if (trimmed.endsWith("}")) return trimmed;
+  // Otherwise drop everything after the last `}` followed by a newline.
+  const lastBrace = trimmed.lastIndexOf("}");
+  if (lastBrace === -1) return trimmed;
+  return trimmed.slice(0, lastBrace + 1);
 }
 
 export function parsePublicationsBib(text: string): NormalizedPublication[] {
@@ -122,6 +140,7 @@ export function parsePublicationsBib(text: string): NormalizedPublication[] {
       doi: f.doi,
       pages: f.pages,
       note: f.note,
+      raw_bib: stripTrailingCommentBlock(entry.input),
     });
   }
 
