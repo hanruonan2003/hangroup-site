@@ -1,0 +1,431 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PersonPhoto from "../components/PersonPhoto.astro";
+import { getCollection, getEntry } from "astro:content";
+import { interestsMatchThrust } from "../lib/research.ts";
+
+const thrusts = await getCollection("research");
+const publications = await getCollection("publications");
+const people = await getCollection("people");
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+
+const thrustsSorted = [...thrusts].sort((a, b) => a.data.number - b.data.number);
+
+// Build a quick lookup by citation key.
+const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
+
+// Build a publications-page deep link URL like /publications/?topic=imaging-radar,communication
+function topicLink(tags: string[]): string {
+  const q = encodeURIComponent(tags.join(","));
+  return `/publications/?topic=${q}`;
+}
+---
+
+<BaseLayout
+  title="Research"
+  description={`${siteEntry.data.site.tagline} Four research thrusts in the ${siteEntry.data.site.name}.`}
+>
+  <section class="container research">
+    <header class="research__header">
+      <p class="research__eyebrow mono">{siteEntry.data.site.name}</p>
+      <h1 class="research__h1">Research</h1>
+      <p class="research__lead">{siteEntry.data.site.description}</p>
+      <nav class="research__toc mono" aria-label="Thrusts">
+        {thrustsSorted.map((t) => (
+          <a href={`#${t.data.slug}`}>{t.data.number}. {t.data.title}</a>
+        ))}
+      </nav>
+    </header>
+
+    {thrustsSorted.map((t) => {
+      const td = t.data;
+      const thrustPubs = td.publications
+        .flatMap((key) => {
+          const p = pubsByKey.get(key);
+          return p ? [p] : [];
+        })
+        .sort((a, b) => b.data.sort_key - a.data.sort_key);
+      const missingPubs = td.publications.filter((k) => !pubsByKey.has(k));
+      const thrustPeople = people.filter((p) =>
+        interestsMatchThrust(p.data.interests, { tags: td.tags }),
+      );
+
+      return (
+        <article class="thrust" id={td.slug}>
+          <header class="thrust__header">
+            <p class="thrust__num mono">{String(td.number).padStart(2, "0")}</p>
+            <h2 class="thrust__title">{td.title}</h2>
+            <ul class="thrust__tags mono">
+              {td.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </header>
+
+          <div class="thrust__description">
+            {td.description_paragraphs.map((para) => <p>{para}</p>)}
+            {td.description_is_stale && (
+              <p class="thrust__stale mono">
+                Description last updated: 2019 ·
+                <em>{` {{TODO: rewrite this thrust description to reflect 2020–2026 work}}`}</em>
+              </p>
+            )}
+          </div>
+
+          {td.figures_todo && (
+            <aside class="thrust__figures-todo mono" aria-label="Figures to add">
+              <p class="thrust__figures-label">Figures to add</p>
+              <p class="thrust__figures-text">{td.figures_todo}</p>
+              <p class="thrust__figures-hint">
+                Drop image files into <code>public/research/figures/</code>
+                and add a <code>figures:</code> field to this thrust to surface them here.
+              </p>
+            </aside>
+          )}
+
+          <section class="thrust__sub" aria-labelledby={`${td.slug}-pubs`}>
+            <h3 class="thrust__sub-h3" id={`${td.slug}-pubs`}>
+              Representative publications
+            </h3>
+            {thrustPubs.length === 0 ? (
+              <p class="thrust__sub-empty mono">No publications resolved.</p>
+            ) : (
+              <ul class="thrust__pubs">
+                {thrustPubs.map((p) => {
+                  const pd = p.data;
+                  const monthLabel = pd.month
+                    ? new Date(pd.year, pd.month - 1, 1).toLocaleString("en-US", { month: "short" })
+                    : "";
+                  const dateLabel = monthLabel ? `${monthLabel} ${pd.year}` : String(pd.year);
+                  return (
+                    <li class="thrust-pub">
+                      <p class="thrust-pub__meta mono">
+                        {pd.venue && <span class="thrust-pub__venue">{pd.venue}</span>}
+                        <span class="thrust-pub__date">{dateLabel}</span>
+                      </p>
+                      <p class="thrust-pub__title">
+                        <a href={`/publications/#${pd.key}`}>{pd.title}</a>
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            <p class="thrust__seeall mono">
+              <a href={topicLink(td.tags)}>
+                See all {td.tags.join(" + ")} papers →
+              </a>
+            </p>
+            {missingPubs.length > 0 && (
+              <p class="thrust__missing mono">
+                <em>{`{{TODO: ${missingPubs.length} citation key${missingPubs.length === 1 ? "" : "s"} listed in thrusts.md not found in publications.bib: ${missingPubs.join(", ")}}}`}</em>
+              </p>
+            )}
+          </section>
+
+          <section class="thrust__sub" aria-labelledby={`${td.slug}-people`}>
+            <h3 class="thrust__sub-h3" id={`${td.slug}-people`}>
+              Working on this
+            </h3>
+            {thrustPeople.length === 0 ? (
+              <p class="thrust__sub-empty mono">
+                <em>{`{{TODO: no current members' interests overlap this thrust's tags — edit content/people/current.yml to add matching interest tags}}`}</em>
+              </p>
+            ) : (
+              <ul class="thrust__people">
+                {thrustPeople.map((p) => (
+                  <li class="thrust-person">
+                    <a class="thrust-person__link" href={`/people/${p.data.slug}/`}>
+                      <PersonPhoto name={p.data.name} size="small" />
+                      <div class="thrust-person__body">
+                        <p class="thrust-person__name">{p.data.name}</p>
+                        <p class="thrust-person__role mono">{p.data.role}</p>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        </article>
+      );
+    })}
+  </section>
+</BaseLayout>
+
+<style>
+  .research {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .research__header {
+    margin-bottom: var(--space-10);
+    max-width: 70ch;
+  }
+
+  .research__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .research__h1 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .research__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .research__lead {
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .research__toc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) 0;
+    border-block: 0.5px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .research__toc a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .research__toc a:hover {
+    color: var(--color-accent);
+  }
+
+  .thrust {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-10);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .thrust:last-of-type {
+    border-bottom: 0;
+  }
+
+  .thrust__header {
+    margin-bottom: var(--space-5);
+  }
+
+  .thrust__num {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-2);
+  }
+
+  .thrust__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .thrust__title {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .thrust__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .thrust__tags li {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    background: var(--color-accent-tint);
+    padding: 2px 8px;
+    line-height: 1.5;
+  }
+
+  .thrust__description {
+    max-width: 70ch;
+    color: var(--color-fg-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+  }
+
+  .thrust__description p {
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust__stale {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    border-left: 2px solid var(--color-amber);
+    padding-left: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .thrust__figures-todo {
+    background: var(--color-amber-tint);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-6);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+  }
+
+  .thrust__figures-label {
+    font-weight: var(--weight-medium);
+    color: var(--color-amber);
+    margin-bottom: var(--space-1);
+  }
+
+  .thrust__figures-text {
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  .thrust__figures-hint {
+    color: var(--color-fg-faint);
+  }
+
+  .thrust__figures-hint code {
+    background: var(--color-bg);
+    padding: 1px 4px;
+    font-size: 0.95em;
+  }
+
+  .thrust__sub {
+    margin-bottom: var(--space-6);
+  }
+
+  .thrust__sub-h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-1);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .thrust__sub-empty {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    padding: var(--space-2) 0;
+  }
+
+  .thrust__pubs {
+    list-style: none;
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust-pub {
+    padding-block: var(--space-3);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .thrust-pub:first-child {
+    padding-top: 0;
+  }
+
+  .thrust-pub:last-child {
+    border-bottom: 0;
+  }
+
+  .thrust-pub__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-1);
+  }
+
+  .thrust-pub__venue {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    padding: 1px 6px;
+  }
+
+  .thrust-pub__date {
+    color: var(--color-fg-faint);
+    padding: 1px 6px;
+  }
+
+  .thrust-pub__title {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .thrust-pub__title a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .thrust-pub__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .thrust__seeall {
+    font-size: var(--text-xs);
+    margin-top: var(--space-3);
+  }
+
+  .thrust__seeall a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .thrust__seeall a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .thrust__missing {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-top: var(--space-2);
+    line-height: 1.5;
+  }
+
+  .thrust__people {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .thrust-person__link {
+    display: flex;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-fg);
+    align-items: center;
+  }
+
+  .thrust-person__link:hover .thrust-person__name {
+    color: var(--color-accent);
+  }
+
+  .thrust-person__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .thrust-person__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .thrust-person__role {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-top: 2px;
+  }
+</style>

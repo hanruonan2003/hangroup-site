@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { parse as parseYAML } from "yaml";
 import { loadPublications } from "./lib/publications.ts";
+import { loadThrusts } from "./lib/research.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const contentDir = resolve(__dirname, "../content");
@@ -204,4 +205,21 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { people, alumni, news, site, publications };
+const research = defineCollection({
+  loader: async () => {
+    const thrusts = await loadThrusts(resolve(contentDir, "research/thrusts.md"));
+    return thrusts.map((t) => ({ id: t.slug, ...t }));
+  },
+  schema: z.object({
+    slug: z.string(),
+    number: z.number().int(),
+    title: z.string(),
+    tags: z.array(z.string()),
+    description_paragraphs: z.array(z.string()),
+    description_is_stale: z.boolean(),
+    publications: z.array(z.string()),
+    figures_todo: z.string(),
+  }),
+});
+
+export const collections = { people, alumni, news, site, publications, research };

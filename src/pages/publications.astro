@@ -347,6 +347,28 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     });
     applyFilters();
   });
+
+  // Deep-linking: ?topic=imaging-radar,communication&venue=ISSCC&year=2022
+  // The research page links here with these params to land on a pre-filtered view.
+  function applyParam(group: "year" | "venue" | "topic", set: Set<string>, raw: string): void {
+    for (const v of raw.split(",").map((s) => s.trim()).filter(Boolean)) {
+      set.add(v);
+      const chip = document.querySelector<HTMLButtonElement>(
+        `[data-chip="${group}:${v}"]`,
+      );
+      if (chip) {
+        chip.classList.add("is-active");
+        chip.setAttribute("aria-pressed", "true");
+      }
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  applyParam("topic", state.topics, params.get("topic") ?? "");
+  applyParam("venue", state.venues, params.get("venue") ?? "");
+  applyParam("year", state.years, params.get("year") ?? "");
+  if (state.topics.size || state.venues.size || state.years.size) {
+    applyFilters();
+  }
 </script>
 
 <style>
