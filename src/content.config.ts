@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { parse as parseYAML } from "yaml";
+import { loadPublications } from "./lib/publications.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const contentDir = resolve(__dirname, "../content");
@@ -167,4 +168,39 @@ const site = defineCollection({
   }),
 });
 
-export const collections = { people, alumni, news, site };
+const publications = defineCollection({
+  loader: async () => {
+    const pubs = await loadPublications(
+      resolve(contentDir, "publications/publications.bib"),
+    );
+    return pubs.map((p) => ({ id: p.key, ...p }));
+  },
+  schema: z.object({
+    key: z.string(),
+    type: z.string(),
+    title: z.string(),
+    authors: z.array(
+      z.object({
+        raw: z.string(),
+        family: z.string(),
+        given: z.string().optional(),
+        literal: z.boolean().optional(),
+      }),
+    ),
+    authors_display: z.string(),
+    year: z.number().int(),
+    month: z.number().int().min(1).max(12).optional(),
+    sort_key: z.number().int(),
+    venue: z.string(),
+    container: z.string(),
+    keywords: z.array(z.string()),
+    highlight: z.boolean(),
+    pdf: z.string().optional(),
+    video: z.string().optional(),
+    doi: z.string().optional(),
+    pages: z.string().optional(),
+    note: z.string().optional(),
+  }),
+});
+
+export const collections = { people, alumni, news, site, publications };

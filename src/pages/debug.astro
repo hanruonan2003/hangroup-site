@@ -8,6 +8,7 @@ import { getCollection, getEntry } from "astro:content";
 const people = await getCollection("people");
 const alumni = await getCollection("alumni");
 const news = await getCollection("news");
+const publications = await getCollection("publications");
 const siteEntry = await getEntry("site", "site");
 
 const peopleByRole = {
@@ -19,16 +20,46 @@ const peopleByRole = {
 const newsSorted = [...news].sort((a, b) =>
   b.data.date.localeCompare(a.data.date),
 );
+
+const publicationsSorted = [...publications].sort(
+  (a, b) => b.data.sort_key - a.data.sort_key,
+);
+
+const pubVenueCounts: Record<string, number> = {};
+for (const p of publications) {
+  const v = p.data.venue || "(none)";
+  pubVenueCounts[v] = (pubVenueCounts[v] ?? 0) + 1;
+}
+const pubYearCounts: Record<string, number> = {};
+for (const p of publications) {
+  const y = String(p.data.year);
+  pubYearCounts[y] = (pubYearCounts[y] ?? 0) + 1;
+}
+const pubKeywordCounts: Record<string, number> = {};
+for (const p of publications) {
+  for (const k of p.data.keywords) {
+    pubKeywordCounts[k] = (pubKeywordCounts[k] ?? 0) + 1;
+  }
+}
+const pubHighlightCount = publications.filter((p) => p.data.highlight).length;
+const pubWithVideoCount = publications.filter((p) => p.data.video).length;
+const pubWithPdfCount = publications.filter((p) => p.data.pdf).length;
+const pubWithDoiCount = publications.filter((p) => p.data.doi).length;
+const pubWithNoteCount = publications.filter((p) => p.data.note).length;
+const pubWithLiteralAuthor = publications.filter((p) =>
+  p.data.authors.some((a) => a.literal),
+).length;
 ---
 
 <BaseLayout title="Debug — content collections" description="Dev-only view of all loaded content.">
   <section class="container debug">
-    <p class="debug__eyebrow mono">Dev only · Step 3 verification</p>
+    <p class="debug__eyebrow mono">Dev only · Steps 3 + 4 verification</p>
     <h1 class="debug__h1">Content collections</h1>
     <p class="debug__lead">
-      Every entry loaded from <code>content/*.yml</code> through Astro content
-      collections. Counts and a JSON dump for each entry follow. If any field
-      fails Zod validation, this page will not render — check the dev server log.
+      Every entry loaded from <code>content/</code> through Astro content
+      collections, including BibTeX-derived publications. Counts and a JSON
+      dump for each entry follow. If any field fails Zod validation, this page
+      will not render — check the dev server log.
     </p>
 
     <nav class="debug__toc mono" aria-label="Sections">
@@ -36,6 +67,7 @@ const newsSorted = [...news].sort((a, b) =>
       <a href="#people">people ({people.length})</a>
       <a href="#alumni">alumni ({alumni.length})</a>
       <a href="#news">news ({news.length})</a>
+      <a href="#publications">publications ({publications.length})</a>
     </nav>
 
     <section id="site">
@@ -102,6 +134,36 @@ const newsSorted = [...news].sort((a, b) =>
             {n.data.date} — {n.data.title}
           </summary>
           <pre class="debug__pre">{JSON.stringify(n.data, null, 2)}</pre>
+        </details>
+      ))}
+    </section>
+
+    <section id="publications">
+      <h2 class="debug__h2">
+        <span class="mono">publications</span>
+        <span class="debug__count mono">{publications.length} entries (sorted desc by year, month)</span>
+      </h2>
+
+      <div class="debug__stats mono">
+        <div><strong>By venue:</strong> {Object.entries(pubVenueCounts).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}=${v}`).join(", ")}</div>
+        <div><strong>By year:</strong> {Object.entries(pubYearCounts).sort((a, b) => b[0].localeCompare(a[0])).map(([k, v]) => `${k}=${v}`).join(", ")}</div>
+        <div><strong>By keyword:</strong> {Object.entries(pubKeywordCounts).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}=${v}`).join(", ")}</div>
+        <div><strong>highlight=true:</strong> {pubHighlightCount}</div>
+        <div><strong>has pdf:</strong> {pubWithPdfCount} · <strong>video:</strong> {pubWithVideoCount} · <strong>doi:</strong> {pubWithDoiCount} · <strong>note:</strong> {pubWithNoteCount}</div>
+        <div><strong>entries containing a literal/group author:</strong> {pubWithLiteralAuthor}</div>
+      </div>
+
+      {publicationsSorted.map((p) => (
+        <details>
+          <summary class="mono">
+            [{p.data.year}{p.data.month ? `-${String(p.data.month).padStart(2, "0")}` : ""}] {p.data.venue} · {p.data.key} {p.data.highlight ? "★" : ""}
+          </summary>
+          <div class="debug__pub-preview">
+            <p class="debug__pub-title">{p.data.title}</p>
+            <p class="debug__pub-meta mono">{p.data.authors_display}</p>
+            <p class="debug__pub-meta mono">{p.data.container}{p.data.pages ? `, pp. ${p.data.pages}` : ""}</p>
+          </div>
+          <pre class="debug__pre">{JSON.stringify(p.data, null, 2)}</pre>
         </details>
       ))}
     </section>
@@ -219,5 +281,34 @@ const newsSorted = [...news].sort((a, b) =>
     font-size: 0.9em;
     background: var(--color-gray-tint);
     padding: 1px 4px;
+  }
+
+  .debug__stats {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    padding: var(--space-3);
+    background: var(--color-gray-tint);
+    margin-bottom: var(--space-4);
+    line-height: 1.7;
+  }
+
+  .debug__stats strong {
+    font-weight: var(--weight-medium);
+    color: var(--color-fg);
+  }
+
+  .debug__pub-preview {
+    padding: var(--space-2) 0 var(--space-1);
+  }
+
+  .debug__pub-title {
+    font-size: var(--text-sm);
+    color: var(--color-fg);
+    margin-bottom: var(--space-1);
+  }
+
+  .debug__pub-meta {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
   }
 </style>
