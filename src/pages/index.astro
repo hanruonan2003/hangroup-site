@@ -1,46 +1,544 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+const site = siteEntry.data.site;
+const recruiting = siteEntry.data.recruiting;
+
+const people = await getCollection("people");
+const thrusts = await getCollection("research");
+const publications = await getCollection("publications");
+const news = await getCollection("news");
+const alumni = await getCollection("alumni");
+
+// Stats.
+const memberCount = people.length;
+const thrustCount = thrusts.length;
+const flagshipCount = publications.filter(
+  (p) => p.data.venue === "ISSCC" || p.data.venue === "JSSC",
+).length;
+
+// Selected work: first paper from each of 4 thrusts, then fill from highlights,
+// then most-recent fallback. Sorted newest-first for display.
+const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
+const chosen = new Set<string>();
+const work: Array<typeof publications[number]> = [];
+
+const thrustsByNum = [...thrusts].sort((a, b) => a.data.number - b.data.number);
+for (const t of thrustsByNum) {
+  for (const key of t.data.publications) {
+    const p = pubsByKey.get(key);
+    if (p && !chosen.has(key)) {
+      chosen.add(key);
+      work.push(p);
+      break;
+    }
+  }
+}
+
+const remainingHighlights = publications
+  .filter((p) => p.data.highlight && !chosen.has(p.data.key))
+  .sort((a, b) => b.data.sort_key - a.data.sort_key);
+for (const p of remainingHighlights) {
+  if (work.length >= 6) break;
+  chosen.add(p.data.key);
+  work.push(p);
+}
+
+if (work.length < 6) {
+  const remaining = [...publications]
+    .filter((p) => !chosen.has(p.data.key))
+    .sort((a, b) => b.data.sort_key - a.data.sort_key);
+  for (const p of remaining) {
+    if (work.length >= 6) break;
+    chosen.add(p.data.key);
+    work.push(p);
+  }
+}
+
+const workSorted = work.sort((a, b) => b.data.sort_key - a.data.sort_key);
+
+// Recent news (3 latest, with desc date sort).
+const newsSorted = [...news]
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 3);
+
+// Where alumni go: filter to alumni with a known placement.
+const placedAlumni = [...alumni]
+  .filter(
+    (a) =>
+      a.data.current_position.trim().length > 0 &&
+      a.data.current_org.trim().length > 0,
+  )
+  .sort((a, b) => (b.data.year_graduated ?? 0) - (a.data.year_graduated ?? 0))
+  .slice(0, 5);
+
+const formatNewsDate = (s: string): string => {
+  // s is YYYY, YYYY-MM, or YYYY-MM-DD; render the most precise form available.
+  const parts = s.split("-");
+  if (parts.length === 1) return parts[0]!;
+  const monthIdx = Number(parts[1]) - 1;
+  const month = new Date(2000, monthIdx, 1).toLocaleString("en-US", {
+    month: "short",
+  });
+  if (parts.length === 2) return `${month} ${parts[0]}`;
+  return `${month} ${Number(parts[2])}, ${parts[0]}`;
+};
 ---
 
-<BaseLayout
-  title="Terahertz Integrated Electronics Group"
-  description="MIT research group designing integrated circuits and systems at terahertz frequencies and above."
->
-  <section class="container hello">
-    <p class="hello__eyebrow mono">MIT · MTL · EECS</p>
-    <h1 class="hello__headline">Hello world.</h1>
-    <p class="hello__body">
-      Step 2 placeholder. Base layout, design tokens, header, and footer are
-      wired up. The home page proper lands in step 8.
-    </p>
+<BaseLayout title={site.name} description={site.description}>
+  <!-- Hero -->
+  <section class="container hero">
+    <p class="hero__eyebrow mono">MIT · MTL · EECS</p>
+    <h1 class="hero__headline">{site.tagline}</h1>
+    <p class="hero__lead">{site.description}</p>
+
+    <ul class="hero__stats mono">
+      <li class="stat">
+        <span class="stat__num">{memberCount}</span>
+        <span class="stat__label">current members</span>
+      </li>
+      <li class="stat">
+        <span class="stat__num">{thrustCount}</span>
+        <span class="stat__label">research thrusts</span>
+      </li>
+      <li class="stat">
+        <span class="stat__num">{flagshipCount}</span>
+        <span class="stat__label">ISSCC / JSSC papers</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Selected work -->
+  <section class="container work">
+    <header class="work__header">
+      <h2 class="work__h2">Selected work</h2>
+      <a class="work__seeall mono" href="/publications/">See all publications →</a>
+    </header>
+    <ul class="work__grid">
+      {workSorted.map((p) => {
+        const d = p.data;
+        const monthLabel = d.month
+          ? new Date(d.year, d.month - 1, 1).toLocaleString("en-US", {
+              month: "short",
+            })
+          : "";
+        const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
+        return (
+          <li class="work-card">
+            <a class="work-card__link" href={`/publications/#${d.key}`}>
+              <div class="work-card__image" aria-hidden="true">
+                <span class="work-card__key mono">{d.key}</span>
+              </div>
+              <div class="work-card__body">
+                <p class="work-card__meta mono">
+                  <span class="work-card__venue">{d.venue}</span>
+                  <span class="work-card__date">{dateLabel}</span>
+                </p>
+                <h3 class="work-card__title">{d.title}</h3>
+                <p class="work-card__authors mono">{d.authors_display}</p>
+              </div>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <!-- Openings -->
+  <aside class="container openings" aria-labelledby="openings-h2">
+    <h2 id="openings-h2" class="openings__h2">{recruiting.title}</h2>
+    <p class="openings__body">{recruiting.body}</p>
+    <a class="openings__cta mono" href={recruiting.apply_url} target="_blank" rel="noopener noreferrer">
+      Apply through MIT EECS Graduate Admissions →
+    </a>
+  </aside>
+
+  <!-- Recent news + alumni -->
+  <section class="container two-col">
+    <section class="two-col__col" aria-labelledby="news-h2">
+      <header class="two-col__header">
+        <h2 id="news-h2" class="two-col__h2">Recent news</h2>
+        <a class="two-col__seeall mono" href="/news/">All news →</a>
+      </header>
+      <ul class="news-list">
+        {newsSorted.map((n) => (
+          <li class="news-item">
+            <p class="news-item__date mono">{formatNewsDate(n.data.date)}</p>
+            <h3 class="news-item__title">{n.data.title}</h3>
+            {n.data.body && <p class="news-item__body">{n.data.body}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="two-col__col" aria-labelledby="alumni-h2">
+      <header class="two-col__header">
+        <h2 id="alumni-h2" class="two-col__h2">Where alumni go</h2>
+        <a class="two-col__seeall mono" href="/people/#alumni-heading">All alumni →</a>
+      </header>
+      {placedAlumni.length === 0 ? (
+        <p class="news-item__body">
+          <em class="mono">{`{{TODO: add placements to content/people/alumni.yml so they appear here}}`}</em>
+        </p>
+      ) : (
+        <ul class="alumni-list">
+          {placedAlumni.map((a) => (
+            <li class="alumni-list__item">
+              <p class="alumni-list__name">{a.data.name}</p>
+              <p class="alumni-list__placement mono">
+                {a.data.current_position}
+                {a.data.current_org && (
+                  <>, <span>{a.data.current_org}</span></>
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   </section>
 </BaseLayout>
 
 <style>
-  .hello {
-    padding-block: var(--space-12);
-    max-width: 56ch;
+  /* Hero */
+  .hero {
+    padding-block: var(--space-10) var(--space-12);
   }
 
-  .hello__eyebrow {
+  .hero__eyebrow {
     font-size: var(--text-xs);
     color: var(--color-accent);
     margin-bottom: var(--space-4);
   }
 
-  .hello__headline {
+  .hero__headline {
     font-size: var(--text-2xl);
+    line-height: 1.15;
+    max-width: 24ch;
     margin-bottom: var(--space-5);
   }
 
-  @media (min-width: 768px) {
-    .hello__headline {
+  @media (min-width: 720px) {
+    .hero__headline {
       font-size: var(--text-3xl);
     }
   }
 
-  .hello__body {
-    color: var(--color-fg-muted);
+  .hero__lead {
     font-size: var(--text-md);
+    color: var(--color-fg-muted);
+    max-width: 56ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__stats {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 0.5px solid var(--color-border);
+  }
+
+  @media (min-width: 600px) {
+    .hero__stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .stat__num {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 600px) {
+    .stat__num {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .stat__label {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+  }
+
+  /* Selected work */
+  .work {
+    padding-bottom: var(--space-12);
+  }
+
+  .work__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  @media (min-width: 600px) {
+    .work__header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  }
+
+  .work__h2 {
+    font-size: var(--text-lg);
+  }
+
+  .work__seeall {
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .work__seeall:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .work__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6) var(--space-5);
+  }
+
+  @media (min-width: 600px) {
+    .work__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .work__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .work-card__link {
+    text-decoration: none;
+    color: var(--color-fg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .work-card__image {
+    aspect-ratio: 4 / 3;
+    background-color: var(--color-gray-tint);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 23px,
+        var(--color-border) 23px,
+        var(--color-border) 24px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 23px,
+        var(--color-border) 23px,
+        var(--color-border) 24px
+      );
+    position: relative;
+    overflow: hidden;
+  }
+
+  .work-card__key {
+    position: absolute;
+    bottom: var(--space-2);
+    right: var(--space-2);
+    font-size: 10px;
+    color: var(--color-fg-faint);
+    background: var(--color-bg);
+    padding: 2px 5px;
+  }
+
+  .work-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .work-card__venue {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    padding: 1px 6px;
+  }
+
+  .work-card__date {
+    color: var(--color-fg-faint);
+    padding: 1px 6px;
+  }
+
+  .work-card__title {
+    font-size: var(--text-sm);
+    line-height: 1.4;
+  }
+
+  .work-card__link:hover .work-card__title {
+    color: var(--color-accent);
+  }
+
+  .work-card__authors {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    line-height: 1.5;
+    /* Clamp to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Openings */
+  .openings {
+    padding-block: var(--space-8);
+  }
+
+  .openings {
+    background: var(--color-accent-tint);
+    border-left: 3px solid var(--color-accent);
+    padding: var(--space-5) var(--space-5);
+    margin-block: var(--space-4) var(--space-12);
+  }
+
+  @media (min-width: 600px) {
+    .openings {
+      padding: var(--space-6) var(--space-8);
+    }
+  }
+
+  .openings__h2 {
+    font-size: var(--text-md);
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+  }
+
+  .openings__body {
+    color: var(--color-fg);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin-bottom: var(--space-4);
+  }
+
+  .openings__cta {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--color-bg);
+    background: var(--color-accent);
+    padding: 8px 14px;
+    text-decoration: none;
+  }
+
+  .openings__cta:hover {
+    color: var(--color-bg);
+    background: #8a1a2c; /* slightly darker MIT red on hover */
+  }
+
+  /* Two-column: news + alumni */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 720px) {
+    .two-col {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  .two-col__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .two-col__h2 {
+    font-size: var(--text-md);
+  }
+
+  .two-col__seeall {
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .two-col__seeall:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .news-list,
+  .alumni-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .news-item__date {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+
+  .news-item__title {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+    line-height: 1.4;
+  }
+
+  .news-item__body {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+  }
+
+  .alumni-list__item {
+    padding-bottom: var(--space-3);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .alumni-list__item:last-child {
+    border-bottom: 0;
+  }
+
+  .alumni-list__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .alumni-list__placement {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-top: 2px;
   }
 </style>
