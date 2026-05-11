@@ -144,3 +144,9 @@ vite.config.ts.timestamp-*
 
 # Astro
 .astro/
+
+# macOS
+.DS_Store
+
+# Claude Code (per-user local config)
+.claude/settings.local.json

@@ -1,0 +1,108 @@
+# Alumni — graduated PhDs, postdocs, and M.Eng students.
+# placement_type is one of: academia, industry, national_lab, startup, unknown
+# This list is PARTIAL. Please verify and expand with your records.
+
+alumni:
+
+  - slug: cheng-wang
+    name: "Cheng Wang"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "Chip-scale molecular clock (Nature Electronics 2018, JSSC)"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: xiang-yi
+    name: "Xiang Yi"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "FMCW comb radar, frequency synthesis (JSSC, ISSCC 2020)"
+    current_position: "Professor"
+    current_org: "South China University of Technology"   # VERIFY
+    placement_type: "academia"
+
+  - slug: muhammad-ibrahim-wasiq-khan
+    name: "Muhammad Ibrahim Wasiq Khan"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "OAM-wave transceivers, THz-ID cryptographic tags"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+    awards:
+      - "2022 IEEE MTT-S Graduate Fellowship"
+
+  - slug: mohamed-ibrahim
+    name: "Mohamed I. Ibrahim"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "THz-ID, identification tags"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: nathan-monroe
+    name: "Nathan M. Monroe"
+    degree: "PhD"
+    year_graduated: null   # TODO ~2022
+    research: "265 GHz reflectarray (ISSCC 2022), high-resolution radar"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: xibi-chen
+    name: "Xibi Chen"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "140 GHz FMCW monostatic radar (ISSCC 2022, JSSC 2022)"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: mina-kim
+    name: "Mina Kim"
+    degree: "PhD"
+    year_graduated: null   # TODO
+    research: "Molecular clock electronics"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: jack-holloway
+    name: "Jack W. Holloway"
+    degree: "PhD"
+    year_graduated: null   # TODO ~2021
+    research: "THz dielectric waveguide chip-to-chip links (ISSCC 2021)"
+    current_position: ""   # TODO  (he was concurrently at ONR/Raytheon)
+    current_org: ""
+    placement_type: "industry"
+
+  - slug: mohamed-ashok
+    name: "Mohamed Ashok"
+    degree: "PhD"
+    year_graduated: null   # TODO ~2023
+    research: "Anti-tampering chip-item interface sensing"
+    current_position: ""   # TODO
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: james-mawdsley
+    name: "James Mawdsley"
+    degree: ""   # TODO
+    research: "Molecular clock team"
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+
+  - slug: zihan-wang
+    name: "Zihan Wang"
+    degree: ""   # TODO
+    research: "Molecular clock team"
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+
+# TODO: add the remaining ~5 PhD alumni from the group's history (2014–2024).
+# Per the README, 14 PhDs is the stated figure on the mockup — this needs
+# to be verified against your records before publication.

@@ -1,0 +1,142 @@
+# Current group members.
+# One entry per person. `slug` is used for the URL: /people/<slug>/
+# `photo` paths are relative to people/photos/ (to be added).
+# `interests` are short tags used on the People grid cards.
+
+phd_students:
+
+  - slug: jinchen-wang
+    name: "Jinchen Wang"
+    email: "jinchen@mit.edu"
+    photo: "jinchen-wang.jpg"
+    interests: ["radar imaging", "communication", "quantum"]
+    bio: >
+      Jinchen Wang received the B.Eng. degree in electronic information
+      engineering from the University of Electronic Science and Technology
+      of China in 2019, and the B.Eng. degree with first-class honors in
+      electronics and electrical engineering from the University of Glasgow
+      in 2019. He is currently pursuing the Ph.D. degree with the
+      Department of Electrical Engineering and Computer Science, MIT.
+      His research interests include RF/mmW/THz circuits, algorithms, and
+      systems for radar imaging, wireless communication, quantum computing,
+      and other novel applications. He was a recipient of the IEEE MTT-S
+      Undergraduate/Pre-Graduate Scholarship Award in 2019.
+
+  - slug: pradyot-yadav
+    name: "Pradyot Yadav"
+    email: "yadavps@mit.edu"
+    photo: "pradyot-yadav.jpg"
+    interests: ["sub-THz devices", "heterogeneous integration"]
+    bio: >
+      Pradyot Yadav received his B.S. in electrical engineering with
+      highest honors from the Georgia Institute of Technology in 2022.
+      At Georgia Tech he worked with Prof. Hua Wang and Prof. James Kenney
+      on GaN power amplifier design. His current research interests lie at
+      the intersection of sub-THz devices, circuits, and heterogeneous
+      integration — spanning transistor fabrication in the cleanroom,
+      circuit design, and advanced package processing. He has held R&D
+      internships at Qorvo, Raytheon, and IBM, and serves as a reviewer
+      for IEEE Electron Device Letters.
+
+  - slug: daniel-sheen
+    name: "Daniel Sheen"
+    email: "dsheen@mit.edu"
+    photo: "daniel-sheen.jpg"
+    interests: ["radio telescopes", "phased arrays"]
+    bio: >
+      Daniel Sheen received his B.S. in Electrical Science and Engineering
+      in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
+      he worked at Haystack Observatory, designing the UHF phased array
+      feed currently in use at the Westford Radio Telescope. He then
+      joined Diversified Technologies Inc. developing high-power solid-
+      state microwave amplifier systems. Since Fall 2022 he has returned
+      to MIT as an Analog Devices Graduate Fellow, working jointly with
+      Haystack Observatory and the Terahertz Integrated Electronics Group.
+
+  - slug: eunseok-lee
+    name: "Eunseok Lee"
+    email: "eunseok@mit.edu"
+    photo: "eunseok-lee.jpg"
+    interests: ["hardware security", "cryptographic tags"]
+    bio: >
+      # TODO: paste Eunseok's bio from the site
+
+  - slug: cole-brabec
+    name: "Cole Brabec"
+    email: "cbrabec@mit.edu"
+    photo: "cole-brabec.jpg"
+    interests: ["analog circuits"]
+    bio: >
+      Cole Brabec is a PhD student with the Terahertz Integrated
+      Electronics Group at MIT. Cole received his B.S. in Electrical
+      Engineering from the California Institute of Technology in 2021.
+
+  - slug: sanjay-chintapally
+    name: "Sanjay Chintapally"
+    email: "sanjayc@mit.edu"
+    photo: "sanjay-chintapally.jpg"
+    interests: ["RF/mmW circuits", "applied electromagnetics"]
+    awards:
+      - "2025 MIT Jacobs Presidential Fellowship"
+      - "2025 SCALE Microelectronics Undergraduate Scholarship"
+      - "2025 Berkeley EECS Arthur M. Hopkin Award"
+    bio: >
+      Sanjay Chintapally received his B.S. in Electrical Engineering and
+      Computer Science with Highest Honors from UC Berkeley in 2025. He
+      is currently pursuing a Ph.D. in EECS in the Terahertz Integrated
+      Electronics Group at MIT. His research interests are in RF / mmW /
+      sub-THz integrated circuits and applied electromagnetics for
+      communication, sensing, and other emerging applications.
+
+  - slug: tyler-weigand
+    name: "Tyler Weigand"
+    email: "tweigand@mit.edu"
+    photo: "tyler-weigand.jpg"
+    interests: ["mmW/THz circuits", "quantum computing"]
+    bio: >
+      Tyler Weigand received his B.S. in Electrical Engineering and
+      Computer Science from UC Berkeley in 2025. He is currently pursuing
+      a Ph.D. in EECS in the Terahertz Integrated Electronics Group at
+      MIT. During his Bachelor's he worked on integrated-circuit design
+      for mm-wave RF-over-fiber receivers. His research interests are in
+      novel applications of mm-wave/THz circuits for sensing,
+      communications, quantum computing, and more.
+
+  - slug: nicholas-lee
+    name: "Nicholas (Sihyun) Lee"
+    email: "nsihyun@mit.edu"
+    photo: "nicholas-lee.jpg"
+    interests: ["wireline communication"]
+    awards:
+      - "2025 Grass Instrument Company Fellowship"
+    bio: >
+      Nicholas (Sihyun) Lee received his B.S. in Electrical and Computer
+      Engineering from Seoul National University in 2025. He is currently
+      pursuing a Ph.D. in EECS in the Terahertz Integrated Electronics
+      Group at MIT. At SNU he was a research intern in the Integrated
+      Circuits and Systems for Computing and Communication (IC3) Lab,
+      where he worked on next-generation equalizers for high-speed
+      wireline communication.
+
+masters_students:
+
+  - slug: youran-gao
+    name: "Youran (Yoland) Gao"
+    email: "youran@mit.edu"
+    photo: "youran-gao.jpg"
+    interests: []
+    bio: >
+      Youran (Yoland) Gao received his SB in Electrical Engineering and
+      Computer Science from MIT in 2025. He is currently pursuing an
+      MEng in the Terahertz Integrated Electronics Group at MIT EECS.
+
+postdocs: []
+  # TODO: add postdocs if any. Ava Bowen (admin assistant) is in
+  # site.yml under contact.admin, not here.
+
+# TODO: confirm whether the following names from the WordPress page
+# are still current, alumni, or never joined:
+#   - Kathleen Brody
+#   - Aaron Pfitzenmaier
+#   - Xingyu Zou
+#   - Xingcun Li  (likely visiting from Tsinghua; verify)

@@ -1,0 +1,54 @@
+# Site-level configuration for hangroup.mit.edu
+# All fields shown here will be referenced by Astro pages at build time.
+
+site:
+  name: "Terahertz Integrated Electronics Group"
+  short_name: "TIE Group"
+  institution: "MIT"
+  unit: "Microsystems Technology Laboratories"
+  department: "Electrical Engineering and Computer Science"
+  url: "https://hangroup.mit.edu"
+  established: 2014
+  tagline: "Pushing silicon electronics to its high-frequency limits."
+  description: >
+    We design integrated circuits and systems operating at terahertz and
+    above, advancing the next generation of sensing, metrology, security,
+    and communication.
+
+pi:
+  name: "Ruonan Han"
+  slug: "ruonan-han"
+  title: "Associate Professor"
+  appointment: "MIT EECS"
+  email: "ruonan@mit.edu"
+  phone: "(617) 324-5281"
+  fax: "(617) 253-8806"
+  office: "39-527"
+  scholar: ""        # TODO: paste Google Scholar URL
+  cv_url: ""         # TODO: link or remove
+
+contact:
+  address:
+    street: "60 Vassar Street"
+    building: "Building 39, Room 527A"
+    city: "Cambridge"
+    state: "MA"
+    zip: "02139"
+  admin:
+    name: "Ava Bowen"
+    title: "Administrative Assistant"
+    email: "avabowen@mit.edu"
+    phone: "(617) 253-0719"
+
+recruiting:
+  # Currently shown on the home page as the "Openings" paragraph.
+  # Surface this prominently — it is what prospective applicants scan for.
+  status: "open"
+  title: "Openings"
+  body: >
+    We recruit PhD research assistants every year. We are looking for
+    candidates with backgrounds in analog/mixed-mode/RF integrated-circuit
+    design, electromagnetics, and physics. Apply through the MIT EECS
+    Graduate Admissions process and mention Prof. Han's group in your
+    statement of purpose.
+  apply_url: "https://www.eecs.mit.edu/academics/graduate-programs/admissions/"

@@ -1,0 +1,101 @@
+# Research Thrusts
+
+The group works across four broad thrusts. Each can be updated independently;
+each one's `representative_publications` field lists the BibTeX citation keys
+from publications.bib that the build script should surface on the page.
+
+> NOTE: The descriptions below are from the original WordPress page, which
+> was last updated in 2019 (the page's modified-time meta tag still reads
+> `2019-06-20`). They should be rewritten to reflect 2020–2026 work — in
+> particular the 265 GHz reflectarray, 140 GHz monostatic radar, OAM
+> transceiver, THz-ID, and anti-tampering tag.
+
+---
+
+## 1. THz Sensing and Imaging
+
+**Tag:** `imaging-radar`
+
+**Current description (NEEDS REWRITE):**
+
+Highly sensitive sensors and imagers operating in the terahertz regime,
+enabling chemical identification, security screening, and high-resolution
+imaging in CMOS.
+
+**Representative publications:**
+- monroe2022reflectarray
+- chen2022radar
+- chen2022radar_jssc
+- yi2020fmcw_jssc
+- yi2020fmcw_isscc
+- radar_collab_isscc_2020
+- heterodyne_jssc_2019
+
+**Figures to include:** chip photos and field plots from the 265 GHz
+reflectarray (most visually striking project), the 140 GHz monostatic
+radar, and the FMCW comb radar.
+
+---
+
+## 2. THz Communication and Interconnect
+
+**Tag:** `communication`, `interconnect`
+
+**Current description (NEEDS REWRITE):**
+
+Wireless and wired communication at sub-THz frequencies using novel
+modulation schemes (OAM), dielectric waveguides, and integrated
+antennas — pushing toward 100+ Gbps per link.
+
+**Representative publications:**
+- khan2021oam_rfic
+- khan2021oam_jssc
+- holloway2021link
+- yi2020fullduplex
+- lee2024wakeup
+
+**Figures to include:** OAM transceiver chip, dielectric waveguide link
+demonstration, wake-up receiver photos.
+
+---
+
+## 3. THz Frequency Synthesis and Molecular/Atomic Devices
+
+**Tag:** `molecular-atomic`, `frequency-synthesis`
+
+**Current description (NEEDS REWRITE):**
+
+Chip-scale molecular clocks using rotational spectroscopy of polar
+molecules, and quantum-coherent sensing using nitrogen-vacancy centers
+in diamond, integrated with CMOS readout and control electronics.
+
+**Representative publications:**
+- wang2018clock_natelec
+- magnetometry_natelec_2019
+- magnetometry_isscc_2019
+- dualcomb_isscc_2017
+- dualcomb_jssc_2017
+
+**Figures to include:** molecular clock spectrum, NV-center magnetometer
+chip, dual-comb spectrometer.
+
+---
+
+## 4. Hardware Security and Tags
+
+**Tag:** `security`
+
+**Current description (NEEDS REWRITE):**
+
+Package-less, chip-scale identification and authentication tags
+operating in the sub-THz band — combining backscatter communication,
+asymmetric cryptography, and physically unclonable interface scattering.
+
+**Representative publications:**
+- khan2020thzid
+- thzid_isscc_2020
+- lee2024antitamper
+- lee2024wakeup
+
+**Figures to include:** THz-ID chip, packageless anti-tamper backscatter
+demonstration, cryptographic wake-up receiver.

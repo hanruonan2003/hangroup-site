@@ -1,0 +1,59 @@
+# News items, newest first.
+# Each item: date (YYYY-MM-DD or YYYY-MM), title, optional body, optional link.
+
+news:
+
+  - date: "2025-09"
+    title: "Welcome new group members"
+    body: "Sanjay Chintapally, Tyler Weigand, Nicholas (Sihyun) Lee, and Youran (Yoland) Gao join the group."
+
+  - date: "2024-02"
+    title: "Anti-tampering tag accepted to ISSCC 2024"
+    body: "Eunseok Lee's paper on a packageless anti-tampering tag using unclonable sub-THz wave scattering at the chip-item interface is accepted to ISSCC 2024."
+
+  - date: "2022"
+    title: "Two ISSCC 2022 papers"
+    body: "Congratulations to the first authors Nathan Monroe (265 GHz reflectarray) and Xibi Chen (140 GHz monostatic radar), and all team members."
+    links:
+      - url: "https://hangroup.mit.edu/wp-content/uploads/2022/02/ISSCC_2022_Reflectarray.mp4"
+        label: "Reflectarray demo video"
+      - url: "https://hangroup.mit.edu/wp-content/uploads/2022/02/ISSCC_2022_140GHz_Radar.mp4"
+        label: "140 GHz radar demo video"
+
+  - date: "2022"
+    title: "MTT-S Graduate Fellowship"
+    body: "Congratulations to Muhammad Ibrahim Wasiq Khan on winning the 2022 IEEE Microwave Theory & Technique Society Graduate Fellowship."
+
+  - date: "2021"
+    title: "Promotion to Associate Professor with Tenure"
+    body: "Prof. Ruonan Han is promoted to Associate Professor with Tenure."
+    links:
+      - url: "https://news.mit.edu"
+        label: "MIT News"
+
+  - date: "2021"
+    title: "OAM transceiver wins Best Student Paper Award at RFIC 2021"
+    body: "Our paper on a 310 GHz CMOS transceiver utilizing waves with orbital-angular momentum (OAM) is accepted to RFIC and wins the Best Student Paper Award (First Place). This is a collaboration with Prof. Anantha Chandrakasan's team at MIT."
+
+  - date: "2021"
+    title: "THz dielectric waveguide link in MIT Homepage and IEEE Spectrum"
+    body: "Jack Holloway's ISSCC 2021 paper on a 105 Gbps THz dielectric waveguide link is featured on the MIT Homepage and IEEE Spectrum."
+
+  - date: "2018-07-16"
+    title: "Molecular clock featured on the cover of Nature Electronics and on www.mit.edu"
+    body: "Our chip-scale molecular clock paper features on the cover of the journal's July issue, and the MIT homepage. Congratulations to Cheng Wang, James Mawdsley, Mina Kim, Y. Xiang, and Zihan Wang."
+
+  - date: "2017-01-31"
+    title: "NSF CAREER Award"
+    body: "Prof. Ruonan Han won the NSF CAREER Award, funding research on chip-scale electronic frequency combs at terahertz frequency for energy-efficient and broadband sensing and imaging."
+    links:
+      - url: "https://news.mit.edu"
+        label: "MIT News"
+
+  - date: "2016-12-07"
+    title: "Invited talk at IEDM 2016"
+    body: "Prof. Ruonan Han gave an invited talk at IEDM 2016 in the focus session 'Ultra-High Speed Electronics', alongside top researchers in THz technologies from Northrop Grumman, UCSB, RPI, and others. The talk covered the group's progress in silicon-based THz sources, sensors, and interconnects."
+
+# TODO: items from 2019-2020 and 2023 — the news page on the site is patchy.
+# Worth filling in: ISSCC acceptances, fellowships received, paper publications,
+# alumni transitions.
