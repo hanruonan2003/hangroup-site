@@ -1,0 +1,230 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PersonPhoto from "../components/PersonPhoto.astro";
+import { getEntry } from "astro:content";
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+const { pi, contact, site } = siteEntry.data;
+const { address, admin } = contact;
+---
+
+<BaseLayout
+  title="Contact"
+  description={`How to reach ${pi.name}, the group, and the lab at ${site.unit}.`}
+>
+  <section class="container contact-page">
+    <header class="contact-page__header">
+      <p class="contact-page__eyebrow mono">{site.name}</p>
+      <h1 class="contact-page__h1">Contact</h1>
+    </header>
+
+    <div class="contact-blocks">
+      <article class="contact-block">
+        <header class="contact-block__head">
+          <div class="contact-block__photo">
+            <PersonPhoto name={pi.name} size="small" />
+          </div>
+          <div class="contact-block__heading">
+            <h2 class="contact-block__name">
+              <a href={`/people/${pi.slug}/`}>{pi.name}</a>
+            </h2>
+            <p class="contact-block__role mono">{pi.title} · {pi.appointment}</p>
+          </div>
+        </header>
+        <ul class="contact-block__list mono">
+          <li>
+            <span class="contact-block__label">Email</span>
+            <a href={`mailto:${pi.email}`}>{pi.email}</a>
+          </li>
+          <li>
+            <span class="contact-block__label">Phone</span>
+            <span>{pi.phone}</span>
+          </li>
+          {pi.fax && (
+            <li>
+              <span class="contact-block__label">Fax</span>
+              <span>{pi.fax}</span>
+            </li>
+          )}
+          <li>
+            <span class="contact-block__label">Office</span>
+            <span>Building {pi.office}</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="contact-block">
+        <header class="contact-block__head">
+          <div class="contact-block__photo">
+            <PersonPhoto name={admin.name} size="small" />
+          </div>
+          <div class="contact-block__heading">
+            <h2 class="contact-block__name">{admin.name}</h2>
+            <p class="contact-block__role mono">{admin.title}</p>
+          </div>
+        </header>
+        <ul class="contact-block__list mono">
+          <li>
+            <span class="contact-block__label">Email</span>
+            <a href={`mailto:${admin.email}`}>{admin.email}</a>
+          </li>
+          <li>
+            <span class="contact-block__label">Phone</span>
+            <span>{admin.phone}</span>
+          </li>
+        </ul>
+      </article>
+    </div>
+
+    <section class="contact-page__section" aria-labelledby="lab-h2">
+      <h2 id="lab-h2" class="contact-page__h2">Lab location</h2>
+      <address class="contact-page__addr">
+        <span class="contact-page__addr-line">{site.unit}</span>
+        <span class="contact-page__addr-line">{site.institution}</span>
+        <span class="contact-page__addr-line">{address.building}</span>
+        <span class="contact-page__addr-line">{address.street}</span>
+        <span class="contact-page__addr-line">
+          {address.city}, {address.state} {address.zip}
+        </span>
+      </address>
+    </section>
+
+    <section class="contact-page__section" aria-labelledby="dir-h2">
+      <h2 id="dir-h2" class="contact-page__h2">Directions to Building 39</h2>
+      <p class="contact-page__directions-todo">
+        <em class="mono">{`{{TODO: write a short paragraph describing how to reach Building 39 from public transit (Kendall/MIT and Central Square stops), parking options on Vassar Street, and best entrance for visitors}}`}</em>
+      </p>
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .contact-page__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .contact-page__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-page__h1 {
+    font-size: var(--text-xl);
+  }
+
+  @media (min-width: 720px) {
+    .contact-page__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .contact-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-8);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  @media (min-width: 720px) {
+    .contact-blocks {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-block__head {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-block__name {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-block__name a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .contact-block__name a:hover {
+    color: var(--color-accent);
+  }
+
+  .contact-block__role {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+  }
+
+  .contact-block__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+  }
+
+  .contact-block__list li {
+    display: contents;
+  }
+
+  .contact-block__label {
+    color: var(--color-fg-faint);
+  }
+
+  .contact-block__list a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .contact-block__list a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .contact-block__list span:not(.contact-block__label) {
+    color: var(--color-fg-muted);
+  }
+
+  .contact-page__section {
+    margin-bottom: var(--space-8);
+  }
+
+  .contact-page__h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .contact-page__addr {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .contact-page__directions-todo {
+    border-left: 2px solid var(--color-amber);
+    background: var(--color-amber-tint);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+    max-width: 70ch;
+  }
+</style>

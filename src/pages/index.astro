@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
+import { formatNewsDate } from "../lib/dates.ts";
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
@@ -75,17 +76,6 @@ const placedAlumni = [...alumni]
   .sort((a, b) => (b.data.year_graduated ?? 0) - (a.data.year_graduated ?? 0))
   .slice(0, 5);
 
-const formatNewsDate = (s: string): string => {
-  // s is YYYY, YYYY-MM, or YYYY-MM-DD; render the most precise form available.
-  const parts = s.split("-");
-  if (parts.length === 1) return parts[0]!;
-  const monthIdx = Number(parts[1]) - 1;
-  const month = new Date(2000, monthIdx, 1).toLocaleString("en-US", {
-    month: "short",
-  });
-  if (parts.length === 2) return `${month} ${parts[0]}`;
-  return `${month} ${Number(parts[2])}, ${parts[0]}`;
-};
 ---
 
 <BaseLayout title={site.name} description={site.description}>

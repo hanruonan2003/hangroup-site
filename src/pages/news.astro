@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { formatNewsDate } from "../lib/dates.ts";
+
+const news = await getCollection("news");
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+
+// Descending sort by date string. Caveat for mixed-precision dates: bare-year
+// items lexically precede precise dates in the same year, so they appear at
+// the top of that year's section. Acceptable until news.yml gets denser.
+const sorted = [...news].sort((a, b) =>
+  b.data.date.localeCompare(a.data.date),
+);
+
+// Group by year (first 4 chars of date).
+const byYear = new Map<string, typeof sorted>();
+for (const item of sorted) {
+  const y = item.data.date.slice(0, 4);
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(item);
+}
+const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a));
+---
+
+<BaseLayout
+  title="News"
+  description={`News and announcements from ${siteEntry.data.site.name}.`}
+>
+  <section class="container news-page">
+    <header class="news-page__header">
+      <p class="news-page__eyebrow mono">{news.length} items</p>
+      <h1 class="news-page__h1">News</h1>
+    </header>
+
+    {years.map((year) => {
+      const items = byYear.get(year)!;
+      return (
+        <section class="year-section" id={`y${year}`}>
+          <h2 class="year-section__h2">
+            <span class="year-section__num mono">{year}</span>
+            <span class="year-section__count mono">{items.length}</span>
+          </h2>
+          <ul class="news-list">
+            {items.map((n) => (
+              <li class="news-item">
+                <p class="news-item__date mono">{formatNewsDate(n.data.date)}</p>
+                <h3 class="news-item__title">{n.data.title}</h3>
+                {n.data.body && <p class="news-item__body">{n.data.body}</p>}
+                {n.data.links && n.data.links.length > 0 && (
+                  <ul class="news-item__links mono">
+                    {n.data.links.map((l) => (
+                      <li>
+                        <a href={l.url} target="_blank" rel="noopener noreferrer">
+                          {l.label} ↗
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+  </section>
+</BaseLayout>
+
+<style>
+  .news-page {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .news-page__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .news-page__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .news-page__h1 {
+    font-size: var(--text-xl);
+  }
+
+  @media (min-width: 720px) {
+    .news-page__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .year-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .year-section__h2 {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-2);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .year-section__num {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+  }
+
+  .year-section__count {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
+  .news-list {
+    list-style: none;
+  }
+
+  .news-item {
+    padding-block: var(--space-5);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .news-item:first-child {
+    padding-top: 0;
+  }
+
+  .news-item:last-child {
+    border-bottom: 0;
+  }
+
+  .news-item__date {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .news-item__title {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-3);
+    line-height: 1.4;
+  }
+
+  .news-item__body {
+    color: var(--color-fg-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-3);
+    max-width: 70ch;
+  }
+
+  .news-item__links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+  }
+
+  .news-item__links a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .news-item__links a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+</style>

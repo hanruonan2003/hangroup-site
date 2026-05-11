@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+---
+
+<BaseLayout
+  title="Teaching"
+  description="Courses taught by Prof. Ruonan Han at MIT."
+>
+  <section class="container teaching-page">
+    <header class="teaching-page__header">
+      <p class="teaching-page__eyebrow mono">{siteEntry.data.pi.appointment}</p>
+      <h1 class="teaching-page__h1">Teaching</h1>
+    </header>
+
+    <div class="teaching-page__todo">
+      <p class="teaching-page__todo-label mono">{`{{TODO: course history}}`}</p>
+      <p class="teaching-page__todo-body">
+        A list of courses taught by Prof. Han will appear here. Once the
+        course history is added to <code>content/site/site.yml</code> (or a
+        new <code>content/teaching/courses.yml</code>), each course will
+        render as a card with semester, course number, title, role
+        (instructor / co-instructor / TA), and links to course materials
+        where available.
+      </p>
+      <p class="teaching-page__todo-suggestion">
+        Suggested structure per entry:
+      </p>
+      <pre class="teaching-page__example mono">{`- semester: "Spring 2024"
+  number: "6.776"
+  title: "Microelectronic Circuits"
+  role: "Instructor"
+  url: "https://student.mit.edu/catalog/m6c.html"`}</pre>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .teaching-page {
+    padding-block: var(--space-8) var(--space-10);
+    max-width: 80ch;
+  }
+
+  .teaching-page__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .teaching-page__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .teaching-page__h1 {
+    font-size: var(--text-xl);
+  }
+
+  @media (min-width: 720px) {
+    .teaching-page__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .teaching-page__todo {
+    border-left: 2px solid var(--color-amber);
+    background: var(--color-amber-tint);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .teaching-page__todo-label {
+    font-size: var(--text-xs);
+    color: var(--color-amber);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-3);
+  }
+
+  .teaching-page__todo-body {
+    color: var(--color-fg);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .teaching-page__todo-body code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-bg);
+    padding: 1px 4px;
+  }
+
+  .teaching-page__todo-suggestion {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .teaching-page__example {
+    background: var(--color-bg);
+    padding: var(--space-3);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    overflow-x: auto;
+    color: var(--color-fg);
+  }
+</style>
