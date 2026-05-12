@@ -21,8 +21,11 @@ export async function GET(context: APIContext): Promise<Response> {
     "/contact/",
   ];
 
+  // Include the configured base path so sitemap entries point at the right
+  // location on a sub-path deploy (e.g. /hangroup-site/ on GitHub Pages).
+  const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
   const urls = paths
-    .map((p) => `  <url><loc>${new URL(p, site).toString()}</loc></url>`)
+    .map((p) => `  <url><loc>${new URL(BASE + p, site).toString()}</loc></url>`)
     .join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

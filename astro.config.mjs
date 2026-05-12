@@ -4,8 +4,10 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  // Used to build canonical URLs, OG og:url tags, and sitemap.xml entries.
-  // Update this if the site moves off hangroup.mit.edu.
-  site: 'https://hangroup.mit.edu',
+  // Staging on GitHub Pages at https://hanruonan2003.github.io/hangroup-site/.
+  // Switch site to 'https://hangroup.mit.edu' and base to '/' when this moves
+  // to the production host.
+  site: 'https://hanruonan2003.github.io',
+  base: '/hangroup-site',
   trailingSlash: 'always',
 });

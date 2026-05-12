@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
 import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../lib/authorship.ts";
+import { url } from "../lib/url.ts";
 
 const publications = await getCollection("publications");
 const people = await getCollection("people");
@@ -65,7 +66,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
           <h1 class="pubs__h1">Publications</h1>
         </div>
         <div class="pubs__topright mono">
-          <a href="/publications.bib" download>Download .bib</a>
+          <a href={url("/publications.bib")} download>Download .bib</a>
           {scholarUrl && (
             <a href={scholarUrl} target="_blank" rel="noopener noreferrer">
               Google Scholar

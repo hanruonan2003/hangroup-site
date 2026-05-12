@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
 import { formatNewsDate, newsSortKey } from "../lib/dates.ts";
+import { url } from "../lib/url.ts";
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
@@ -105,7 +106,7 @@ const placedAlumni = [...alumni]
   <section class="container work">
     <header class="work__header">
       <h2 class="work__h2">Selected work</h2>
-      <a class="work__seeall mono" href="/publications/">See all publications →</a>
+      <a class="work__seeall mono" href={url("/publications/")}>See all publications →</a>
     </header>
     <ul class="work__grid">
       {workSorted.map((p) => {
@@ -118,7 +119,7 @@ const placedAlumni = [...alumni]
         const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
         return (
           <li class="work-card">
-            <a class="work-card__link" href={`/publications/#${d.key}`}>
+            <a class="work-card__link" href={url(`/publications/#${d.key}`)}>
               <div class="work-card__image" aria-hidden="true">
                 <span class="work-card__key mono">{d.key}</span>
               </div>
@@ -151,7 +152,7 @@ const placedAlumni = [...alumni]
     <section class="two-col__col" aria-labelledby="news-h2">
       <header class="two-col__header">
         <h2 id="news-h2" class="two-col__h2">Recent news</h2>
-        <a class="two-col__seeall mono" href="/news/">All news →</a>
+        <a class="two-col__seeall mono" href={url("/news/")}>All news →</a>
       </header>
       <ul class="news-list">
         {newsSorted.map((n) => (
@@ -167,7 +168,7 @@ const placedAlumni = [...alumni]
     <section class="two-col__col" aria-labelledby="alumni-h2">
       <header class="two-col__header">
         <h2 id="alumni-h2" class="two-col__h2">Where alumni go</h2>
-        <a class="two-col__seeall mono" href="/people/#alumni-heading">All alumni →</a>
+        <a class="two-col__seeall mono" href={url("/people/#alumni-heading")}>All alumni →</a>
       </header>
       {placedAlumni.length === 0 ? (
         <p class="news-item__body">

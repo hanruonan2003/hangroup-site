@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PersonPhoto from "../components/PersonPhoto.astro";
 import { getEntry } from "astro:content";
+import { url } from "../lib/url.ts";
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
@@ -27,7 +28,7 @@ const { address, admin } = contact;
           </div>
           <div class="contact-block__heading">
             <h2 class="contact-block__name">
-              <a href={`/people/${pi.slug}/`}>{pi.name}</a>
+              <a href={url(`/people/${pi.slug}/`)}>{pi.name}</a>
             </h2>
             <p class="contact-block__role mono">{pi.title} · {pi.appointment}</p>
           </div>

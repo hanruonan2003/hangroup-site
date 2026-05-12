@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PersonPhoto from "../../components/PersonPhoto.astro";
 import { getCollection, getEntry } from "astro:content";
 import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../../lib/authorship.ts";
+import { url } from "../../lib/url.ts";
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
@@ -17,7 +18,7 @@ const piPubs = [...publications]
 
 <BaseLayout title={pi.name} description={`${pi.name} — ${pi.title}, ${pi.appointment}.`}>
   <section class="container profile">
-    <p class="profile__back mono"><a href="/people/">← People</a></p>
+    <p class="profile__back mono"><a href={url("/people/")}>← People</a></p>
 
     <div class="profile__head">
       <div class="profile__photo">
@@ -77,7 +78,7 @@ const piPubs = [...publications]
                 <span class="profile-pub__date">{dateLabel}</span>
               </p>
               <h3 class="profile-pub__title">
-                <a href={`/publications/#${pd.key}`}>{pd.title}</a>
+                <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
               </h3>
               <p class="profile-pub__authors">{pd.authors_display}</p>
             </li>

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PersonPhoto from "../components/PersonPhoto.astro";
 import { getCollection, getEntry } from "astro:content";
 import { interestsMatchThrust } from "../lib/research.ts";
+import { url } from "../lib/url.ts";
 
 const thrusts = await getCollection("research");
 const publications = await getCollection("publications");
@@ -105,7 +106,7 @@ function topicLink(tags: string[]): string {
                         <span class="thrust-pub__date">{dateLabel}</span>
                       </p>
                       <p class="thrust-pub__title">
-                        <a href={`/publications/#${pd.key}`}>{pd.title}</a>
+                        <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
                       </p>
                     </li>
                   );
@@ -136,7 +137,7 @@ function topicLink(tags: string[]): string {
               <ul class="thrust__people">
                 {thrustPeople.map((p) => (
                   <li class="thrust-person">
-                    <a class="thrust-person__link" href={`/people/${p.data.slug}/`}>
+                    <a class="thrust-person__link" href={url(`/people/${p.data.slug}/`)}>
                       <PersonPhoto name={p.data.name} slug={p.data.slug} size="small" />
                       <div class="thrust-person__body">
                         <p class="thrust-person__name">{p.data.name}</p>
