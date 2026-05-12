@@ -137,7 +137,7 @@ function topicLink(tags: string[]): string {
                 {thrustPeople.map((p) => (
                   <li class="thrust-person">
                     <a class="thrust-person__link" href={`/people/${p.data.slug}/`}>
-                      <PersonPhoto name={p.data.name} size="small" />
+                      <PersonPhoto name={p.data.name} slug={p.data.slug} size="small" />
                       <div class="thrust-person__body">
                         <p class="thrust-person__name">{p.data.name}</p>
                         <p class="thrust-person__role mono">{p.data.role}</p>

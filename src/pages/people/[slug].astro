@@ -35,7 +35,7 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
 
     <div class="profile__head">
       <div class="profile__photo">
-        <PersonPhoto name={d.name} size="large" />
+        <PersonPhoto name={d.name} slug={d.slug} size="large" />
       </div>
       <div class="profile__head-body">
         <h1 class="profile__name">{d.name}</h1>

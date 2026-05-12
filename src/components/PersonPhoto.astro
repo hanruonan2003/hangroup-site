@@ -1,12 +1,30 @@
 ---
-// Initials-only placeholder for now. Swap to <img src={`/people/photos/${slug}.jpg`}>
-// once headshot files land in public/people/photos/.
+// Renders a square headshot for a person.
+//
+// If a file content/people/photos/<slug>.{jpg,jpeg,png} exists, it is bundled
+// by Vite at build time and rendered as <img>. Otherwise we fall back to an
+// initials placeholder. The lookup is by slug, not by the YAML `photo` field,
+// so file extensions can drift from the YAML without breaking anything.
+
+const photoModules = import.meta.glob<string>(
+  "../../content/people/photos/*.{jpg,jpeg,png,JPG,JPEG,PNG}",
+  { eager: true, query: "?url", import: "default" },
+);
+
+const photoBySlug: Record<string, string> = {};
+for (const [path, url] of Object.entries(photoModules)) {
+  const filename = path.split("/").pop()!;
+  const slug = filename.replace(/\.(jpg|jpeg|png)$/i, "");
+  photoBySlug[slug] = url;
+}
 
 interface Props {
   name: string;
+  slug?: string;
   size?: "small" | "medium" | "large";
 }
-const { name, size = "medium" } = Astro.props;
+const { name, slug, size = "medium" } = Astro.props;
+const photoUrl = slug ? photoBySlug[slug] : undefined;
 
 function getInitials(n: string): string {
   const cleaned = n.replace(/\([^)]*\)/g, " ").trim();
@@ -18,9 +36,19 @@ function getInitials(n: string): string {
 const initials = getInitials(name);
 ---
 
-<div class={`person-photo person-photo--${size}`} aria-hidden="true">
-  <span class="person-photo__initials mono">{initials}</span>
-</div>
+{photoUrl ? (
+  <img
+    class={`person-photo person-photo--${size}`}
+    src={photoUrl}
+    alt={name}
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <div class={`person-photo person-photo--${size}`} aria-hidden="true">
+    <span class="person-photo__initials mono">{initials}</span>
+  </div>
+)}
 
 <style>
   .person-photo {
@@ -30,6 +58,7 @@ const initials = getInitials(name);
     display: flex;
     align-items: center;
     justify-content: center;
+    object-fit: cover;
   }
 
   .person-photo--small {
