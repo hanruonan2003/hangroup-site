@@ -9,6 +9,7 @@ import { url } from "../lib/url.ts";
 // <picture> on the home page) and as inlined markup (where CSS custom
 // properties from the document could later restyle it).
 import svgRaw from "../../content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg?raw";
+import svgRaw2018 from "../../content/research/figures/2018-wang-molecular-clock-concept.svg?raw";
 ---
 
 <BaseLayout title="Debug — illustrations" description="Preview surface for hand-authored SVG illustrations.">
@@ -60,6 +61,47 @@ import svgRaw from "../../content/research/figures/2025-wang-cryo-thz-interconne
       <h3 class="illus__h3">4 · Inlined SVG (for CSS-token override tests)</h3>
       <div class="illus__frame illus__frame--full">
         <Fragment set:html={svgRaw} />
+      </div>
+    </article>
+
+    <article class="illus">
+      <h2 class="illus__h2">Wang 2018 · on-chip molecular clock (concept)</h2>
+      <p class="illus__meta mono">
+        content/research/figures/2018-wang-molecular-clock-concept.svg
+      </p>
+
+      <h3 class="illus__h3">1 · Full canvas, 1600 × 900</h3>
+      <div class="illus__frame illus__frame--full">
+        <img
+          src={url("/content/research/figures/2018-wang-molecular-clock-concept.svg")}
+          alt="Concept illustration: a CMOS sub-THz source probes OCS gas; the molecular rotational absorption at 231.06 GHz provides a stable frequency reference."
+        />
+      </div>
+
+      <h3 class="illus__h3">2 · Home-page card width (~400 px wide desktop)</h3>
+      <div class="illus__frame illus__frame--card">
+        <img
+          src={url("/content/research/figures/2018-wang-molecular-clock-concept.svg")}
+          alt=""
+        />
+        <div class="illus__caption-mock">
+          <p class="mono">NatElec · Jul 2018</p>
+          <h4>An On-Chip Fully-Electronic Molecular Clock Based on Sub-Terahertz Rotational Spectroscopy</h4>
+          <p class="mono illus__authors">C. Wang, X. Yi, J. Mawdsley, M. Kim, Z. Wang, R. Han</p>
+        </div>
+      </div>
+
+      <h3 class="illus__h3">3 · Mobile card width (~340 px wide)</h3>
+      <div class="illus__frame illus__frame--mobile">
+        <img
+          src={url("/content/research/figures/2018-wang-molecular-clock-concept.svg")}
+          alt=""
+        />
+      </div>
+
+      <h3 class="illus__h3">4 · Inlined SVG (for CSS-token override tests)</h3>
+      <div class="illus__frame illus__frame--full">
+        <Fragment set:html={svgRaw2018} />
       </div>
     </article>
   </section>
