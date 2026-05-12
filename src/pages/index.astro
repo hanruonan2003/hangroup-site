@@ -1,8 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import { formatNewsDate, newsSortKey } from "../lib/dates.ts";
 import { url } from "../lib/url.ts";
+
+// TEMPORARY: bib-key → research-figure filename mapping for selected-work cards.
+// These are best-effort matches drawn from the WordPress media scrape (see
+// content/research/figures/). Replace with high-res, paper-specific source
+// files when available, then delete this map.
+const TEMP_FIGURE_BY_KEY: Record<string, string> = {
+  khan202131thz: "310ghz-oam-transceiver-slide.jpg",       // OAM antenna array slide
+  wang2018chip: "molecular-clock-nat-electron-cover.png",  // Nature Electronics cover for this paper
+  hu2017fully: "1thz-330-element-array.png",               // 1-THz silicon radiating array (thematic match)
+};
+
+// Eager glob of figures so Astro can statically process them via <Picture>.
+const figureModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../content/research/figures/*.{jpg,jpeg,png}",
+  { eager: true },
+);
+const figureByName: Record<string, ImageMetadata> = {};
+for (const [path, mod] of Object.entries(figureModules)) {
+  const name = path.split("/").pop()!;
+  figureByName[name] = mod.default;
+}
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
@@ -117,12 +140,30 @@ const placedAlumni = [...alumni]
             })
           : "";
         const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
+        const figName = TEMP_FIGURE_BY_KEY[d.key];
+        const figure = figName ? figureByName[figName] : undefined;
         return (
           <li class="work-card">
             <a class="work-card__link" href={url(`/publications/#${d.key}`)}>
-              <div class="work-card__image" aria-hidden="true">
-                <span class="work-card__key mono">{d.key}</span>
-              </div>
+              {figure ? (
+                // TEMPORARY: placeholder image scraped from WordPress media
+                // library. Replace with high-res, paper-specific source.
+                <Picture
+                  class="work-card__image"
+                  src={figure}
+                  alt={`{{TODO: alt for ${d.key} — currently using ${figName}}}`}
+                  widths={[800, 1200, 1600]}
+                  sizes="(min-width: 720px) 33vw, 100vw"
+                  formats={["webp"]}
+                  fallbackFormat="jpg"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="work-card__image" aria-hidden="true">
+                  <span class="work-card__key mono">{d.key}</span>
+                </div>
+              )}
               <div class="work-card__body">
                 <p class="work-card__meta mono">
                   <span class="work-card__venue">{d.venue}</span>
@@ -331,7 +372,8 @@ const placedAlumni = [...alumni]
   }
 
   .work-card__image {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
+    width: 100%;
     background-color: var(--color-gray-tint);
     background-image:
       repeating-linear-gradient(
@@ -350,6 +392,16 @@ const placedAlumni = [...alumni]
       );
     position: relative;
     overflow: hidden;
+  }
+
+  /* When work-card__image is rendered by <Picture>, the <picture> element wraps
+     an <img>. Force the inner img to fill the 16:9 box and crop with cover. */
+  picture.work-card__image > img,
+  .work-card__image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .work-card__key {
