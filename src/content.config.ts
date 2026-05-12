@@ -144,6 +144,7 @@ const site = defineCollection({
       office: z.string(),
       scholar: z.string().optional(),
       cv_url: z.string().optional(),
+      bio: z.string().optional(),
     }),
     contact: z.object({
       address: z.object({

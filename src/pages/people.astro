@@ -59,10 +59,13 @@ const placementCount = (key: string) =>
       <div class="pi__body">
         <h2 id="pi-heading" class="pi__name">{pi.name}</h2>
         <p class="pi__title">{pi.title} · {pi.appointment}</p>
-        <p class="pi__bio">
-          {/* TODO: add pi.bio to site.yml */}
-          <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
-        </p>
+        {pi.bio ? (
+          <p class="pi__bio">{pi.bio}</p>
+        ) : (
+          <p class="pi__bio">
+            <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
+          </p>
+        )}
         <ul class="pi__contact mono">
           <li><a href={`mailto:${pi.email}`}>{pi.email}</a></li>
           <li>{pi.phone}</li>

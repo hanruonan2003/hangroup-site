@@ -26,6 +26,33 @@ pi:
   office: "39-527"
   scholar: ""        # TODO: paste Google Scholar URL
   cv_url: ""         # TODO: link or remove
+  bio: >
+    Ruonan received his B.S. degree in microelectronics from Fudan
+    University, China, in 2007, M.S. degree in electrical engineering from
+    University of Florida in 2009, and Ph.D. in electrical and computer
+    engineering from Cornell University in 2014. He joined MIT in July 2014,
+    and has been on the faculty of the Department of Electrical Engineering
+    and Computer Science (Assistant Professor 2014~2018, Associate Professor
+    2018~2025, Professor 2025~). His research group aims to explore
+    microelectronic circuits and systems to bridge the terahertz gap between
+    microwave and infrared domains. He has served on the committees of a few
+    conferences, including the technical-program committee (TPC) of IEEE
+    International Solid-State Circuits Conference (ISSCC) (2022~present),
+    IEEE Radio-Frequency Integrated Circuits (RFIC) Symposium (2017~present),
+    and 2019 International Microwave Symposium (IMS) Steering Committee. He
+    was the associate editor of the IEEE Transactions on Quantum Engineering
+    (2020~present) and IEEE Transactions on Very-Large-Scale Integration
+    (VLSI) Systems (2018~2021), and the Guest Editor of the IEEE Transactions
+    on Microwave Theory and Techniques (T-MTT) (2019). He is the 2020~2022
+    Distinguished Microwave Lecturer of IEEE Microwave Theory Techniques
+    Society (MTT-S) and 2025~2026 Distinguished Lecturer of IEEE Solid-State
+    Circuits Society (SSCS). Ruonan was the recipient of three Best Student
+    Paper Awards from IEEE RFIC Symposia (2012, 2017 and 2021), NSF Faculty
+    Early CAREER Development Award (2017), Intel Outstanding Researcher Award
+    (2019) and the IEEE Solid-State Circuit Society New Frontier Award (2023).
+    In 2023, he was appointed as the Associate Director of MIT Microsystems
+    Technology Laboratories (MTL) and Director of MIT-MTL Center of
+    Integrated Circuits and Systems (CICS).
 
 contact:
   address:

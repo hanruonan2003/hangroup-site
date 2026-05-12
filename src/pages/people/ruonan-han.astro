@@ -49,9 +49,13 @@ const piPubs = [...publications]
 
     <section class="profile__section">
       <h2 class="profile__h2">Bio</h2>
-      <p class="profile__bio profile__bio--todo">
-        <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
-      </p>
+      {pi.bio ? (
+        <p class="profile__bio">{pi.bio}</p>
+      ) : (
+        <p class="profile__bio profile__bio--todo">
+          <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
+        </p>
+      )}
     </section>
 
     <section class="profile__section">
