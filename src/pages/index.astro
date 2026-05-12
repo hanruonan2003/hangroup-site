@@ -165,49 +165,49 @@ const placedAlumni = [...alumni]
         return (
           <li class="work-card">
             <a class="work-card__link" href={url(`/publications/#${d.key}`)}>
-              {d.image && figureUrlByName[d.image] ? (
-                isSvg && pngFallback && figureUrlByName[pngFallback] ? (
-                  <picture class="work-card__image">
-                    <source type="image/svg+xml" srcset={figureUrlByName[d.image]} />
+              {/* All cards share an identical 16:9 frame regardless of
+                  whether an image, an illustration, or nothing fills it.
+                  CSS object-fit: cover crops mismatched aspect ratios to
+                  the frame. */}
+              <div class="work-card__image" aria-hidden={!d.image && !figure}>
+                {d.image && figureUrlByName[d.image] ? (
+                  isSvg && pngFallback && figureUrlByName[pngFallback] ? (
+                    <picture>
+                      <source type="image/svg+xml" srcset={figureUrlByName[d.image]} />
+                      <img
+                        src={figureUrlByName[pngFallback]}
+                        alt={`Illustration for ${d.title}`}
+                        loading="lazy"
+                        decoding="async"
+                        width="1600"
+                        height="900"
+                      />
+                    </picture>
+                  ) : (
                     <img
-                      src={figureUrlByName[pngFallback]}
-                      alt={`Illustration for ${d.title}`}
+                      src={figureUrlByName[d.image]}
+                      alt={`Figure for ${d.title}`}
                       loading="lazy"
                       decoding="async"
                       width="1600"
                       height="900"
                     />
-                  </picture>
-                ) : (
-                  <img
-                    class="work-card__image"
-                    src={figureUrlByName[d.image]}
-                    alt={`Figure for ${d.title}`}
+                  )
+                ) : figure ? (
+                  // TEMPORARY: placeholder image scraped from WordPress media
+                  // library. Replace with high-res, paper-specific source.
+                  <Picture
+                    src={figure}
+                    alt={`{{TODO: alt for ${d.key} — currently using ${figName}}}`}
+                    widths={[800, 1200, 1600]}
+                    sizes="(min-width: 720px) 33vw, 100vw"
+                    formats={["webp"]}
+                    fallbackFormat="jpg"
                     loading="lazy"
                     decoding="async"
-                    width="1600"
-                    height="900"
                   />
-                )
-              ) : figure ? (
-                // TEMPORARY: placeholder image scraped from WordPress media
-                // library. Replace with high-res, paper-specific source.
-                <Picture
-                  class="work-card__image"
-                  src={figure}
-                  alt={`{{TODO: alt for ${d.key} — currently using ${figName}}}`}
-                  widths={[800, 1200, 1600]}
-                  sizes="(min-width: 720px) 33vw, 100vw"
-                  formats={["webp"]}
-                  fallbackFormat="jpg"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div class="work-card__image" aria-hidden="true">
-                  <span class="work-card__key mono">{d.key}</span>
-                </div>
-              )}
+                ) : null}
+              </div>
               <div class="work-card__body">
                 <p class="work-card__meta mono">
                   <span class="work-card__venue">{d.venue}</span>
@@ -415,47 +415,26 @@ const placedAlumni = [...alumni]
     gap: var(--space-3);
   }
 
+  /* Image frame — identical 16:9 box on every card, regardless of source.
+     Solid neutral background; transparent SVGs sit on this color. Inner
+     <img> or <picture> fills the box and crops with object-fit: cover. */
   .work-card__image {
     aspect-ratio: 16 / 9;
     width: 100%;
     background-color: var(--color-gray-tint);
-    background-image:
-      repeating-linear-gradient(
-        0deg,
-        transparent 0,
-        transparent 23px,
-        var(--color-border) 23px,
-        var(--color-border) 24px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent 0,
-        transparent 23px,
-        var(--color-border) 23px,
-        var(--color-border) 24px
-      );
-    position: relative;
     overflow: hidden;
   }
 
-  /* When work-card__image is rendered by <Picture>, the <picture> element wraps
-     an <img>. Force the inner img to fill the 16:9 box and crop with cover. */
-  picture.work-card__image > img,
-  .work-card__image > img {
+  .work-card__image picture,
+  .work-card__image img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
   }
 
-  .work-card__key {
-    position: absolute;
-    bottom: var(--space-2);
-    right: var(--space-2);
-    font-size: 10px;
-    color: var(--color-fg-faint);
-    background: var(--color-bg);
-    padding: 2px 5px;
+  .work-card__image img {
+    object-fit: cover;
+    object-position: center;
   }
 
   .work-card__meta {
