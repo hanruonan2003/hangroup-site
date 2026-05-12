@@ -1,256 +1,990 @@
-% Representative publications for the Terahertz Integrated Electronics Group.
-% This file is INTENTIONALLY PARTIAL — ~25 entries covering the headline
-% papers. For the production site, export the full list from your
-% reference manager (Zotero/Mendeley) and replace this file wholesale.
+% Publications for the Terahertz Integrated Electronics Group.
+% Auto-extracted from hangroup.mit.edu/{journal,conference,patents-and-talks}-papers on
+% 2026-05-12. Keywords and venues assigned by best-effort
+% heuristics — review and refine as needed.
 %
-% Schema convention used here so the Astro page can filter consistently:
-%   - keywords field: comma-separated tags from this controlled vocabulary:
-%     imaging-radar, communication, security, sources-radiators,
+% Schema convention:
+%   - keywords: imaging-radar, communication, security, sources-radiators,
 %     molecular-atomic, quantum, interconnect, frequency-synthesis
-%   - venue field: shortname (ISSCC, JSSC, RFIC, TMTT, NatElec, VLSI, IEDM)
-%   - highlight field (optional): "yes" if best-paper, invited, or cover
-%   - pdf field (optional): path under /publications/pdfs/
-%   - video field (optional): path or external URL
-%   - doi field (optional): DOI string only, no URL prefix
+%   - venue: ISSCC, JSSC, RFIC, TMTT, NatElec, VLSI, IEDM, CICC, ASSCC, etc.
+%   - highlight: yes (best paper, invited, cover, etc.)
+%   - pdf / video / doi: optional
 
-% ============================================================================
-% 2024
-% ============================================================================
+@article{yadav2026millimeter,
+  author    = {P. Yadav and D. A. Baig and J. Wang and U. L. Rohde and M. Bakir and R. Han and T. Palacios},
+  title     = {3D-Millimeter Wave Integrated Circuits (3D-mmWIC) using GaN-on-Si Dielets with Si CMOS for 5G FR2 Power Amplifiers},
+  year      = {2026},
+  venue     = {RFIC},
+  note      = {Invited},
+}
 
-@inproceedings{lee2024antitamper,
-  author    = {E. Lee and X. Chen and M. Ashok and J. Won and A. P. Chandrakasan and R. Han},
-  title     = {A Packageless Anti-Tampering Tag Utilizing Unclonable Sub-THz Wave Scattering at the Chip-Item Interface},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
-  year      = {2024},
+@inproceedings{wang2026cryo,
+  author    = {J. Wang and Y. Han and I. Harris and E. Lee and Y. Hu and D. Liu and D. Englund and R. Han},
+  title     = {A Cryo-CMOS Color-Center Quantum Controller with Diamond Waveguide Micro-Chiplet Integration},
+  year      = {2026},
   month     = {feb},
   venue     = {ISSCC},
-  keywords  = {security},
+  keywords  = {quantum},
 }
 
-@article{lee2024wakeup,
-  author  = {E. Lee and M. I. W. Khan and X. Chen and U. Banerjee and N. M. Monroe and R. T. Yazicigil and R. Han and A. P. Chandrakasan},
-  title   = {A 1.54-mm$^2$, 264-GHz Wake-Up Receiver with Integrated Cryptographic Authentication for Ultra-Miniaturized Platforms},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2024},
-  venue   = {JSSC},
-  keywords = {security, communication},
+@inproceedings{lee2026self,
+  author    = {E. Lee and J. Jung and M. Ashok and A. Chandrakasan and R. Han},
+  title     = {Self-Programmable Twin PUFs via Photovoltaic Energy Harvesting During the Pre-Wafer-Dicing Stage},
+  year      = {2026},
+  month     = {feb},
+  venue     = {ISSCC},
 }
 
-% ============================================================================
-% 2022
-% ============================================================================
+@inproceedings{chen2026234,
+  author    = {X. Chen and G. Dogiamis and R. Han},
+  title     = {A 234-to-252GHz Dual-Polarized Transceiver Using Antenna-in-Package Technologies for Cross-Polarimetric Sensing},
+  year      = {2026},
+  month     = {feb},
+  venue     = {ISSCC},
+  keywords  = {communication},
+}
 
-@inproceedings{monroe2022reflectarray,
-  author    = {N. M. Monroe and G. C. Dogiamis and R. Stingel and P. Myers and X. Chen and R. Han},
-  title     = {A 98$\times$98-Unit 265 GHz CMOS Reflectarray with In-Unit Digital Beam Shaping and Squint Correction},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
+@article{wang2025bidirectional,
+  author    = {J. Wang and I. B. W. Harris and M. I. Ibrahim and D. Englund and R. Han},
+  title     = {A Bidirectional Wireless THz Datalink Designed to Maximize the Information-per-Heat Transfer to A Cryogenic Device},
+  journal   = {Nature Electronics},
+  year      = {2025},
+  month     = {mar},
+  venue     = {NatElec},
+}
+
+@article{skelic2025circuit,
+  author    = {L. Skelic and Y. Xu and M. Cox and W. Lu and T. Yu and R. Han},
+  title     = {CIRCUIT: A Benchmark for Circuit Interpretation and Reasoning Capabilities of LLMs},
+  year      = {2025},
+  month     = {feb},
+}
+
+@inproceedings{jung20252ghz,
+  author    = {J. Jung and E. Lee and D. Han and J. Wang and A. Chandrakasan and and R. Han},
+  title     = {A 55.8-to-64.2GHz, 58.3fsrms-Jitter, -250.2dB-FoMJ Fractional-N Cascaded PLL in 28nm CMOS},
+  year      = {2025},
+  month     = {jun},
+  keywords  = {frequency-synthesis},
+}
+
+@inproceedings{yadav2025millimeter,
+  author    = {P. Yadav and J. Wang and D. Baig and J. Pastrana-Gonzales and J. Niroula and P. Darmawi-Isakandar and A. Islam and M. Bakir and R. Han and and T. Palacios},
+  title     = {3D-Millimeter Wave Integrated Circuit (3D-mmWIC) : A Gold-Free 3D-Integration Platform for Scaled RF GaN-on-Si Dielets with Intel 16 Si CMOS},
+  year      = {2025},
+  month     = {jun},
+  venue     = {RFIC},
+}
+
+@inproceedings{wang2025232,
+  author    = {J. Wang and D. Sheen and X. Chen and S. Nagle and R. Han},
+  title     = {A 232-260GHz CMOS Amplifier-Multiplier Chain with a Low-Cost, Matching-Sheet-Assisted Radiation Package and 11.1dBm Total Radiated Power},
+  year      = {2025},
+  month     = {feb},
+  venue     = {ISSCC},
+  keywords  = {sources-radiators},
+}
+
+@article{li2024heterogeneous,
+  author    = {L. Li and L. De Santis and I. Harris and K. Chen and I. Christen and M. Trusheim and Y. Song and Y. Gao and C. Errando-Herranz and J. Du and G. Clark and M. Ibrahim and G. Gilbert and R. Han and D. Englund},
+  title     = {Heterogeneous Integration of Spin-Photon Interfaces with A CMOS Platform},
+  year      = {2024},
+}
+
+@article{hosaka2024dual,
+  author    = {K. Hosaka and K. Watanabe and E. Tanaka and A. Tichy and T. Shiba and and R. Han},
+  title     = {A Dual Composite Resin Injection Molding Technique with 3D-Printed Flexible Indices for Biomimetic Replacement of A Missing Mandibular Lateral Incisor},
+  journal   = {Journal of Prosthodontic Research},
+  year      = {2024},
+}
+
+@article{chen2024265,
+  author    = {X. Chen and N. M. Monroe and G. C. Dogiamis and R. A. Stingel and P. Myers and and R. Han},
+  title     = {A 265-GHz CMOS Reflectarray with 98×98 Elements for 1°-Wide Beam Forming and High-Angular-Resolution Radar},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2024},
+  month     = {nov},
+  venue     = {JSSC},
+  keywords  = {imaging-radar},
+}
+
+@article{lee2024264,
+  author    = {E. Lee and M. I. W. Khan and X. Chen and U. Banerjee and N. Monroe and R. T. Yazicigil and R. Han and A. P. Chandrakasan},
+  title     = {A 1.54 mm², 264-GHz Wake-Up Receiver with Integrated Cryptographic Authentication for Ultra-Miniaturized Platforms},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2024},
+  venue     = {JSSC},
+  keywords  = {communication, security},
+}
+
+@article{lee2024packageless,
+  author    = {- E. Lee and X. Chen and M. Ashok and J. Won and A. Chandrakasan and R. Han},
+  title     = {A Packageless Anti-Tampering Tag Utilizing Unclonable Sub-THz Wave Scattering at the Chip-Item Interface},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2024},
+  month     = {feb},
+  pages     = {653-667},
+  venue     = {JSSC},
+  keywords  = {communication, security},
+  note      = {Best paper finalist},
+}
+
+@inproceedings{wang2024cmos,
+  author    = {J. Wang and I. Harris and X. Chen and D. Englund and R. Han},
+  title     = {A CMOS-Integrated Color Center Pulse-Sequence Control and Detection System},
+  year      = {2024},
+  month     = {apr},
+  venue     = {CICC},
+  keywords  = {quantum},
+}
+
+@article{anders2023cmos,
+  author    = {J. Anders and M. Babaie and J. Bardin and I. Bashir and G. Billiot and E. Blokhina and S. Bonen and E. Charbon and J. Chiaverini and I. Chuang and C. Degenhardt and D. Englund and L. Geck and L. Guevel and D. Ham and R. Han and M. Ibrahim and D. Kruger and K. Lei and A. Morel and D. Nielinger and G. Pillonnet and J. Sage and F. Sebastiano and R. Staszewski and J. Stuart and A. Vladimirescu and P. Vliex and S. Voinigescu},
+  title     = {CMOS Integrated Circuits for the Quantum Information Sciences},
+  year      = {2023},
+  keywords  = {quantum},
+}
+
+@article{choi2023perspective,
+  author    = {K. K. O and W. Choi and R. Han},
+  title     = {Perspective on Active Submillimeter Electromagnetic Wave Imaging Using CMOS Integrated Circuits Technologies},
+  journal   = {Journal of Applied Physics},
+  year      = {2023},
+  month     = {apr},
+  keywords  = {imaging-radar},
+}
+
+@article{lee202354mm,
+  author    = {E. Lee and M. I. W. Khan and X. Chen and U. Banerjee and N. Monroe and R. Yazicigil and R. Han and A. Chandrakasan},
+  title     = {A 1.54mm² Wake-Up Receiver Based on THz Carrier Wave and Integrated Cryptographic Authentication},
+  year      = {2023},
+  month     = {apr},
+  venue     = {CICC},
+  keywords  = {communication, security},
+}
+
+@inproceedings{elkabbash2023zero,
+  author    = {M. ElKabbash and I. Harris and S. Trajtenberg-Mills and S. Bandyopadhyay and X. Chen and M. Ibrahim and R. Han and and D. Englund},
+  title     = {Zero-change CMOS Nanophotonics: Converting Foundry CMOS Chips to Plasmonic Electro-optic Modulators},
+  year      = {2023},
+  month     = {may},
+}
+
+@article{chen2022140,
+  author    = {X. Chen and X. Yi and M. Khan and X. Li and W. Chen and J. Zhu and Y. Yang and K. Kolodziej and N. Monroe and and R. Han},
+  title     = {A 140-GHz FMCW TX/RX-Antenna-Sharing Transceiver with Low-Inherent-Loss Duplexing and Adaptive Self-Interference Cancellation},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2022},
+  month     = {dec},
+  venue     = {JSSC},
+  keywords  = {imaging-radar, communication},
+  note      = {Invited},
+}
+
+@article{li2022110,
+  author    = {X. Li and W. Chen and H. Wu and S. Li and X. Yi and R. Han and Z. Feng},
+  title     = {A 110-to-130 GHz SiGe BiCMOS Doherty Power Amplifier with A Slotline-Based Power Combiner},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2022},
+  month     = {dec},
+  venue     = {JSSC},
+  note      = {Invited},
+}
+
+@article{khan2022thz,
+  author    = {M. I. W. Khan and J. Woo and X. Yi and M. I. Ibrahim and R. T. Yazicigil and A. P. Chandrakasan and R. Han},
+  title     = {A 0.31-THz Orbital-Angular-Momentum (OAM) Wave Transceiver in CMOS With Bits-to-OAM Mode Mapping},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2022},
+  month     = {may},
+  pages     = {1344-1357},
+  venue     = {JSSC},
+  keywords  = {communication},
+  note      = {Invited},
+}
+
+@article{li2022high,
+  author    = {X. Li and W. Chen and S. Li and Y. Wang and F. Huang and X. Yi and R. Han and Z. Feng},
+  title     = {A High-Efficiency 142-182 GHz SiGe BiCMOS Power Amplifier With Broadband Slotline-Based Power Combining Technique},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2022},
+  month     = {feb},
+  venue     = {JSSC},
+}
+
+@article{chen2022140ghz,
+  author    = {X. Chen and M. I. W. Khan and X. Yi and X. Li and W. Chen and J. Zhu and Y. Yang and K. E. Kolodziej and N. M. Monroe and R. Han},
+  title     = {A 140GHz Transceiver with Integrated Antenna, Inherent-Low-Loss Duplexing and Adaptive Self-Interference Cancellation for FMCW Monostatic Radar},
   year      = {2022},
   month     = {feb},
   venue     = {ISSCC},
-  keywords  = {imaging-radar, sources-radiators},
-  highlight = {yes},
-  video     = {/publications/videos/ISSCC_2022_Reflectarray.mp4},
+  keywords  = {imaging-radar, communication},
 }
 
-@inproceedings{chen2022radar,
-  author    = {X. Chen and M. I. W. Khan and X. Yi and X. Li and W. Chen and J. Zhu and Y. Yang and K. E. Kolodziej and N. M. Monroe and R. Han},
-  title     = {A 140 GHz Transceiver with Integrated Antenna, Inherent-Low-Loss Duplexing and Adaptive Self-Interference Cancellation for FMCW Monostatic Radar},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
+@article{monroe2022electronic,
+  author    = {N. M. Monroe and G. C. Dogiamis and R. Stingel and P. Myers and X. Chen and R. Han},
+  title     = {Electronic THz Pencil Beam Forming and 2D Steering for High Angular-Resolution Operation: A 98×98 Unit, 265GHz CMOS Reflectarray with In-Unit Digital Beam Shaping and Squint Correction},
   year      = {2022},
   month     = {feb},
   venue     = {ISSCC},
   keywords  = {imaging-radar},
-  video     = {/publications/videos/ISSCC_2022_140GHz_Radar.mp4},
 }
 
-@article{chen2022radar_jssc,
-  author  = {X. Chen and X. Yi and M. I. W. Khan and X. Li and W. Chen and J. Zhu and Y. Yang and K. E. Kolodziej and N. M. Monroe and R. Han},
-  title   = {A 140-GHz FMCW TX/RX-Antenna-Sharing Transceiver with Low-Inherent-Loss Duplexing and Adaptive Self-Interference Cancellation},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2022},
-  month   = {dec},
-  venue   = {JSSC},
-  keywords = {imaging-radar},
-}
-
-% ============================================================================
-% 2021
-% ============================================================================
-
-@inproceedings{khan2021oam_rfic,
-  author    = {M. I. W. Khan and J. Woo and X. Yi and M. I. Ibrahim and R. T. Yazicigil and A. P. Chandrakasan and R. Han},
-  title     = {A 0.31 THz CMOS Uniform Circular Antenna Array Enabling Generation/Detection of Waves with Orbital Angular Momentum},
-  booktitle = {IEEE Radio Frequency Integrated Circuits Symposium (RFIC)},
-  year      = {2021},
-  pages     = {203--206},
+@article{khan2022dual,
+  author    = {I. W. Khan and E. Lee and N. Monroe and A. P. Chandrakasan and and R. Han},
+  title     = {A Dual-Antenna, 263GHz Energy Harvester in CMOS for Ultra-Miniaturized Platforms with 13.6% RF-to-DC Efficiency at -8dBm Input Power},
+  year      = {2022},
   venue     = {RFIC},
   keywords  = {communication},
-  highlight = {yes},
-  note      = {Best Student Paper Award (First Place)},
 }
 
-@article{khan2021oam_jssc,
-  author  = {M. I. W. Khan and J. Woo and X. Yi and M. I. Ibrahim and R. T. Yazicigil and A. P. Chandrakasan and R. Han},
-  title   = {A 0.31 THz Orbital Angular Momentum (OAM) Wave Transceiver in CMOS with Bit-to-OAM Mode Mapping},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2021},
-  note    = {RFIC Special Issue, invited},
-  venue   = {JSSC},
-  keywords = {communication},
+@inproceedings{li2022scalable,
+  author    = {L. Li and L. de Santis and I. Harris and K. Chen and Y. Song and I. Christen and M. Trusheim and C. Herranz and R. Han and and D. Englund},
+  title     = {Scalable Quantum Information Processing Architecture Using A Programmable Array of Spin-Photon Interfaces},
+  year      = {2022},
+  month     = {may},
+  keywords  = {quantum},
 }
 
-@article{khan2020thzid,
-  author  = {M. I. W. Khan and M. I. Ibrahim and C. S. Juvekar and W. Jung and R. T. Yazicigil and A. P. Chandrakasan and R. Han},
-  title   = {CMOS THz-ID: A 1.6-mm$^2$ Package-Less Identification Tag Using Asymmetric Cryptography and 260-GHz Far-Field Backscatter Communication},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2021},
-  venue   = {JSSC},
-  keywords = {security, communication},
+@inproceedings{kim2022sub,
+  author    = {M. Kim and C. Wang and L. Yi and H. Lee and R. Han},
+  title     = {A Sub-THz CMOS Molecular Clock with 20 ppt Stability at 10,000 s Based on A Dual-Loop Spectroscopic Detection and Digital Frequency Error Integration},
+  year      = {2022},
+  month     = {jun},
+  venue     = {RFIC},
+  keywords  = {molecular-atomic},
 }
 
-@inproceedings{holloway2021link,
-  author    = {J. W. Holloway and others and R. Han},
-  title     = {A 105 Gbps THz Dielectric Waveguide Link in 130-nm SiGe BiCMOS},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
+@inproceedings{yu2022low,
+  author    = {Q. Yu and G. Kim and J. Garrett and D. Thomson and G. Dogiamis and N. M. Monroe and R. Han and Y. Ma and J. Waldemer and Y. S. Nam and G. Beltran and V. Neeli and S. Ravikumar and S. Rami and C. Pelto and and E. Karl},
+  title     = {Low-Loss On-Chip Passive Circuits Using C4 Layer for RF, mmWave and sub-THz Applications},
+  booktitle = {IEEE International Microwave Symposium (IMS)},
+  year      = {2022},
+  month     = {jun},
+  venue     = {IMS},
+}
+
+@article{yi2021emerging,
+  author    = {X. Yi and C. Wang and Z. Hu and J. Holloway and M. I. Khan and M. Ibrahim and M. Kim and G. Dogiamis and B. Perkins and M. Kaynak and R. Yazicigil and A. Chandrakasan and and R. Han},
+  title     = {Emerging Terahertz Integrated Systems in Silicon},
+  journal   = {IEEE Transactions on Circuits and Systems -I},
   year      = {2021},
+  month     = {sep},
+  venue     = {TCAS},
+  note      = {Invited},
+}
+
+@article{yi2021realization,
+  author    = {X. Yi and J. Wang and M. Colangelo and C. Wang and K. E. Kolodziej and R. Han},
+  title     = {Realization of In-Band Full-Duplex Operation at 300 K and 4.2 K Using Bilateral Single-Sideband Frequency Conversion},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2021},
+  month     = {may},
+  venue     = {JSSC},
+  keywords  = {communication},
+  note      = {Invited},
+}
+
+@article{yi2021220,
+  author    = {X. Yi and C. Wang and X. Chen and J. Wang and J. Grajal and R. Han},
+  title     = {A 220-to-320-GHz FMCW Radar in 65-nm CMOS Using a Frequency-Comb Architecture},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2021},
+  month     = {feb},
+  pages     = {327-339},
+  venue     = {JSSC},
+  keywords  = {imaging-radar, frequency-synthesis},
+}
+
+@article{khan202131thz,
+  author    = {I. W. Khan and J. Woo and X. Yi and M. I. Ibrahim and R. T. Yazicigil and A. Chandrakasan and and R. Han},
+  title     = {A 0.31THz CMOS Uniform Circular Antenna Array Enabling Generation/Detection of Waves with Orbital Angular Momentum},
+  year      = {2021},
+  pages     = {203-206},
+  venue     = {RFIC},
+  keywords  = {communication, sources-radiators},
+  highlight = {yes},
+  note      = {Best Student Paper Award - First Place},
+}
+
+@article{khan202131thz2,
+  author    = {I. W. Khan and J. Woo and X. Yi and M. I. Ibrahim and R. T. Yazicigil and A. P. Chandrakasan and and R. Han},
+  title     = {A 0.31THz Orbital Angular Momentum (OAM) Wave Transceiver in CMOS with Bit-to-OAM Mode Mapping},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2021},
+  venue     = {JSSC},
+  keywords  = {communication},
+  note      = {Invited},
+}
+
+@article{khan2021cmos,
+  author    = {I. W. Khan and M. I. Ibrahim and C. S. Juvekar and W. Jung and R. T. Yazicigil and A. P. Chandrakasan and and R. Han},
+  title     = {CMOS THz-ID: A 1.6-mm² Package-Less Identification Tag Using Asymmetric Cryptography and 260-GHz Far-Field Backscatter Communication},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2021},
+  month     = {feb},
+  pages     = {340-354},
+  venue     = {JSSC},
+  keywords  = {communication, security},
+}
+
+@inproceedings{yi2021sub,
+  author    = {L. Yi and H. Javadi and W. Zhang and J. Mckelvy and M. Kim and A. Yen and R. Han},
+  title     = {Sub-Terahertz Heterodyne Spectroscopy of Carbonyl Sulfide},
+  year      = {2021},
+  month     = {jul},
+}
+
+@inproceedings{holloway2021105gbps,
+  author    = {J. W. Holloway and G. C. Dogiamis and R. Han},
+  title     = {A 105Gbps Dielectric-Waveguide Link in 130nm BiCMOS Using Channelized 220-330GHz Signal and Integrated Waveguide Coupler},
+  year      = {2021},
+  month     = {feb},
   venue     = {ISSCC},
-  keywords  = {interconnect, communication},
-  note      = {Featured on MIT Homepage and IEEE Spectrum},
+  keywords  = {interconnect},
 }
 
-% ============================================================================
-% 2020
-% ============================================================================
-
-@article{yi2020fmcw_jssc,
-  author  = {X. Yi and C. Wang and X. Chen and J. Wang and J. Grajal and R. Han},
-  title   = {A 220-to-320-GHz FMCW Radar in 65-nm CMOS Using a Frequency-Comb Architecture},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2020},
-  venue   = {JSSC},
-  keywords = {imaging-radar, frequency-synthesis},
+@misc{wang2021systems,
+  author    = {C. Wang and R. Han},
+  title     = {Systems and Methods for Suppressing Even Harmonics in a Molecular Clock},
+  howpublished = {U.S. Patent US20210119635A1,},
+  year      = {2021},
+  month     = {apr},
+  venue     = {Patent},
+  keywords  = {sources-radiators, molecular-atomic},
 }
 
-@inproceedings{yi2020fmcw_isscc,
-  author    = {X. Yi and C. Wang and M. Lu and J. Wang and J. Grajal and R. Han},
-  title     = {A Terahertz FMCW Comb Radar in 65nm CMOS with 100 GHz Bandwidth},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
+@misc{wang2021integrated,
+  author    = {C. Wang and R. Han},
+  title     = {Integrated Circuit-to-Waveguide Slot-Array Coupler},
+  howpublished = {U.S. Patent US20210126378A1,},
+  year      = {2021},
+  month     = {apr},
+  venue     = {Patent},
+  keywords  = {interconnect},
+}
+
+@article{yazicigil2020beyond,
+  author    = {R. Tugce Yazicigil and P. Nadeau and D. Richman and C. Juvekar and S. Maji and U. Banerjee and S. Fuller and M. Abdelhamid and N. Desai and M. Ibrahim and M. Khan and W. Jung and R. Han and A. Chandrakasan},
+  title     = {Beyond Crypto: Physical-Layer Security for Internet of Things Devices},
   year      = {2020},
-  pages     = {90--92},
+  pages     = {66-78},
+  keywords  = {security},
+  note      = {Invited},
+}
+
+@article{yi20206ghz,
+  author    = {Publications: 1. X. Yi and J. Wang and C. Wang and K. E. Kolodziej and R. Han},
+  title     = {A 3.4-4.6GHz In-Band Full-Duplex Front-End in CMOS Using a Bi-Directional Frequency Converter},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2020},
+  month     = {jan},
+  pages     = {47-50},
+  venue     = {JSSC},
+  keywords  = {imaging-radar, communication, sources-radiators, frequency-synthesis},
+}
+
+@article{ibrahim2020thzid,
+  author    = {I. Ibrahim and M. I. W. Khan and C. S. Juvekar and W. Jung and R. T. Yazicigil and A. P. Chandrakasan and and R. Han},
+  title     = {THzID: A 1.6mm²Package-Less Cryptographic Identification Tag with Backscattering and Beam-Steering at 260GHz},
+  year      = {2020},
+  pages     = {454-456},
+  venue     = {ISSCC},
+  keywords  = {communication, security},
+}
+
+@inproceedings{yu2020mmwave,
+  author    = {Q. Yu and S. Rami and V. Neeli and J. Garret and J. Koo and M. Marulanda and S. Ravikumar and S. Moraka and Y. Ma and J. Waldemer and G. Liu and S. Joglekar and M. Armstrong and D. Ali and N. Monroe and R. Han and B. Sell and E. Karl},
+  title     = {mmWave and Sub-THz Technology Development in Intel 22nm Low-Power FinFET Process},
+  year      = {2020},
+  month     = {dec},
+  venue     = {IEDM},
+}
+
+@inproceedings{aleksov2020organic,
+  author    = {A. Aleksov and G. Dogiamis and T. Kamgaing and A. Elsherbini and J. Swan and J. Holloway and R. Han},
+  title     = {Organic Package Substrates Using Lithographic Via Technology for RF to THz Applications},
+  year      = {2020},
+  month     = {dec},
+  venue     = {IEDM},
+}
+
+@inproceedings{wang2020sub,
+  author    = {C. Wang and X. Yi and M. Kim and R. Han},
+  title     = {Sub-THz CMOS Molecular Clock with 43ppt Long-Term Stability Using High-Order Rotational Transition Probing and Slot Array Couplers},
+  year      = {2020},
+  month     = {feb},
+  venue     = {ISSCC},
+  keywords  = {molecular-atomic},
+}
+
+@misc{holloway2020fully,
+  author    = {J. Holloway and R. Han},
+  title     = {Fully Integrated Broadband Interconnect},
+  howpublished = {U.S. Patent US10587026B2,},
+  year      = {2020},
+  month     = {mar},
+  venue     = {Patent},
+  keywords  = {interconnect},
+}
+
+@misc{han2020device,
+  author    = {R. Han and E. Afshari},
+  title     = {Device for Terahertz Signal Generation and Transmitter},
+  howpublished = {U.S. Patent US010587223B2,},
+  year      = {2020},
+  month     = {mar},
+  venue     = {Patent},
+  keywords  = {sources-radiators},
+}
+
+@article{choi2019opening,
+  author    = {K. K. O and W. Choi and Q. Zhong and N. Sharma and Y. Zhang and R. Han and Z. Ahmad and D.-Y. Kim and K. Shattry and I. Medvedev and D. Lary and H.-J. Nam and P. Raskin and and I. Kim},
+  title     = {Opening Terahertz for Everyday Applications},
+  year      = {2019},
+  month     = {aug},
+  keywords  = {communication},
+}
+
+@article{trusheim2019cmos,
+  author    = {D. Kim* and M. I. Ibrahim* and C. Foy* and M. E. Trusheim and R. Han† and D. R. Englund† (*: equal contribution and †: corresponding authors)},
+  title     = {A CMOS-Integrated Quantum Sensor Based on Nitrogen-Vacancy Centres},
+  journal   = {Nature Electronics},
+  year      = {2019},
+  month     = {jul},
+  venue     = {NatElec},
+  keywords  = {quantum},
+}
+
+@article{kim2019chip,
+  author    = {M. Kim and C. Wang and Z. Hu and R. Han},
+  title     = {Chip-Scale Terahertz Carbonyl Sulfide (OCS) Clock: An Overview and Recent Studies on Long-Term Frequency Stability of OCS Transitions},
+  journal   = {IEEE Transactions on Terahertz Science and Technology},
+  year      = {2019},
+  month     = {jul},
+  venue     = {T-THz},
+  note      = {Invited},
+}
+
+@article{hu2019unit,
+  author    = {Z. Hu and C. Wang and R. Han},
+  title     = {A 32-Unit 240-GHz Heterodyne Receiver Array in 65-nm CMOS with Array-Wide Phase Locking},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2019},
+  month     = {may},
+  venue     = {JSSC},
+  note      = {Invited},
+}
+
+@article{wang2019chip,
+  author    = {C. Wang and X. Yi and J. Mawdsley and M. Kim and Z. Hu and Y. Zhang and B. Perkins and R. Han},
+  title     = {Chip-Scale Molecular Clock},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2019},
+  venue     = {JSSC},
+  keywords  = {molecular-atomic},
+  note      = {Invited},
+}
+
+@article{han2019filling,
+  author    = {R. Han and Z. Hu and C. Wang and J. Holloway and X. Yi and M. Kim and and J. Mawdesley},
+  title     = {Filling the Gap: Silicon Terahertz Integrated Circuits Offer Our Best Bet},
+  journal   = {IEEE Microwave Magazine},
+  year      = {2019},
+  month     = {apr},
+  note      = {Invited},
+}
+
+@inproceedings{han2019principles,
+  author    = {R. Han and C. Wang and M. Kim and X. Yi and Z. Hu and J. Mawdesley},
+  title     = {Principles and Prototypes of Chip-Scale Molecular Clock},
+  year      = {2019},
+  month     = {apr},
+  keywords  = {molecular-atomic},
+  note      = {Invited},
+}
+
+@inproceedings{foy2019quantum,
+  author    = {C. Foy and M. I. Ibrahim and D. Kim and D. Englund and R. Han and M. Trusheim},
+  title     = {Quantum Sensing in CMOS under Ambient Conditions: On-Chip Detection of Electronic Spin States in Diamond},
+  year      = {2019},
+  month     = {may},
+  keywords  = {quantum},
+}
+
+@inproceedings{foy2019cmos,
+  author    = {C. Foy and M. I. Ibrahim and D. Kim and M. Trusheim and D. Englund and R. Han},
+  title     = {CMOS-Integrated Diamond Nitrogen-Vacancy Quantum Sensor},
+  year      = {2019},
+  month     = {mar},
+  keywords  = {quantum},
+}
+
+@inproceedings{ibrahim2019scalable,
+  author    = {M. I. Ibrahim and C. Foy and D. Englund and R. Han},
+  title     = {A Scalable Quantum Magnetometer in 65nm CMOS with Vector-Field Detection Capability},
+  year      = {2019},
+  month     = {feb},
+  venue     = {ISSCC},
+  keywords  = {quantum},
+}
+
+@inproceedings{wang2019cmos,
+  author    = {C. Wang and Z. Hu and J. Mawdsley and M. Kim and Y. Xiang and R. Han},
+  title     = {CMOS-Based THz Spectrometers: From Gas Sensing to Time-Keeping},
+  year      = {2019},
+  month     = {jan},
+  keywords  = {molecular-atomic},
+}
+
+@misc{han2019molecular,
+  author    = {R. Han and C. Wang},
+  title     = {Molecular Clock},
+  howpublished = {U.S. Patent US20190235445A1,},
+  year      = {2019},
+  month     = {aug},
+  venue     = {Patent},
+  keywords  = {molecular-atomic},
+}
+
+@misc{ibrahim2019chip,
+  author    = {M. Ibrahim and C. Foy and D. Kim and D. Englund and R. Han},
+  title     = {On-Chip Detection of Spin States in Color Centers for Metrology and Information Processing},
+  howpublished = {U.S. Patent US20190235031A1,},
+  year      = {2019},
+  month     = {jan},
+  venue     = {Patent},
+  keywords  = {quantum},
+}
+
+@article{wang2018chip,
+  author    = {C. Wang and X. Yi and J. Mawdsley and M. Kim and Z. Wang and and R. Han},
+  title     = {An On-Chip Fully-Electronic Molecular Clock Based on Sub-Terahertz Rotational Spectroscopy},
+  journal   = {Nature Electronics},
+  year      = {2018},
+  month     = {jul},
+  venue     = {NatElec},
+  keywords  = {molecular-atomic},
+  highlight = {yes},
+  note      = {Cover Article},
+}
+
+@article{hu2018high,
+  author    = {Z. Hu and M. Kaynak and R. Han},
+  title     = {High-Power Radiation at 1 THz in Silicon: A Fully Scalable Array Using A Multi-Functional Radiating Mesh Structure},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2018},
+  month     = {may},
+  venue     = {JSSC},
+  note      = {Invited},
+}
+
+@article{wang2018molecular,
+  author    = {C. Wang and Bradford Perkins and Zihan Wang and R. Han},
+  title     = {Molecular Detection for Unconcentrated Gas With ppm Sensitivity Using 220-to-320-GHz Dual-Frequency-Comb Spectrometer in CMOS},
+  journal   = {IEEE Transactions on Biomedical Circuits and Systems},
+  year      = {2018},
+  month     = {jun},
+  pages     = {709-721},
+  keywords  = {frequency-synthesis},
+  note      = {Invited},
+}
+
+@inproceedings{englund2018room,
+  author    = {M. I. Ibrahim* and C. Foy* and D. Kim* and D. R. Englund and R. Han (* Equal Contribution)},
+  title     = {Room-Temperature Quantum Sensing in CMOS: On-Chip Detection of Electronic Spin States in Diamond Color Centers for Magnetometry},
+  year      = {2018},
+  month     = {jun},
+  keywords  = {quantum},
+}
+
+@inproceedings{wang2018cmos,
+  author    = {C. Wang and X. Yi and M. Kim and Y. Zhang and R. Han},
+  title     = {A CMOS Molecular Clock Probing 231.061-GHz Rotational Line of OCS with Sub-ppb Long-Term Stability and 66-mW DC Power},
+  year      = {2018},
+  month     = {jun},
+  keywords  = {molecular-atomic},
+}
+
+@inproceedings{hu2018heterodyne,
+  author    = {Z. Hu and C. Wang and R. Han},
+  title     = {Heterodyne Sensing CMOS Array with High Density and Large Scale: A 240-GHz, 32-Unit Receiver Using A De-Centralized Architecture},
+  year      = {2018},
+  month     = {jun},
+  venue     = {RFIC},
+}
+
+@inproceedings{wang2018metamaterial,
+  author    = {B. Wang and A. Sadeqi and R. Ma and P. Wang and W. Tsujita and K. Sadamoto and Y. Sawa and H. Nejad and S. Sonkusale and C. Wang and M. Kim and and R. Han},
+  title     = {Metamaterial Absorber for THz Polarimetric Sensing},
+  year      = {2018},
+  month     = {jan},
+}
+
+@inproceedings{han2018wave,
+  author    = {R. Han},
+  title     = {Wave-Matter Interactions at the Chip Scale: Devices, Systems and Opportunities},
+  year      = {2018},
+  month     = {nov},
+  note      = {Invited},
+}
+
+@inproceedings{zhong2018cmos,
+  author    = {Q. Zhong and W.-Y. Choi and D.-Y. Kim and Z. Ahmad and R. Xu and Y. Zhang and R. Han and S. Kshattry and N. Sharma and Z.-Y. Chen and D. Shim and S. Sankaran and E.-Y. Seok and C. Mao and F. C. DeLucia and J. P. McMillan and C. F. Neese and I. Kim and I. Momson and P. Yellswarapu and S. Dong and B. Pouya and P. Byreddy and Z. Chen and Y. Zhu and S. Ghosh and T. Dinh and F. Jalalibidgoli and J. Newman and K .K. O},
+  title     = {CMOS Terahertz Receivers},
+  booktitle = {IEEE Custom Integrated Circuits Conference (CICC)},
+  year      = {2018},
+  month     = {apr},
+  venue     = {CICC},
+  note      = {Invited},
+}
+
+@article{wang2017dual,
+  author    = {C. Wang and R. Han},
+  title     = {Dual-Terahertz-Comb Spectrometer on CMOS for Rapid, Wide-Range Gas Detection With Absolute Specificity},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2017},
+  month     = {dec},
+  venue     = {JSSC},
+  keywords  = {frequency-synthesis},
+  note      = {Invited},
+}
+
+@article{holloway2017fully,
+  author    = {J. W. Holloway and L. Boglione and T. M. Hancock and and R. Han},
+  title     = {A Fully Integrated Broadband Sub-mmWave Chip-to-Chip Interconnect},
+  year      = {2017},
+  month     = {jul},
+  venue     = {TMTT},
+  keywords  = {interconnect},
+}
+
+@inproceedings{wang2017large,
+  author    = {C. Wang and Z. Hu and G. Zhang and J. Holloway and R. Han},
+  title     = {Large-Scale Terahertz Active Arrays in Silicon Using Highly-Versatile Electromagnetic Structures},
+  year      = {2017},
+  month     = {dec},
+  venue     = {IEDM},
+  note      = {Invited},
+}
+
+@inproceedings{hu2017energy,
+  author    = {Z. Hu and C. Wang and R. Han},
+  title     = {Energy-Efficient Integrated THz Electronics Using Multi-Functional Electromagnetism and High-Parallelism Spectral Sensing},
+  year      = {2017},
+  month     = {aug},
+  note      = {invited},
+}
+
+@inproceedings{hu2017fully,
+  author    = {Z. Hu and R. Han},
+  title     = {Fully-Scalable 2D THz Radiating Array: A 42-Element Source in 130-nm SiGe with 80-μW Total Radiated Power at 1.01 THz},
+  year      = {2017},
+  month     = {jun},
+  venue     = {RFIC},
+  keywords  = {sources-radiators},
+  highlight = {yes},
+  note      = {Best Student Paper Award, 2nd Place},
+}
+
+@inproceedings{ahmad2017devices,
+  author    = {Z. Ahmad and W. Choi and N. Sharma and J. Zhang and Q. Zhong and D.-Y. Kim and Z. Chen and Y. Zhang and R. Han and D. Shim and S. Sankaran and E.-Y. Seok and C. Cao and C. Mao and R. M. Schueler and I. R. Medvedev and D. J. Lary and H.-J. Nam and P. Raskin and F. C. DeLucia and J. P. McMillan and C. F. Neese and I. Kim and I. Momson and P. Yellswarapu and S. Dong and Z. Chen and K .K. O},
+  title     = {Devices in CMOS for Terahertz Circuits and Systems},
+  year      = {2017},
+  note      = {Invited},
+}
+
+@inproceedings{wang2017rapid,
+  author    = {C. Wang and R. Han},
+  title     = {Rapid and Energy-Efficient Molecular Sensing Using Dual THz Combs in 65nm CMOS: A 220-to-320GHz Spectrometer with 5.2mW Radiated Power and 14.6~19.5dB Noise Figure},
+  year      = {2017},
+  month     = {feb},
+  venue     = {ISSCC},
+}
+
+@article{jiang2016fully,
+  author    = {C. Jiang and A. Mostajeran and R. Han and M. Emadi and H. Sherry and A. Cathelin and and E. Afshari},
+  title     = {A Fully-integrated 320-GHz Coherent Imaging Transceiver in 130-nm SiGe BiCMOS},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2016},
+  month     = {nov},
+  venue     = {JSSC},
+  keywords  = {imaging-radar, communication},
+}
+
+@article{kim2016design,
+  author    = {D. Y. Kim and S. Park and R. Han and and K. K. O},
+  title     = {Design and Demonstration of 820-GHz Array Using Diode-Connected NMOS Transistors in 130-nm CMOS for Active Imaging},
+  journal   = {IEEE Transactions on Terahertz Science and Technology},
+  year      = {2016},
+  month     = {mar},
+  venue     = {T-THz},
+  keywords  = {imaging-radar},
+}
+
+@inproceedings{han2016chip,
+  author    = {R. Han and J. Holloway and C. Jiang and A. Mostajeran and E. Afshari and A. Cathelin and Y. Zhang and K. K. O and L. Boglione and T. Hancock and C. Wang and Z. Hu and G. Zhang},
+  title     = {On-Chip Terahertz Electronics: From Device-Electromagnetic Integration to Energy-Efficient, Large-Scale Microsystems},
+  year      = {2016},
+  month     = {dec},
+  venue     = {IEDM},
+  note      = {Invited},
+}
+
+@inproceedings{ahmad2016devices,
+  author    = {K. K. O and Z. Ahmad and W. Choi and N. Sharma and J. Zhang and Q. Zhong and D.-Y. Kim and Z. Chen and Y. Zhang and R. Han and D. Shim and S. Sankaran and E.-Y. Seok and C. Cao and C. Mao and I. R. Medvedev and D. Lary and H.-J. Nam and P. Raskin and F. C. DeLucia and I.-S. Kim and I. Momson and P. Yellswarapu and S. Dong and B.-K. Kim},
+  title     = {Devices and Circuits in CMOS for THz Applications},
+  year      = {2016},
+  month     = {dec},
+  venue     = {IEDM},
+  note      = {Invited},
+}
+
+@inproceedings{jiang2016320ghz,
+  author    = {C. Jiang and A. Mostajeran and R. Han and H. Sherry and A. Cathelin and and E. Afshari},
+  title     = {A 320GHz Subharmonic Mixing Coherent Imager in 130nm SiGe BiCMOS},
+  year      = {2016},
+  month     = {feb},
+  venue     = {ISSCC},
+  keywords  = {sources-radiators},
+}
+
+@misc{han2016system,
+  author    = {R. Han and E. Afshari},
+  title     = {System and Method for Signal Generation},
+  howpublished = {U.S. Patent US9344308B2,},
+  year      = {2016},
+  month     = {may},
+  venue     = {Patent},
+  keywords  = {sources-radiators},
+}
+
+@article{han2015sige,
+  author    = {R. Han and C. Jiang and A. Mostajeran and M. Emadi and H. Aghasi and H. Sherry and A. Cathelin and and E. Afshari},
+  title     = {A SiGe Terahertz Heterodyne Imaging Transmitter With 3.3 mW Radiated Power and Fully-Integrated Phase-Locked Loop},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2015},
+  month     = {dec},
+  venue     = {JSSC},
+  keywords  = {imaging-radar, frequency-synthesis},
+  note      = {Invited},
+}
+
+@inproceedings{ahmad2015thz,
+  author    = {Z. Ahmad and D. Kim and R. Han and W. Choi and and K. K. O},
+  title     = {THz Imaging Circuits in CMOS},
+  year      = {2015},
+  month     = {dec},
+  keywords  = {imaging-radar},
+  note      = {Invited},
+}
+
+@inproceedings{han2015filling,
+  author    = {R. Han and E. Afshari},
+  title     = {Filling the Terahertz Gap with Sand: High-Power Terahertz Radiators in Silicon},
+  year      = {2015},
+  month     = {oct},
+  keywords  = {sources-radiators},
+  note      = {Invited},
+}
+
+@inproceedings{han2015320ghz,
+  author    = {R. Han and C. Jiang and A. Mostajeran and M. Emadi and H. Aghasi and H. Sherry and A. Cathelin and and E. Afshari},
+  title     = {A 320GHz Phase-Locked Transmitter with 3.3mW Radiated Power and 22.5dBm EIRP for Heterodyne THz Imaging Systems},
+  year      = {2015},
+  month     = {feb},
   venue     = {ISSCC},
   keywords  = {imaging-radar, frequency-synthesis},
 }
 
-@inproceedings{yi2020fullduplex,
-  author    = {X. Yi and J. Wang and C. Wang and K. E. Kolodziej and R. Han},
-  title     = {A 3.4--4.6 GHz In-Band Full-Duplex Front-End in CMOS Using a Bi-Directional Frequency Converter},
-  booktitle = {IEEE Radio Frequency Integrated Circuits Symposium (RFIC)},
-  year      = {2020},
-  pages     = {47--50},
-  venue     = {RFIC},
-  keywords  = {communication},
+@article{han2013cmos,
+  author    = {R. Han and E. Afshari},
+  title     = {A CMOS High-Power Broadband 260-GHz Radiator Array For Spectroscopy},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2013},
+  month     = {dec},
+  venue     = {JSSC},
+  keywords  = {sources-radiators},
+  note      = {Invited},
 }
 
-@inproceedings{thzid_isscc_2020,
-  author    = {M. I. W. Khan and M. I. Ibrahim and C. S. Juvekar and W. Jung and R. T. Yazicigil and A. P. Chandrakasan and R. Han},
-  title     = {CMOS THz-ID: A 1.6 mm$^2$ Package-Less Identification Tag Using Asymmetric Cryptography and 260 GHz Far-Field Backscatter},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
-  year      = {2020},
-  venue     = {ISSCC},
-  keywords  = {security, communication},
-}
-
-@inproceedings{radar_collab_isscc_2020,
-  author    = {Group members with A. P. Chandrakasan},
-  title     = {High-Ranging-Resolution Radar with a High-Parallelism Architecture},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
-  year      = {2020},
-  venue     = {ISSCC},
+@article{han2013active,
+  author    = {R. Han and Y. Zhang and Y. Kim and D. Kim and H. Shichijo and E. Afshari and K. K. O},
+  title     = {Active Terahertz Imaging Using Schottky Diodes in CMOS: Array and 860-GHz Pixel},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2013},
+  month     = {oct},
+  venue     = {JSSC},
   keywords  = {imaging-radar},
-  note      = {Collaboration with Prof. Chandrakasan's group},
 }
 
-% ============================================================================
-% 2019
-% ============================================================================
-
-@article{magnetometry_natelec_2019,
-  author  = {Group members with D. Englund},
-  title   = {On-Chip Magnetometry Using Spin States in Diamond Color Centers},
-  journal = {Nature Electronics},
-  year    = {2019},
-  venue   = {NatElec},
-  keywords = {quantum, molecular-atomic},
-  highlight = {yes},
-  note    = {Collaboration with D. Englund's group},
+@article{han2013high,
+  author    = {R. Han and E. Afshari},
+  title     = {A High-Power Broadband Passive Terahertz Frequency Doubler in CMOS},
+  journal   = {IEEE Transactions on Microwave Theory and Techniques},
+  year      = {2013},
+  month     = {mar},
+  venue     = {TMTT},
+  note      = {Invited},
 }
 
-@inproceedings{magnetometry_isscc_2019,
-  author    = {Group members with D. Englund},
-  title     = {A CMOS-Based Quantum Magnetometer Using Nitrogen-Vacancy Centers},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
-  year      = {2019},
+@inproceedings{han2013260ghz,
+  author    = {R. Han and E. Afshari},
+  title     = {A 260GHz Broadband Source with 1.1mW Continuous-Wave Radiated Power and EIRP of 15.7dBm in 65nm CMOS},
+  year      = {2013},
+  month     = {feb},
   venue     = {ISSCC},
-  keywords  = {quantum, molecular-atomic},
+  keywords  = {sources-radiators},
 }
 
-@article{heterodyne_jssc_2019,
-  author  = {Group members},
-  title   = {Heterodyne Sensing Array for Imaging with Steerable THz Pencil Beam},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2019},
-  venue   = {JSSC},
-  keywords = {imaging-radar, sources-radiators},
+@inproceedings{afshari2013progress,
+  author    = {E. Afshari and and R. Han},
+  title     = {Progress Towards mW-Power Generation in CMOS THz Signal Sources},
+  year      = {2013},
+  month     = {nov},
+  note      = {Invited},
 }
 
-% ============================================================================
-% 2018
-% ============================================================================
-
-@article{wang2018clock_natelec,
-  author  = {C. Wang and J. Mawdsley and M. Kim and Y. Xiang and Z. Wang and R. Han},
-  title   = {Chip-Scale Molecular Clock},
-  journal = {Nature Electronics},
-  year    = {2018},
-  venue   = {NatElec},
-  keywords = {molecular-atomic, frequency-synthesis},
-  highlight = {yes},
-  note    = {Cover feature, July 2018 issue. Featured on www.mit.edu.},
+@inproceedings{kim2013820,
+  author    = {D. Kim and S. Park and R. Han and and K. K. O},
+  title     = {820-GHz Imaging Array Using Diode-Connected NMOS Transistors in 130-nm CMOS},
+  year      = {2013},
+  month     = {jun},
+  keywords  = {imaging-radar},
 }
 
-@article{multifunc_jssc_2018,
-  author  = {Group members},
-  title   = {Multi-Functional Electromagnetic Designs for Efficient THz Operations},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2018},
-  venue   = {JSSC},
-  keywords = {sources-radiators},
+@inproceedings{zhang2013schottky,
+  author    = {Y. Zhang and R. Han and D. Kim and D. Shim and E. Seok and and K. K. O},
+  title     = {Schottky Diodes in CMOS for Terahertz Circuits and Systems},
+  year      = {2013},
+  month     = {jan},
 }
 
-% ============================================================================
-% 2017
-% ============================================================================
+@inproceedings{shim2013cmos,
+  author    = {D. Shim and Y. Zhang and R. Han and D. Y. Kim and Y. Kim and S. Park and E. Seok and and K. K. O},
+  title     = {CMOS Sources and Detectors for Sub-Millimeter Wave Applications},
+  year      = {2013},
+  month     = {nov},
+  note      = {Invited},
+}
 
-@inproceedings{dualcomb_isscc_2017,
-  author    = {Group members},
-  title     = {Parallelism in Broadband Spectral Sensing: Dual-THz-Frequency-Comb Molecular Sensor in CMOS},
-  booktitle = {IEEE International Solid-State Circuits Conference (ISSCC)},
-  year      = {2017},
+@article{lee2012broadband,
+  author    = {C. Lee and W. Choi and R. Han and H. Shichijo and K. K. O},
+  title     = {Broadband Root Mean Square Detector in CMOS for On-Chip Measurements of Millimeter-Wave Voltages},
+  year      = {2012},
+  month     = {jun},
+  pages     = {752-754},
+}
+
+@inproceedings{han2012280ghz,
+  author    = {R. Han and Y. Zhang and Y. Kim and D. Kim and H. Shichijo and E. Afshari and K. K. O},
+  title     = {280GHz and 860GHz Image Sensors Using Schottky-Barrier Diodes in 0.13m Digital CMOS},
+  year      = {2012},
+  month     = {feb},
   venue     = {ISSCC},
-  keywords  = {molecular-atomic, frequency-synthesis},
 }
 
-@article{dualcomb_jssc_2017,
-  author  = {Group members},
-  title   = {A Dual-THz-Comb Molecular Sensor in CMOS},
-  journal = {IEEE Journal of Solid-State Circuits},
-  year    = {2017},
-  venue   = {JSSC},
-  keywords = {molecular-atomic, frequency-synthesis},
+@inproceedings{han2012broadband,
+  author    = {R. Han and E. Afshari},
+  title     = {A Broadband 480-GHz Passive Frequency Doubler in 65-nm Bulk CMOS},
+  year      = {2012},
+  month     = {jun},
+  venue     = {RFIC},
+  highlight = {yes},
+  note      = {Best Student Paper Award (2nd},
 }
 
-% ============================================================================
-% TODO: Pre-2017 publications, full conference paper list, patents, and talks.
-% Export from Zotero/Mendeley with the field schema documented at the top of
-% this file. Then this seed file can be removed.
-% ============================================================================
+@inproceedings{han2012terahertz,
+  author    = {R. Han and Y. Zhang and Y. Kim and D. Kim and H. Shichijo and and K. K. O},
+  title     = {Terahertz Image Sensing using CMOS Schottky Barrier Diodes},
+  year      = {2012},
+  month     = {nov},
+  note      = {Invited},
+}
+
+@article{han2011280,
+  author    = {R. Han and Y. Zhang and D. Coquillat and W. Knap and E. Brown and K. K. O},
+  title     = {A 280-GHz Schottky Diode Detector in 130-nm Digital CMOS},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2011},
+  month     = {nov},
+  pages     = {2602-2612},
+  venue     = {JSSC},
+}
+
+@inproceedings{adnan2011phase,
+  author    = {M. Adnan and R. Han and and E. Afshari},
+  title     = {Phase Matching Using Bandgap Structures for Efficient Parametric Frequency Conversion},
+  year      = {2011},
+  month     = {oct},
+}
+
+@article{seok2010progress,
+  author    = {E. Seok and D. Shim and C. Mao and R. Han and S. Sankaran and C. Cao and W. Knap and K. K. O},
+  title     = {Progress and Challenges Towards Terahertz CMOS Integrated Circuits},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2010},
+  month     = {aug},
+  pages     = {1554-1564},
+  venue     = {JSSC},
+}
+
+@article{wu2010multi,
+  author    = {H. Wu and R. Han and W. Lerdsitsomboon and C. Cao and K. K. O},
+  title     = {Multi-level Amplitude Modulation of a 16.8-GHz Class-E Power Amplifier with Negative Resistance Enhanced Power Gain for 400-Mbps Data Transmission},
+  journal   = {IEEE Journal of Solid-State Circuits},
+  year      = {2010},
+  month     = {may},
+  pages     = {1072-1079},
+  venue     = {JSSC},
+}
+
+@inproceedings{han2010280,
+  author    = {R. Han and Y. Zhang and D. Coquillat and J. Hoy and H. Videlier and W. Knap and E. Brown and K. K. O},
+  title     = {280-GHz Schottky Diode Detector in 130-nm Digital CMOS},
+  year      = {2010},
+  month     = {sep},
+  venue     = {CICC},
+}
+
+@inproceedings{mao2010diodes,
+  author    = {C. Mao and D. Shim and R. Han and S. Sankaran and E. Seok and Y. Zhang and and K. K. O},
+  title     = {Diodes in CMOS for Millimeter-Wave and Submillimeter-Wave Circuits},
+  year      = {2010},
+  month     = {apr},
+}
+
+@article{sankaran2009millimeter,
+  author    = {K. K. O and S. Sankaran and C. Cao and E. Seok and D. Shim and C. Mao and R. Han},
+  title     = {Millimeter-Wave to Terahertz in CMOS},
+  journal   = {Journal of High-Speed Electronics and Systems},
+  year      = {2009},
+  month     = {jan},
+  pages     = {55-67},
+}
+
+@inproceedings{sankaran2009towards,
+  author    = {S. Sankaran and C. Mao and E. Seok and D. Shim and C. Cao and R. Han and D. Arenas and D. Tanner and S. Hill and C. Hung and and K. K. O},
+  title     = {Towards Terahertz Operations of CMOS},
+  year      = {2009},
+  month     = {feb},
+  venue     = {ISSCC},
+}
+
+@inproceedings{shim2009paths,
+  author    = {D. Shim and C. Mao and R. Han and S. Sankaran and E. Seok and C. Cao and W. Knap and K. K. O},
+  title     = {Paths to Terahertz CMOS Integrated Circuits},
+  year      = {2009},
+  month     = {sep},
+  venue     = {CICC},
+  note      = {Invited},
+}
+
+@inproceedings{wang2006delay,
+  author    = {Y. Wang and L. Wang and R. Han and J. Tong},
+  title     = {A Delay Model for SRAM-based FPGA Interconnects},
+  year      = {2006},
+  month     = {aug},
+  keywords  = {interconnect},
+}
+
