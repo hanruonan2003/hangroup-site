@@ -16,7 +16,7 @@ const TEMP_FIGURE_BY_KEY: Record<string, string> = {
   hu2017fully: "1thz-330-element-array.png",               // 1-THz silicon radiating array (thematic match)
 };
 
-// Eager glob of figures so Astro can statically process them via <Picture>.
+// Eager glob of raster figures so Astro can statically process them via <Picture>.
 const figureModules = import.meta.glob<{ default: ImageMetadata }>(
   "../../content/research/figures/*.{jpg,jpeg,png}",
   { eager: true },
@@ -25,6 +25,20 @@ const figureByName: Record<string, ImageMetadata> = {};
 for (const [path, mod] of Object.entries(figureModules)) {
   const name = path.split("/").pop()!;
   figureByName[name] = mod.default;
+}
+
+// Separate glob as ?url for SVGs (and the SVG-paired PNG fallbacks). Vite
+// bundles each into /_astro/ at build time so the dist/ folder actually
+// contains the file. Looking these up by filename keeps the bib `image`
+// field a plain string.
+const figureUrlModules = import.meta.glob<string>(
+  "../../content/research/figures/*.{svg,png,jpg,jpeg}",
+  { eager: true, query: "?url", import: "default" },
+);
+const figureUrlByName: Record<string, string> = {};
+for (const [path, urlValue] of Object.entries(figureUrlModules)) {
+  const name = path.split("/").pop()!;
+  figureUrlByName[name] = urlValue;
 }
 
 const siteEntry = await getEntry("site", "site");
@@ -151,12 +165,12 @@ const placedAlumni = [...alumni]
         return (
           <li class="work-card">
             <a class="work-card__link" href={url(`/publications/#${d.key}`)}>
-              {d.image ? (
-                isSvg ? (
+              {d.image && figureUrlByName[d.image] ? (
+                isSvg && pngFallback && figureUrlByName[pngFallback] ? (
                   <picture class="work-card__image">
-                    <source type="image/svg+xml" srcset={url(`/content/research/figures/${d.image}`)} />
+                    <source type="image/svg+xml" srcset={figureUrlByName[d.image]} />
                     <img
-                      src={url(`/content/research/figures/${pngFallback}`)}
+                      src={figureUrlByName[pngFallback]}
                       alt={`Illustration for ${d.title}`}
                       loading="lazy"
                       decoding="async"
@@ -167,7 +181,7 @@ const placedAlumni = [...alumni]
                 ) : (
                   <img
                     class="work-card__image"
-                    src={url(`/content/research/figures/${d.image}`)}
+                    src={figureUrlByName[d.image]}
                     alt={`Figure for ${d.title}`}
                     loading="lazy"
                     decoding="async"
