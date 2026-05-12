@@ -167,6 +167,7 @@ const site = defineCollection({
       }),
       admin: z.object({
         name: z.string(),
+        slug: z.string().optional(),
         title: z.string(),
         email: z.string().email(),
         phone: z.string(),

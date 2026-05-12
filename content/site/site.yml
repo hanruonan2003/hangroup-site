@@ -63,6 +63,7 @@ contact:
     zip: "02139"
   admin:
     name: "Ava Bowen"
+    slug: "ava-bowen"
     title: "Administrative Assistant"
     email: "avabowen@mit.edu"
     phone: "(617) 253-0719"

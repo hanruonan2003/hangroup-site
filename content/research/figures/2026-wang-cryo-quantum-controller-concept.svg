@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="ill-title ill-desc">
+  <title id="ill-title">A cryo-CMOS quantum controller: diamond waveguide micro-chiplets pick-and-placed on a CMOS chip, with grid inductors generating a 2.87 GHz drive and 3D-printed nano-prisms redirecting NV photoluminescence upward</title>
+  <desc id="ill-desc">Cross-section. A long red CMOS substrate at the bottom carries an interconnect spine. Above it sit three repeating unit cells, each containing a red grid-inductor footprint, a blue diamond waveguide micro-chiplet, an orange-dot NV color center inside the chiplet, and an orange triangular nano-prism on top. Dashed orange arrows rise from each prism to indicate photoluminescence read out of the cryostat. Labels mark 4 K, 2.87 GHz drive, and up to 144 qubits.</desc>
+
+  <defs>
+    <style>
+      svg                        { --ill-hot:  #A31F34;
+                                   --ill-cold: #1F4F7A;
+                                   --ill-beam: #E67E22;
+                                   --ill-fg:   #111111;
+                                   --ill-fg-muted: #6B6B6B; }
+      .stroke                    { fill: none; stroke-width: 2;
+                                   stroke-linecap: round; stroke-linejoin: round; }
+      .hot                       { stroke: var(--ill-hot); }
+      .cold                      { stroke: var(--ill-cold); }
+      .beam                      { stroke: var(--ill-beam); }
+      .beam--fill                { fill: var(--ill-beam); }
+      .dashed                    { stroke-dasharray: 6 8; }
+      .label {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        fill: var(--ill-fg);
+      }
+      .label--accent { fill: var(--ill-beam); font-size: 28px; }
+      .label--muted  { fill: var(--ill-fg-muted); font-size: 24px;
+                       letter-spacing: 0.10em; }
+    </style>
+  </defs>
+
+  <!-- Top label: photoluminescence readout direction -->
+  <text class="label label--muted" x="800" y="110" text-anchor="middle">photoluminescence readout</text>
+
+  <!-- =================================================================
+       Photoluminescence dashed arrows going up from each prism
+       ================================================================= -->
+  <g class="stroke beam dashed">
+    <line x1="400"  y1="270" x2="400"  y2="150"/>
+    <line x1="800"  y1="270" x2="800"  y2="150"/>
+    <line x1="1200" y1="270" x2="1200" y2="150"/>
+  </g>
+  <!-- Tiny arrowheads (solid, no dash) -->
+  <g class="stroke beam" stroke-linejoin="miter">
+    <polyline points="390,160 400,150 410,160"/>
+    <polyline points="790,160 800,150 810,160"/>
+    <polyline points="1190,160 1200,150 1210,160"/>
+  </g>
+
+  <!-- =================================================================
+       Three repeating unit cells: prism + chiplet + NV + inductor stack
+       ================================================================= -->
+  <!-- Unit cell at x=400 -->
+  <g aria-label="Unit cell">
+    <!-- Nano-prism (orange triangle, apex up) -->
+    <polygon class="stroke beam" points="350,270 400,200 450,270" />
+    <!-- Diamond waveguide micro-chiplet (blue rectangle) -->
+    <rect class="stroke cold" x="335" y="270" width="130" height="110" />
+    <!-- NV color center inside chiplet (filled orange dot) -->
+    <circle class="beam beam--fill" cx="400" cy="335" r="6" stroke="none"/>
+    <!-- Grid-inductor footprint (red lattice 4x3) -->
+    <g class="stroke hot">
+      <rect x="335" y="380" width="130" height="70" />
+      <line x1="367" y1="380" x2="367" y2="450"/>
+      <line x1="399" y1="380" x2="399" y2="450"/>
+      <line x1="432" y1="380" x2="432" y2="450"/>
+      <line x1="335" y1="403" x2="465" y2="403"/>
+      <line x1="335" y1="427" x2="465" y2="427"/>
+    </g>
+  </g>
+
+  <!-- Unit cell at x=800 -->
+  <g aria-label="Unit cell">
+    <polygon class="stroke beam" points="750,270 800,200 850,270" />
+    <rect class="stroke cold" x="735" y="270" width="130" height="110" />
+    <circle class="beam beam--fill" cx="800" cy="335" r="6" stroke="none"/>
+    <g class="stroke hot">
+      <rect x="735" y="380" width="130" height="70" />
+      <line x1="767" y1="380" x2="767" y2="450"/>
+      <line x1="799" y1="380" x2="799" y2="450"/>
+      <line x1="832" y1="380" x2="832" y2="450"/>
+      <line x1="735" y1="403" x2="865" y2="403"/>
+      <line x1="735" y1="427" x2="865" y2="427"/>
+    </g>
+  </g>
+
+  <!-- Unit cell at x=1200 -->
+  <g aria-label="Unit cell">
+    <polygon class="stroke beam" points="1150,270 1200,200 1250,270" />
+    <rect class="stroke cold" x="1135" y="270" width="130" height="110" />
+    <circle class="beam beam--fill" cx="1200" cy="335" r="6" stroke="none"/>
+    <g class="stroke hot">
+      <rect x="1135" y="380" width="130" height="70" />
+      <line x1="1167" y1="380" x2="1167" y2="450"/>
+      <line x1="1199" y1="380" x2="1199" y2="450"/>
+      <line x1="1232" y1="380" x2="1232" y2="450"/>
+      <line x1="1135" y1="403" x2="1265" y2="403"/>
+      <line x1="1135" y1="427" x2="1265" y2="427"/>
+    </g>
+  </g>
+
+  <!-- =================================================================
+       CMOS substrate strip with interconnect spine (BDCX) and pins
+       ================================================================= -->
+  <g aria-label="CMOS substrate">
+    <rect class="stroke hot" x="200" y="450" width="1200" height="120" />
+    <!-- Interconnect spine running across the chip (BDCX) -->
+    <line class="stroke hot" x1="220" y1="510" x2="1380" y2="510" />
+    <!-- Drops to each inductor's base -->
+    <line class="stroke hot" x1="400"  y1="450" x2="400"  y2="510" />
+    <line class="stroke hot" x1="800"  y1="450" x2="800"  y2="510" />
+    <line class="stroke hot" x1="1200" y1="450" x2="1200" y2="510" />
+    <!-- Pins out the bottom -->
+    <g class="stroke hot">
+      <line x1="280" y1="570" x2="280" y2="595"/>
+      <line x1="360" y1="570" x2="360" y2="595"/>
+      <line x1="440" y1="570" x2="440" y2="595"/>
+      <line x1="520" y1="570" x2="520" y2="595"/>
+      <line x1="600" y1="570" x2="600" y2="595"/>
+      <line x1="680" y1="570" x2="680" y2="595"/>
+      <line x1="760" y1="570" x2="760" y2="595"/>
+      <line x1="840" y1="570" x2="840" y2="595"/>
+      <line x1="920" y1="570" x2="920" y2="595"/>
+      <line x1="1000" y1="570" x2="1000" y2="595"/>
+      <line x1="1080" y1="570" x2="1080" y2="595"/>
+      <line x1="1160" y1="570" x2="1160" y2="595"/>
+      <line x1="1240" y1="570" x2="1240" y2="595"/>
+      <line x1="1320" y1="570" x2="1320" y2="595"/>
+    </g>
+  </g>
+
+  <!-- =================================================================
+       RF drive arrow entering from the left
+       ================================================================= -->
+  <g aria-label="2.87 GHz RF drive">
+    <line class="stroke beam" x1="120" y1="510" x2="215" y2="510" />
+    <polyline class="stroke beam" stroke-linejoin="miter" points="205,500 215,510 205,520"/>
+    <text class="label label--accent" x="120" y="495">2.87 GHz drive</text>
+  </g>
+
+  <!-- "× 144 qubits" callout on the right -->
+  <g aria-label="144 qubits scalability">
+    <line class="stroke hot dashed" x1="1395" y1="320" x2="1490" y2="320" />
+    <text class="label label--muted" x="1490" y="312" text-anchor="end">× 144 qubits</text>
+  </g>
+
+  <!-- Captions -->
+  <text class="label" x="800" y="680" text-anchor="middle">cryo-CMOS quantum controller</text>
+  <text class="label label--muted" x="800" y="720" text-anchor="middle">diamond micro-chiplets on Intel 16 CMOS · 4 K</text>
+</svg>

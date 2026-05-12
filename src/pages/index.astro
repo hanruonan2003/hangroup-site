@@ -6,14 +6,15 @@ import type { ImageMetadata } from "astro";
 import { formatNewsDate, newsSortKey } from "../lib/dates.ts";
 import { url } from "../lib/url.ts";
 
-// TEMPORARY: bib-key → research-figure filename mapping for selected-work cards.
-// These are best-effort matches drawn from the WordPress media scrape (see
-// content/research/figures/). Replace with high-res, paper-specific source
-// files when available, then delete this map.
-const TEMP_FIGURE_BY_KEY: Record<string, string> = {
-  khan202131thz: "310ghz-oam-transceiver-slide.jpg",       // OAM antenna array slide
-  hu2017fully: "1thz-330-element-array.png",               // 1-THz silicon radiating array (thematic match)
-};
+// Optional bib-key → scraped-figure filename fallback for cards that don't
+// have a paper-specific `image` field in the bib. Empty by default; add an
+// entry only if you want a temporary placeholder visible while a custom
+// illustration is being authored.
+const TEMP_FIGURE_BY_KEY: Record<string, string> = {};
+
+// Maximum number of cards shown in the Selected Work grid. Driven by the
+// number of papers marked `highlight = {yes}` in publications.bib.
+const SELECTED_WORK_LIMIT = 7;
 
 // Eager glob of raster figures so Astro can statically process them via <Picture>.
 const figureModules = import.meta.glob<{ default: ImageMetadata }>(
@@ -51,12 +52,7 @@ const publications = await getCollection("publications");
 const news = await getCollection("news");
 const alumni = await getCollection("alumni");
 
-// Stats.
-const memberCount = people.length;
-const thrustCount = thrusts.length;
-const flagshipCount = publications.filter(
-  (p) => p.data.venue === "ISSCC" || p.data.venue === "JSSC",
-).length;
+// (Stats section removed per design refresh.)
 
 // Selected work: first paper from each of 4 thrusts, then fill from highlights,
 // then most-recent fallback. Sorted newest-first for display.
@@ -80,17 +76,17 @@ const remainingHighlights = publications
   .filter((p) => p.data.highlight && !chosen.has(p.data.key))
   .sort((a, b) => b.data.sort_key - a.data.sort_key);
 for (const p of remainingHighlights) {
-  if (work.length >= 6) break;
+  if (work.length >= SELECTED_WORK_LIMIT) break;
   chosen.add(p.data.key);
   work.push(p);
 }
 
-if (work.length < 6) {
+if (work.length < SELECTED_WORK_LIMIT) {
   const remaining = [...publications]
     .filter((p) => !chosen.has(p.data.key))
     .sort((a, b) => b.data.sort_key - a.data.sort_key);
   for (const p of remaining) {
-    if (work.length >= 6) break;
+    if (work.length >= SELECTED_WORK_LIMIT) break;
     chosen.add(p.data.key);
     work.push(p);
   }
@@ -121,21 +117,6 @@ const placedAlumni = [...alumni]
     <p class="hero__eyebrow mono">MIT · MTL · EECS</p>
     <h1 class="hero__headline">{site.tagline}</h1>
     <p class="hero__lead">{site.description}</p>
-
-    <ul class="hero__stats mono">
-      <li class="stat">
-        <span class="stat__num">{memberCount}</span>
-        <span class="stat__label">current members</span>
-      </li>
-      <li class="stat">
-        <span class="stat__num">{thrustCount}</span>
-        <span class="stat__label">research thrusts</span>
-      </li>
-      <li class="stat">
-        <span class="stat__num">{flagshipCount}</span>
-        <span class="stat__label">ISSCC / JSSC papers</span>
-      </li>
-    </ul>
   </section>
 
   <!-- Selected work -->
