@@ -1,59 +1,474 @@
 # News items, newest first.
-# Each item: date (YYYY-MM-DD or YYYY-MM), title, optional body, optional link.
+# Each item: date (YYYY-MM-DD or YYYY-MM or YYYY), title, optional body, optional links.
+# Source: hangroup.mit.edu/news/
 
 news:
 
-  - date: "2025-09"
-    title: "Welcome new group members"
-    body: "Sanjay Chintapally, Tyler Weigand, Nicholas (Sihyun) Lee, and Youran (Yoland) Gao join the group."
+  - date: "2025-12-16"
+    title: "Three students win 2026 NSF Graduate Research Fellowship"
+    body: "Congratulations to Sanjay Chintapally, Tyler Weigand, and Nicholas (Sihyun) Lee on winning the 2026 National Science Foundation Graduate Research Fellowship."
 
-  - date: "2024-02"
-    title: "Anti-tampering tag accepted to ISSCC 2024"
-    body: "Eunseok Lee's paper on a packageless anti-tampering tag using unclonable sub-THz wave scattering at the chip-item interface is accepted to ISSCC 2024."
+  - date: "2025-12-16"
+    title: "Eunseok Lee and Xibi Chen win 2026 IEEE SSCS Pre-Doctoral Achievement Award"
+    body: "Eunseok Lee and Xibi Chen won the 2026 IEEE Solid-State Circuits Society (SSCS) Pre-Doctoral Achievement Award. Eunseok Lee also won the 2026 Analog Devices Outstanding Student Designer Award."
 
-  - date: "2022"
-    title: "Two ISSCC 2022 papers"
-    body: "Congratulations to the first authors Nathan Monroe (265 GHz reflectarray) and Xibi Chen (140 GHz monostatic radar), and all team members."
+  - date: "2025-06-19"
+    title: "Three conference presentations in one week"
+    body: >
+      Jaehong Jung presented his work on a 60-GHz CMOS fractional-N PLL at
+      the IEEE VLSI Technology & Circuit Symposium in Kyoto, Japan (TSMC
+      28-nm, 58 fs rms jitter at 28 mW). Pradyot Yadav (co-advised by
+      Prof. Tomás Palacios) presented a 3D mm-wave heterogeneous
+      integration technology at IEEE RFIC in San Francisco. Mingran Jia
+      (co-advised by Prof. Anantha Chandrakasan) presented a 260-GHz
+      retro-backscatter THz ID chip at RFIC. Both Pradyot's and Mingran's
+      papers were finalists for the Symposium's best student paper awards.
+
+  - date: "2025-04-11"
+    title: "Krishna Pochana wins NSF Graduate Research Fellowship"
+    body: "Congratulations to PhD student Krishna Pochana for winning the National Science Foundation Graduate Fellowship. Krishna joined the group in 2024 after receiving his B.S. from Caltech."
+
+  - date: "2025-03-10"
+    title: "Nature Electronics paper on THz wireless chips for cryogenic quantum hardware"
+    body: >
+      Silicon chips running at sub-terahertz frequencies are typically
+      considered inefficient and power hungry. Our new paper on Nature
+      Electronics shows how terahertz wireless chips help reduce the heat
+      load of cryogenic quantum hardware. The work is a collaboration with
+      Prof. Dirk Englund's team at MIT.
+
+  - date: "2025-03-10"
+    title: "Ruonan Han named IEEE SSCS Distinguished Lecturer (2025–2026)"
+    body: "Prof. Ruonan Han is the Distinguished Lecturer of the IEEE Solid-State Circuits Society for 2025–2026."
+
+  - date: "2025-02-13"
+    title: "Jinchen Wang presents 232–260 GHz CMOS radiation source at ISSCC"
+    body: >
+      Jinchen Wang presented a 232–260 GHz CMOS radiation source at ISSCC.
+      Using a low-cost THz radiation packaging technique and Intel's
+      high-power FinFETs, >10 mW of radiated power is achieved for the
+      first time. The work is highlighted on the MIT homepage and IEEE
+      Spectrum.
     links:
+      - url: "https://news.mit.edu/2025/chip-based-system-could-enable-more-efficient-sensitive-electronics-0220"
+        label: "MIT News"
+      - url: "https://spectrum.ieee.org/terahertz-waves"
+        label: "IEEE Spectrum"
+
+  - date: "2025-02-13"
+    title: "Ruonan Han promoted to Professor"
+    body: "Prof. Ruonan Han is promoted to Professor (effective July 1, 2025) by the Department of Electrical Engineering and Computer Science, MIT. Prof. Han joined the MIT faculty in July 2014."
+
+  - date: "2024-12-03"
+    title: "Jinchen Wang wins 2024 IEEE SSCS Predoctoral Achievement Award"
+    body: "Congratulations to Jinchen Wang on winning the 2024 IEEE Solid-State Circuits Society Predoctoral Achievement Award."
+
+  - date: "2024-05-08"
+    title: "Jinchen Wang wins Hennie III Teaching Award"
+    body: "Congratulations to Jinchen Wang on winning the 2024 Frederick C. Hennie III Teaching Award for Excellence in the EECS department, MIT."
+
+  - date: "2024-02-01"
+    title: "Xibi Chen wins 2024 IEEE MTT-S Graduate Fellowship and Tom Brazil Fellowship"
+    body: "Congratulations to Xibi Chen on winning the 2024 IEEE Microwave Theory & Technique Society Graduate Fellowship and the 2024 IEEE MTT-S Tom Brazil Graduate Fellowship."
+
+  - date: "2023-11-08"
+    title: "Eunseok Lee delivers A-SSCC 2023 invited talk"
+    body: "Eunseok Lee presented the invited talk on his THz wake-up receiver work at the 2023 IEEE Asian Solid-State Circuits Conference (A-SSCC), Hainan, China."
+
+  - date: "2023-11-07"
+    title: "Two ISSCC 2024 paper acceptances"
+    body: >
+      Eunseok Lee's work on a packageless anti-tampering THz ID is
+      accepted to ISSCC 2024. Jinchen Wang's work on a cryo-CMOS NV
+      controller is accepted to the Student Research Preview (SRP) at
+      ISSCC 2024. Congratulations to Eunseok and Jinchen!
+
+  - date: "2023-08-09"
+    title: "Eunseok Lee invited to A-SSCC 2023"
+    body: "Eunseok Lee is invited to present his CICC talk at the 2023 IEEE Asian Solid-State Circuits Conference (A-SSCC) in Hainan, China."
+
+  - date: "2023-04-24"
+    title: "World's first THz wake-up receiver chip at CICC"
+    body: >
+      Eunseok Lee presented the world's first THz wake-up receiver chip at
+      the IEEE Custom Integrated Circuits Conference (CICC). Pushing the
+      wake-up receiver operation frequency to hundreds of GHz allows for
+      millimeter-sized IoT systems with micro-watt-level power consumption
+      and integrated lightweight cryptography. The device was demonstrated
+      to wake up at 8-meter distance and pairs with our recent electronic
+      THz beam former.
+    links:
+      - url: "https://news.mit.edu/2023/miniscule-device-could-help-preserve-battery-life-0424"
+        label: "MIT News"
+      - url: "https://spectrum.ieee.org/terahertz"
+        label: "IEEE Spectrum"
+
+  - date: "2023-02-22"
+    title: "Jinchen Wang presents THz cryogenic-classical data link at ISSCC 2023"
+    body: "Jinchen Wang presented his THz cryogenic-classical data link work at the 2023 IEEE International Solid-State Circuits Conference (ISSCC). The work is a collaboration with Prof. Dirk Englund and his student Issac Harris."
+    links:
+      - url: "https://spectrum.ieee.org/qubit-connectivity"
+        label: "IEEE Spectrum"
+      - url: "https://news.mit.edu/2023/new-way-quantum-computing-systems-keep-their-cool-0221"
+        label: "MIT News"
+
+  - date: "2023-02-20"
+    title: "Ruonan Han receives 2023 IEEE SSCS New Frontier Award"
+    body: "Prof. Ruonan Han received the 2023 IEEE Solid-State Circuit Society New Frontier Award at the International Solid-State Circuits Conference (ISSCC)."
+
+  - date: "2023-02-15"
+    title: "Ruonan Han appointed Director of MIT CICS and EECS Undergrad Lab Officer"
+    body: "Prof. Ruonan Han is appointed Director of the MIT Center of Integrated Circuits and Systems (CICS) and Undergraduate Laboratory Officer of the MIT EECS Department, joining the Department Leadership Group (DLG)."
+    links:
+      - url: "https://www.eecs.mit.edu/ruonan-han-named-eecs-undergraduate-laboratory-officer/"
+        label: "MIT EECS News"
+
+  - date: "2022-03-10"
+    title: "Ruonan Han joins ISSCC Technical Program Committee"
+    body: "Prof. Ruonan Han joins the Technical Program Committee of the IEEE International Solid-State Circuits Conference (ISSCC)."
+
+  - date: "2022-02-19"
+    title: "Two papers at ISSCC 2022 — THz beam forming and 140 GHz radar"
+    body: >
+      We present two papers at the 2022 International Solid-State Circuits
+      Conference (ISSCC): (1) electrical THz pencil beam forming and
+      steering (Nathan Monroe), and (2) a 140 GHz monostatic radar
+      without intrinsic 6 dB loss associated with conventional couplers
+      (Xibi Chen). Congratulations to the first authors and all team
+      members.
+    links:
+      - url: "https://news.mit.edu/2022/terahertz-energy-images-high-resolution-0218"
+        label: "MIT News"
       - url: "https://hangroup.mit.edu/wp-content/uploads/2022/02/ISSCC_2022_Reflectarray.mp4"
         label: "Reflectarray demo video"
       - url: "https://hangroup.mit.edu/wp-content/uploads/2022/02/ISSCC_2022_140GHz_Radar.mp4"
         label: "140 GHz radar demo video"
 
-  - date: "2022"
-    title: "MTT-S Graduate Fellowship"
+  - date: "2022-01-29"
+    title: "Muhammad Ibrahim Wasiq Khan wins 2022 IEEE MTT-S Graduate Fellowship"
     body: "Congratulations to Muhammad Ibrahim Wasiq Khan on winning the 2022 IEEE Microwave Theory & Technique Society Graduate Fellowship."
 
-  - date: "2021"
-    title: "Promotion to Associate Professor with Tenure"
+  - date: "2021-05-01"
+    title: "Ruonan Han promoted to Associate Professor with Tenure"
     body: "Prof. Ruonan Han is promoted to Associate Professor with Tenure."
     links:
-      - url: "https://news.mit.edu"
+      - url: "https://news.mit.edu/2021/tenured-engineers-2021-0709"
         label: "MIT News"
 
-  - date: "2021"
-    title: "OAM transceiver wins Best Student Paper Award at RFIC 2021"
-    body: "Our paper on a 310 GHz CMOS transceiver utilizing waves with orbital-angular momentum (OAM) is accepted to RFIC and wins the Best Student Paper Award (First Place). This is a collaboration with Prof. Anantha Chandrakasan's team at MIT."
+  - date: "2021-03-04"
+    title: "OAM 310 GHz CMOS transceiver wins RFIC 2021 Best Student Paper Award"
+    body: "Our paper on a 310 GHz CMOS transceiver utilizing waves with orbital-angular momentum (OAM) is accepted to the IEEE Radio-Frequency Integrated Circuit Symposium (RFIC) and wins the Best Student Paper Award (First Place). This is a collaboration with Prof. Anantha Chandrakasan's team at MIT."
 
-  - date: "2021"
-    title: "THz dielectric waveguide link in MIT Homepage and IEEE Spectrum"
-    body: "Jack Holloway's ISSCC 2021 paper on a 105 Gbps THz dielectric waveguide link is featured on the MIT Homepage and IEEE Spectrum."
+  - date: "2021-02-24"
+    title: "THz dielectric waveguide link featured on MIT Homepage and IEEE Spectrum"
+    body: "Our THz dielectric waveguide link work, originally presented at ISSCC 2021, is reported on the MIT Homepage and IEEE Spectrum."
+    links:
+      - url: "https://news.mit.edu/2021/data-transfer-system-silicon-0224"
+        label: "MIT News"
+      - url: "https://spectrum.ieee.org/tech-talk/computing/networks/plastic-polymer-cables-that-rival-fiber-optics"
+        label: "IEEE Spectrum"
+
+  - date: "2020-12-23"
+    title: "Mohamed Ibrahim wins 2021 SSCS Predoctoral and IEEE MTT-S Graduate Fellowships"
+    body: "Congratulations to Mohamed Ibrahim on winning the 2021 IEEE Solid-State Circuits Society Predoctoral Achievement Award. Mohamed was also awarded the 2021 IEEE Microwave Theory & Technique Society Graduate Fellowship."
+
+  - date: "2020-11-24"
+    title: "Jack Holloway defends PhD — first PhD graduate of the group"
+    body: >
+      Jack Holloway successfully passed his Ph.D. dissertation defense.
+      Jack is the very first Ph.D. graduate of the group; his thesis is on
+      ultra-high-speed wireline links using THz wave transmission inside a
+      dielectric waveguide. Jack was a part-time student concurrently
+      leading R&D at the Office of Naval Research and Raytheon, with
+      publications on ISSCC, IEDM, IEEE T-MTT and Microwave Magazine.
+
+  - date: "2020-11-01"
+    title: "Jack Holloway's 105 Gbps THz dielectric waveguide link accepted to ISSCC 2021"
+    body: "Jack Holloway's paper on a 105 Gbps THz dielectric waveguide link is accepted to the Intl. Solid-State Circuits Conference (ISSCC) 2021."
+
+  - date: "2020-08-30"
+    title: "Four JSSC papers accepted"
+    body: >
+      Over the past month, three papers were accepted to the IEEE Journal
+      of Solid-State Circuits (JSSC): (1) an ultra-broadband (100 GHz) THz
+      comb radar (Xiang Yi), (2) a salt-grain-size RFID using sub-THz
+      carrier (Muhammed Khan), and (3) the second-generation chip-scale
+      molecular clock (Cheng Wang). A fourth manuscript, on a CMOS NV-
+      center quantum magnetometer (Mohamed Ibrahim with Chris Foy and
+      Dirk Englund), was also accepted on 09/19/2020.
+
+  - date: "2020-07-15"
+    title: "Group joins NASA Strategic University Research Partnership"
+    body: "Our group is now part of the NASA Strategic University Research Partnership (SURP) program and will collaborate with scientists at NASA Jet Propulsion Laboratory (JPL) on an ultra-miniaturized, monolithic molecular clock on a silicon chip."
+
+  - date: "2020-05-20"
+    title: "Zhi Hu defends PhD and wins MTL Director's Dissertation Award"
+    body: "Zhi Hu successfully defended his dissertation (Large-Scale High-Density Terahertz Radiator and Receiver Arrays on Silicon Chips) and won the 2020 MIT MTL Director's Dissertation Award — the group's second consecutive winner of this award."
+
+  - date: "2020-02-23"
+    title: "THz-ID work reported by MIT News"
+    body: "Our THz-ID work is reported by MIT Spotlight News on the MIT homepage. In collaboration with Prof. Anantha Chandrakasan's team, the CMOS THz-ID uses an on-chip 2×2 antenna array for 260 GHz backscatter communication and beam steering, with an integrated ultra-low-power cryptographic processor — all in 1.6 mm² without external packaging."
+    links:
+      - url: "https://news.mit.edu/2020/cryptographic-tag-supply-chain-0220"
+        label: "MIT News"
+
+  - date: "2020-02-23"
+    title: "Three new THz microsystems debut at ISSCC"
+    body: "Three new THz microsystems — cryptographic THz ID, THz-comb FMCW radar, and chip-scale molecular clock — debuted at ISSCC. A live demo of the second-generation molecular clock was also given at the conference."
+
+  - date: "2020-01-23"
+    title: "Mina Kim presents at PTTI Meeting"
+    body: "Mina Kim presented at the Precise Time and Time Interval (PTTI) Meeting held by the Institution of Navigation (ION) in San Diego, CA. The talk described our collaboration with NASA JPL on a THz molecular-clock architecture for deep-space inter-smallsat radio occultation."
+
+  - date: "2020-01-10"
+    title: "Ruonan Han associate editor of IEEE Transactions on Quantum Engineering"
+    body: "Prof. Ruonan Han is now an associate editor for IEEE Transactions on Quantum Engineering."
+
+  - date: "2019-12-16"
+    title: "Cheng Wang wins MIT MTL Doctoral Dissertation Award and IEEE SSCS Predoctoral Achievement Award"
+    body: "Congratulations to Cheng Wang on winning the 2019 MIT MTL Doctoral Dissertation Award and the 2020 IEEE Solid-State Circuits Society Predoctoral Achievement Award."
+
+  - date: "2019-10-28"
+    title: "Cheng Wang defends PhD"
+    body: "Cheng Wang successfully passed his Ph.D. defense. Cheng joined the group in 2015 and investigated chip-scale rotational spectrometers and molecular clocks, with results in 2 ISSCC, 1 IEDM, and 1 Nature Electronics papers. Prof. Hae-Seung (Harry) Lee and Prof. Qing Hu served on his thesis committee."
+
+  - date: "2019-10-24"
+    title: "Ruonan Han joins Cell Reports Physical Science advisory board"
+    body: "Prof. Ruonan Han joins the advisory board of Cell Reports Physical Science of Cell Press."
+    links:
+      - url: "https://www.cell.com/cell-reports-physical-science/editorial-board"
+        label: "Editorial board"
+
+  - date: "2019-10-18"
+    title: "Three ISSCC 2020 papers accepted"
+    body: "Three papers exploring various CMOS-based THz microsystems are accepted to the Intl. Solid-State Circuits Conference (ISSCC) 2020."
+
+  - date: "2019-10-18"
+    title: "NSF/MIT workshop on security in RF/analog microelectronics"
+    body: "The NSF and MIT held a two-day workshop in Washington, D.C. on security in RF/analog microelectronics and electromagnetics, exploring needs from DC to terahertz. Prof. Ruonan Han chaired the workshop with co-chairs Prof. Vanessa Chen (CMU) and Prof. Jeffrey Nanzer (MSU), sponsored by NSF (Dr. Jenshan Lin). Over 70 experts from academia, industry, and government attended."
+
+  - date: "2019-09-25"
+    title: "CMOS-NV quantum sensing reported by MIT News"
+    body: "The research work on CMOS-NV quantum sensing is reported by MIT News today."
+    links:
+      - url: "https://news.mit.edu/2019/quantum-sensing-chip-0925"
+        label: "MIT News"
+
+  - date: "2019-09-24"
+    title: "Group to collaborate with NASA JPL on THz molecular clock"
+    body: "The group will collaborate with the scientists at the NASA Jet Propulsion Laboratory (JPL) to develop THz molecular clocks for deep-space applications."
+
+  - date: "2019-09-10"
+    title: "Ruonan Han named MTT-S Distinguished Microwave Lecturer"
+    body: "Prof. Ruonan Han is selected as one of three Distinguished Microwave Lecturers of the IEEE Microwave Theory and Techniques Society (MTT-S), giving seminars globally on chip-scale wave-matter interactions for molecular identification, time-keeping, quantum sensing, etc."
+
+  - date: "2019-06-24"
+    title: "Nature Electronics paper on room-temperature CMOS quantum magnetometer"
+    body: "Our group will publish a paper on Nature Electronics reporting a room-temperature CMOS quantum magnetometer using nitrogen-vacancy centers in diamond. This is a collaboration with Prof. Dirk Englund's group at MIT. D. Kim, M. Ibrahim, and C. Foy equally contributed."
+
+  - date: "2019-05-14"
+    title: "Jimmy Mawdsley wins David Adler Thesis Award and Morris Joseph Leven Award"
+    body: "Jimmy Mawdsley, with his M.Eng. thesis 'Terahertz Frequency Synthesis in CMOS for a Chip-Scale Molecular Clock', won both the MIT EECS David Adler Thesis Award and the Morris Joseph Leven Award for best Masterworks Thesis Presentation. Jimmy heads to SpaceX next."
+
+  - date: "2019-04-20"
+    title: "Invited talk at IFCS 2019"
+    body: "Prof. Ruonan Han gave an invited talk at the 2019 IEEE International Frequency Control Symposium (IFCS) about the group's research on compact molecular clocks based on THz spectroscopy."
+
+  - date: "2019-03-07"
+    title: "Invited review article in IEEE Microwave Magazine"
+    body: "Our invited review article 'Filling the Gap: Silicon Terahertz Integrated Circuits Offer Our Best Bet' is published in IEEE Microwave Magazine, arguing that the well-known 'THz Gap' is in fact two-dimensional and describing our efforts to fill it."
+
+  - date: "2019-02-26"
+    title: "Ruonan Han receives 2018 Intel Outstanding Researcher Award"
+    body: "Prof. Ruonan Han received the 2018 Intel Outstanding Researcher Award in the Systems Integration sector, presented by Gilroy Vandentop (Director, Intel Corporate University Research) and Mike Mayberry (Intel CTO), recognizing progress on sub-THz transceivers for ultra-broadband wireline communications. Collaborator: Dr. Georgios C. Dogiamis (Intel Component Research, Chandler, AZ). The other 2018 recipients are Sharad Malik (Princeton), Fred Chong (Chicago), and Diego Klabjan (Northwestern)."
+
+  - date: "2019-02-20"
+    title: "Mohamed Ibrahim presents scalable quantum magnetometer at ISSCC"
+    body: "At ISSCC 2019, Mohamed Ibrahim presented his paper on a scalable quantum magnetometer on CMOS."
+
+  - date: "2019-02-14"
+    title: "Zhi Hu's THz CMOS heterodyne imaging sensor headlines MIT News"
+    body: "Zhi Hu's work on the large-scale, high-density THz CMOS heterodyne imaging sensor features the headline of MIT News today."
+    links:
+      - url: "https://news.mit.edu/2019/giving-keener-electric-eyesight-autonomous-vehicles-0214"
+        label: "MIT News"
+
+  - date: "2019-02-12"
+    title: "Two invited papers in IEEE JSSC"
+    body: "Two invited papers will appear in the IEEE Journal of Solid-State Circuits. Cheng Wang's April-issue paper details the physics and circuits of the CMOS sub-THz molecular clock. Zhi Hu's May-issue paper describes the design and new experimental results of a 32-unit, 240 GHz heterodyne array in CMOS."
+
+  - date: "2018-10-30"
+    title: "Ruonan Han joins IMS TPC and IEEE T-VLSI editorial board"
+    body: "Prof. Han joins the Technical Program Committee (TPC) of the IEEE Intl. Microwave Symposium (IMS) and serves as associate editor of IEEE Transactions on Very-Large-Scale-Integration Systems."
+
+  - date: "2018-10-26"
+    title: "Quantum magnetometer paper accepted to ISSCC 2019"
+    body: "Mohamed Ibrahim's paper 'A Scalable Quantum Magnetometer in 65nm CMOS with Vector-Field Detection Capability' is accepted to the Intl. Solid-State Circuits Conference (ISSCC). Co-authors: Chris Foy, Dirk Englund, and Ruonan Han."
+
+  - date: "2018-08-17"
+    title: "Jimmy Mawdsley named Siebel Scholar"
+    body: "Jimmy Mawdsley is named a Siebel Scholar — congratulations on this prestigious award."
+
+  - date: "2018-08-08"
+    title: "NSF RAISE program — quantum-information processing platform collaboration"
+    body: "Our group will collaborate with the Quantum Photonics Lab (Prof. Dirk Englund) and the Quanta Research Group (Prof. Isaac Chuang) at MIT on a very-large-scale integrated electronics-and-photonics platform for quantum-information processing, supported by the NSF Research Advanced by Interdisciplinary Science and Engineering (RAISE) program."
+
+  - date: "2018-07-26"
+    title: "NSF SpecEES program — secure sub-THz tagging"
+    body: "Our group and the Energy-Efficient Circuits and Systems Group led by Prof. Anantha Chandrakasan at MIT will be supported by the SpecEES (Spectrum Efficiency, Energy Efficiency and Security) program of the NSF to jointly innovate tagging devices using highly-secured sub-THz transmission."
+
+  - date: "2018-07-19"
+    title: "Cheng Wang passes RQE"
+    body: "Congratulations to Cheng Wang on passing his research qualifying exam (RQE)."
 
   - date: "2018-07-16"
-    title: "Molecular clock featured on the cover of Nature Electronics and on www.mit.edu"
-    body: "Our chip-scale molecular clock paper features on the cover of the journal's July issue, and the MIT homepage. Congratulations to Cheng Wang, James Mawdsley, Mina Kim, Y. Xiang, and Zihan Wang."
+    title: "Molecular clock paper on cover of Nature Electronics"
+    body: "Our chip-scale molecular clock paper features on the cover of the July issue of Nature Electronics and on the MIT homepage. Congratulations to Cheng Wang, James Mawdsley, Mina Kim, Y. Xiang, and Zihan Wang."
+
+  - date: "2018-07-13"
+    title: "Nature Electronics paper on molecular clock"
+    body: "A new paper on the molecular clock — a low-cost miniaturized frequency reference with atomic-clock-grade stability — is published in Nature Electronics. The paper describes the fundamental physics, experimental data using carbonyl sulfide, lab-scale and chip-scale prototypes, and stability analysis. Congratulations to Cheng Wang and the molecular clock team (James Mawdsley, Mina Kim, Y. Xiang, Zihan Wang)."
+
+  - date: "2018-07-11"
+    title: "NSF grant for THz molecular clock"
+    body: "The NSF has granted the Terahertz Integrated Electronics Group at MIT an award supporting work on CMOS-based THz molecular clocks, combining molecular rotation with state-of-the-art circuits/architecture for enhanced stability and energy efficiency."
+
+  - date: "2018-05-16"
+    title: "Multiple invited talks announced"
+    body: >
+      Prof. Ruonan Han will deliver a keynote at the 2019 German Microwave
+      Conference (GeMiC) in Stuttgart (March 25, 2019) and give invited
+      talks at: RFIC Symposium (Philadelphia, June 2018); PIERS (Toyama,
+      August 2018); EuMW (Madrid, September 2018); ICSICT (Qingdao, Nov.
+      2018); SiRF (Orlando, FL, Jan. 2019).
+
+  - date: "2018-04-02"
+    title: "Two VLSI 2018 paper presentations"
+    body: "Two works on chip-scale wave-matter interactions are presented at the IEEE VLSI Circuit Symposium in Honolulu. Mohamed Ibrahim demonstrates, for the first time, ODMR of NV centers in diamond using a CMOS chip (collaboration with Prof. D. Englund's group). Cheng Wang presents an 'atomic clock on CMOS chip' using a low-power, compact sub-THz spectrometer — also selected as the technical highlight of the conference."
+
+  - date: "2018-02-12"
+    title: "Ruonan Han promoted to Associate Professor (without Tenure)"
+    body: "Prof. Ruonan Han is promoted to Associate Professor without Tenure (AWOT), effective July 1, 2018."
+
+  - date: "2018-02-12"
+    title: "240 GHz heterodyne array paper accepted to RFIC 2018"
+    body: "Our 240 GHz large-scale heterodyne sensing array paper (Zhi Hu, first author) is accepted to the 2018 IEEE Radio-Frequency Integrated Circuit (RFIC) Symposium. The CMOS chip integrates 32 heterodyne receivers with a fully-integrated phase-locked LO generator, achieving 6× the sensitivity of prior square-law detector arrays and electronically steering two concurrent narrow beams."
+
+  - date: "2017-12-25"
+    title: "Two invited IEEE JSSC papers"
+    body: "Two invited papers in IEEE Journal of Solid-State Circuits (December 2017 and May 2018 issues) detail our THz frequency-comb-based spectrometer on a CMOS chip and our 1-THz radiation source on a SiGe chip."
+
+  - date: "2017-12-20"
+    title: "Ruonan Han joins RFIC Symposium TPC"
+    body: "Prof. Han joined the IEEE Radio-Frequency Integrated Circuit (RFIC) Symposium Technical Program Committee."
+
+  - date: "2017-12-07"
+    title: "IEDM 2017 invited talk"
+    body: "For the second year in a row, Prof. Ruonan Han delivered an invited talk at the IEEE Intl. Electron Device Meetings (IEDM), presenting the group's progress in large-scale homogeneous and heterogeneous THz arrays and future trends for ultra-high-resolution sensing and broadband spectroscopy."
+
+  - date: "2017-11-01"
+    title: "Invited talks at MWSCAS and European Microwave Symposium"
+    body: "Prof. Ruonan Han gave two invited talks recently at the IEEE Midwest Symposium on Circuits and Systems (MWSCAS) and the IEEE European Microwave Symposium."
+
+  - date: "2017-09-01"
+    title: "Three new members join the group"
+    body: "Dr. Xiang Yi (formerly research scientist at NTU Singapore) joined as a post-doctoral researcher. Mina Kim (B.S. & M.S., Ulsan National Institute of Science and Technology, Korea) and Muhamed Ibrahim Khan (B.S., NUST, Pakistan; M.S., KAIST, Korea) joined as PhD students."
+
+  - date: "2017-06-10"
+    title: "Ruonan Han joins IMS Steering Committee"
+    body: "Prof. Ruonan Han joined the IEEE International Microwave Symposium (IMS) Steering Committee."
+
+  - date: "2017-06-04"
+    title: "Zhi Hu wins RFIC 2017 Best Student Paper Award (2nd place)"
+    body: "Zhi Hu's paper on a large-scale 1-THz radiator array in SiGe won the best student paper award (2nd place) at the 2017 IEEE Radio-Frequency Integrated Circuit (RFIC) Symposium. The work achieves record total radiated power (0.1 mW) in the mid-THz range among silicon electronic chips, with up to 91 coherent active radiators in 1 mm². The award was presented by RFIC TPC Chair Dr. Kevin Kobayashi."
+
+  - date: "2017-02-08"
+    title: "ISSCC 2017 paper on broadband THz molecular sensing"
+    body: "Cheng Wang presented a paper at ISSCC 2017 introducing high parallelism into broadband THz molecular sensing using a pair of CMOS frequency-comb chips, successfully obtaining ultra-narrow rotational spectral lines of molecules."
+
+  - date: "2017-02-05"
+    title: "High-power 1-THz radiation source accepted to RFIC 2017"
+    body: "Zhi Hu's paper on a high-power radiation source at 1 THz using 130-nm SiGe HBT technology is accepted to the IEEE Radio-Frequency Integrated Circuits Symposium (RFIC 2017), to be presented in June 2017 in Honolulu."
+
+  - date: "2017-02-03"
+    title: "Jack Holloway passes PhD RQE"
+    body: "Congratulations to Jack Holloway on passing his Ph.D. research qualifying exam."
+
+  - date: "2017-02-01"
+    title: "Two travel/pitch awards"
+    body: "Cheng Wang won an IEEE MTT Boston Travel Grant; Guo Zhang won the MIT MARC 2017 Best Pitch Award."
 
   - date: "2017-01-31"
     title: "NSF CAREER Award"
-    body: "Prof. Ruonan Han won the NSF CAREER Award, funding research on chip-scale electronic frequency combs at terahertz frequency for energy-efficient and broadband sensing and imaging."
+    body: "Prof. Ruonan Han won the National Science Foundation Faculty Early Career (NSF CAREER) Award, funding research and education on chip-scale electronic frequency combs at terahertz frequencies for energy-efficient and broadband sensing and imaging."
     links:
-      - url: "https://news.mit.edu"
+      - url: "https://news.mit.edu/2017/three-mit-engineering-faculty-win-nsf-career-awards-0131"
         label: "MIT News"
 
   - date: "2016-12-07"
-    title: "Invited talk at IEDM 2016"
-    body: "Prof. Ruonan Han gave an invited talk at IEDM 2016 in the focus session 'Ultra-High Speed Electronics', alongside top researchers in THz technologies from Northrop Grumman, UCSB, RPI, and others. The talk covered the group's progress in silicon-based THz sources, sensors, and interconnects."
+    title: "IEDM 2016 invited talk"
+    body: "Prof. Ruonan Han gave an invited talk at IEDM 2016 in the focus session 'Ultra-High Speed Electronics', alongside top researchers in THz technologies from Northrop Grumman, UCSB, RPI, and others. The talk covered the group's progress in silicon-based THz sources, sensors, and interconnects, and a vision for future energy-efficient THz microsystems."
 
-# TODO: items from 2019-2020 and 2023 — the news page on the site is patchy.
-# Worth filling in: ISSCC acceptances, fellowships received, paper publications,
-# alumni transitions.
+  - date: "2016-12-01"
+    title: "MIT Lincoln Labs grant"
+    body: "Our group receives a grant from MIT Lincoln Laboratory and will collaborate with their chemists on research into molecular behaviors and interactions with THz chip devices for homeland-security sensing, navigation, etc."
+
+  - date: "2016-09-24"
+    title: "Two new members"
+    body: "Mohamed Ibrahim joins the group as a Ph.D. student and Jimmy Mawdsley joins as a SuperUROP student. Welcome!"
+
+  - date: "2016-08-24"
+    title: "Talk at 2016 RFIT workshop"
+    body: "Prof. Ruonan Han gave a talk in the THz technology workshop of the 2016 IEEE Radio-Frequency Integration Technology (RFIT) conference."
+
+  - date: "2016-06-11"
+    title: "Dr. Rui Ma joins as visiting scientist"
+    body: "Dr. Rui Ma from Mitsubishi Electric Research Laboratories joins as a visiting scientist. Welcome!"
+
+  - date: "2016-06-01"
+    title: "David Elliott Williams graduates"
+    body: "David Elliott Williams graduates with an M.Eng. studying avalanche breakdown in THz silicon devices for sensing and metrology applications. David is heading to SpaceX and will then join Caltech as a Ph.D. student."
+
+  - date: "2016-01-28"
+    title: "Cheng Wang wins ADI Outstanding Student Designer Award"
+    body: "Cheng Wang won the 2016 Analog Devices Outstanding Student Designer Award. Congratulations!"
+
+  - date: "2016-01-28"
+    title: "Fully-integrated THz heterodyne imaging system at ISSCC 2016"
+    body: "A fully-integrated THz heterodyne imaging system is presented at ISSCC 2016, in collaboration between Cornell University, MIT, and STMicroelectronics."
+
+  - date: "2015-10-11"
+    title: "Tingting Shi joins as visiting student"
+    body: "Tingting Shi from Fudan University joins the group as a visiting student. Welcome!"
+
+  - date: "2015-09-01"
+    title: "Three new PhD students join"
+    body: "Cheng Wang, Zhi Hu, and Guo Zhang join the group as Ph.D. students. Welcome!"
+
+  - date: "2015-05-30"
+    title: "Pranav Kaundinya graduates"
+    body: "Pranav Kaundinya graduates from the group and joins Silicon Labs (Austin, TX) as an analog circuit designer. His M.Eng. thesis explores a topological approach to synthesizing high-frequency resonance without large physical inductors."
+
+  - date: "2015-02-04"
+    title: "Jack Holloway joins as PhD student"
+    body: "Captain Jack Holloway joins the group as a Ph.D. student and receives the MIT Lincoln Laboratory Military Fellowship. Welcome, Jack!"
+
+  - date: "2014-10-29"
+    title: "Ruonan Han appointed E. E. Landsman Career Chair"
+    body: "Ruonan Han is appointed as the E. E. Landsman (1958) Career Chair."
+
+  - date: "2014-10-13"
+    title: "High-power THz transmitter accepted to ISSCC 2015"
+    body: "Prof. Han's paper on a high-power THz transmitter is accepted to ISSCC 2015. The chip demonstrates record radiated power (3.3 mW at 320 GHz) in silicon THz sources."
+
+  - date: "2014-09-16"
+    title: "Pranav Kaundinya joins as M.Eng. student"
+    body: "Pranav joined as an M.Eng. student. Welcome!"
+
+  - date: "2014-07-14"
+    title: "Group website is online"
+    body: "The group website is online."
+
+  - date: "2014-07-01"
+    title: "Ruonan Han joins MIT EECS faculty"
+    body: "Ruonan Han joined the faculty of the Department of Electrical Engineering and Computer Science at MIT."
