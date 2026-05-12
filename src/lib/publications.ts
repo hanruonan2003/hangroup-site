@@ -38,6 +38,8 @@ export interface NormalizedPublication {
   doi?: string;
   pages?: string;
   note?: string;
+  /** Filename (relative to content/research/figures/) of a feature image for this paper. */
+  image?: string;
   /** Original BibTeX source for this entry, used for the per-entry citation disclosure. */
   raw_bib: string;
 }
@@ -140,6 +142,7 @@ export function parsePublicationsBib(text: string): NormalizedPublication[] {
       doi: f.doi,
       pages: f.pages,
       note: f.note,
+      image: f.image,
       raw_bib: stripTrailingCommentBlock(entry.input),
     });
   }

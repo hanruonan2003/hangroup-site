@@ -1,0 +1,119 @@
+---
+// Preview surface for hand-authored SVG illustrations. Not linked from the
+// site navigation; reach it directly at /debug-illustrations/. Safe to delete
+// once the illustrations are wired into their real pages.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url.ts";
+
+// Inline the SVG so we can test it both as <img> (how it'll be served from a
+// <picture> on the home page) and as inlined markup (where CSS custom
+// properties from the document could later restyle it).
+import svgRaw from "../../content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg?raw";
+---
+
+<BaseLayout title="Debug — illustrations" description="Preview surface for hand-authored SVG illustrations.">
+  <section class="container debug">
+    <header class="debug__header">
+      <p class="debug__eyebrow mono">debug</p>
+      <h1 class="debug__h1">Illustration previews</h1>
+      <p class="debug__lead">
+        Hand-authored SVGs are shown at several sizes so legibility can be checked
+        before wiring into the home page. Not indexed; not linked from nav.
+      </p>
+    </header>
+
+    <article class="illus">
+      <h2 class="illus__h2">Wang 2025 · cryogenic THz interconnect (concept)</h2>
+      <p class="illus__meta mono">
+        content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg
+      </p>
+
+      <h3 class="illus__h3">1 · Full canvas, 1600 × 900</h3>
+      <div class="illus__frame illus__frame--full">
+        <img
+          src={url("/content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg")}
+          alt="Concept illustration: room-temperature classical electronics linked to a cryogenic quantum processor by a 260 GHz wireless beam across a vacuum gap."
+        />
+      </div>
+
+      <h3 class="illus__h3">2 · Home-page card width (~400 px wide desktop)</h3>
+      <div class="illus__frame illus__frame--card">
+        <img
+          src={url("/content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg")}
+          alt=""
+        />
+        <div class="illus__caption-mock">
+          <p class="mono">NatElec · Mar 2025</p>
+          <h4>A Bidirectional Wireless THz Datalink Designed to Maximize the Information-per-Heat Transfer to A Cryogenic Device</h4>
+          <p class="mono illus__authors">J. Wang, I. B. W. Harris, M. I. Ibrahim, D. Englund, R. Han</p>
+        </div>
+      </div>
+
+      <h3 class="illus__h3">3 · Mobile card width (~340 px wide)</h3>
+      <div class="illus__frame illus__frame--mobile">
+        <img
+          src={url("/content/research/figures/2025-wang-cryo-thz-interconnect-concept.svg")}
+          alt=""
+        />
+      </div>
+
+      <h3 class="illus__h3">4 · Inlined SVG (for CSS-token override tests)</h3>
+      <div class="illus__frame illus__frame--full">
+        <Fragment set:html={svgRaw} />
+      </div>
+    </article>
+  </section>
+</BaseLayout>
+
+<style>
+  .debug {
+    padding-block: var(--space-8) var(--space-10);
+  }
+  .debug__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+  .debug__h1 { font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .debug__lead { color: var(--color-fg-muted); margin-bottom: var(--space-8); max-width: 60ch; }
+
+  .illus {
+    border-top: 0.5px solid var(--color-border);
+    padding-top: var(--space-6);
+  }
+  .illus__h2 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
+  .illus__meta { font-size: var(--text-xs); color: var(--color-fg-faint); margin-bottom: var(--space-6); }
+  .illus__h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    font-weight: var(--weight-medium);
+    margin: var(--space-6) 0 var(--space-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .illus__frame {
+    border: 0.5px solid var(--color-border);
+    background: var(--color-bg);
+    display: block;
+  }
+  .illus__frame img,
+  .illus__frame svg { display: block; width: 100%; height: auto; }
+  .illus__frame--full { max-width: 1000px; }
+  .illus__frame--card  { max-width: 400px; }
+  .illus__frame--mobile { max-width: 340px; }
+
+  .illus__caption-mock {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+  .illus__caption-mock .mono {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
+  }
+  .illus__caption-mock h4 {
+    font-size: var(--text-md);
+    line-height: 1.3;
+    margin-bottom: var(--space-2);
+  }
+  .illus__authors { color: var(--color-fg-faint) !important; }
+</style>

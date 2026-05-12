@@ -140,12 +140,42 @@ const placedAlumni = [...alumni]
             })
           : "";
         const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
-        const figName = TEMP_FIGURE_BY_KEY[d.key];
+        // Image precedence: (1) explicit `image` field in the bib (a
+        //   hand-authored illustration or paper-specific figure, may be SVG),
+        // (2) TEMPORARY scrape-derived match from TEMP_FIGURE_BY_KEY (raster),
+        // (3) dotted-grid placeholder.
+        const isSvg = d.image?.toLowerCase().endsWith(".svg");
+        const pngFallback = isSvg ? d.image!.replace(/\.svg$/i, ".png") : undefined;
+        const figName = !d.image ? TEMP_FIGURE_BY_KEY[d.key] : undefined;
         const figure = figName ? figureByName[figName] : undefined;
         return (
           <li class="work-card">
             <a class="work-card__link" href={url(`/publications/#${d.key}`)}>
-              {figure ? (
+              {d.image ? (
+                isSvg ? (
+                  <picture class="work-card__image">
+                    <source type="image/svg+xml" srcset={url(`/content/research/figures/${d.image}`)} />
+                    <img
+                      src={url(`/content/research/figures/${pngFallback}`)}
+                      alt={`Illustration for ${d.title}`}
+                      loading="lazy"
+                      decoding="async"
+                      width="1600"
+                      height="900"
+                    />
+                  </picture>
+                ) : (
+                  <img
+                    class="work-card__image"
+                    src={url(`/content/research/figures/${d.image}`)}
+                    alt={`Figure for ${d.title}`}
+                    loading="lazy"
+                    decoding="async"
+                    width="1600"
+                    height="900"
+                  />
+                )
+              ) : figure ? (
                 // TEMPORARY: placeholder image scraped from WordPress media
                 // library. Replace with high-res, paper-specific source.
                 <Picture
