@@ -23,8 +23,9 @@ const slugify = (s: string): string =>
 
 const ROLE_LABELS = {
   phd_students: "PhD student",
-  masters_students: "M.Eng student",
   postdocs: "Postdoc",
+  masters_students: "M.Eng student",
+  undergrad_students: "Undergraduate",
 } as const;
 
 type RoleGroup = keyof typeof ROLE_LABELS;
@@ -56,8 +57,13 @@ const people = defineCollection({
     interests: z.array(z.string()).default([]),
     awards: z.array(z.string()).optional(),
     bio: z.string(),
-    role: z.enum(["PhD student", "M.Eng student", "Postdoc"]),
-    role_group: z.enum(["phd_students", "masters_students", "postdocs"]),
+    role: z.enum(["PhD student", "M.Eng student", "Postdoc", "Undergraduate"]),
+    role_group: z.enum([
+      "phd_students",
+      "masters_students",
+      "postdocs",
+      "undergrad_students",
+    ]),
   }),
 });
 
@@ -74,9 +80,13 @@ const alumni = defineCollection({
   schema: z.object({
     slug: z.string(),
     name: z.string(),
-    degree: z.string(),
+    degree: z.string().default(""),
+    category: z
+      .enum(["phd", "postdoc", "meng", "ms", "visiting", "urop"])
+      .default("phd"),
+    period: z.string().default(""), // e.g. "09/2017–05/2022"
     year_graduated: z.number().int().nullable().optional(),
-    research: z.string(),
+    research: z.string().default(""),
     current_position: z.string().default(""),
     current_org: z.string().default(""),
     placement_type: z.enum([
@@ -87,6 +97,7 @@ const alumni = defineCollection({
       "unknown",
     ]),
     awards: z.array(z.string()).optional(),
+    photo: z.string().optional(),
   }),
 });
 

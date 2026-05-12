@@ -10,17 +10,24 @@ if (!siteEntry) throw new Error("site.yml not loaded");
 
 const pi = siteEntry.data.pi;
 
-const ROLE_GROUP_ORDER = ["phd_students", "postdocs", "masters_students"] as const;
+const ROLE_GROUP_ORDER = [
+  "phd_students",
+  "postdocs",
+  "masters_students",
+  "undergrad_students",
+] as const;
 const ROLE_GROUP_LABELS: Record<(typeof ROLE_GROUP_ORDER)[number], string> = {
   phd_students: "PhD students",
   postdocs: "Postdocs",
   masters_students: "M.Eng students",
+  undergrad_students: "Undergraduate students",
 };
 
 const peopleByRole: Record<(typeof ROLE_GROUP_ORDER)[number], typeof people> = {
   phd_students: people.filter((p) => p.data.role_group === "phd_students"),
   postdocs: people.filter((p) => p.data.role_group === "postdocs"),
   masters_students: people.filter((p) => p.data.role_group === "masters_students"),
+  undergrad_students: people.filter((p) => p.data.role_group === "undergrad_students"),
 };
 
 const PLACEMENT_LABELS: Record<string, string> = {
@@ -31,14 +38,43 @@ const PLACEMENT_LABELS: Record<string, string> = {
 };
 const PLACEMENT_ORDER = ["academia", "industry", "national_lab", "startup"] as const;
 
-const alumniSorted = [...alumni].sort((a, b) => {
-  const ya = a.data.year_graduated ?? -Infinity;
-  const yb = b.data.year_graduated ?? -Infinity;
-  return yb - ya;
-});
+const ALUMNI_CATEGORY_ORDER = [
+  "phd",
+  "postdoc",
+  "meng",
+  "ms",
+  "visiting",
+  "urop",
+] as const;
+const ALUMNI_CATEGORY_LABELS: Record<(typeof ALUMNI_CATEGORY_ORDER)[number], string> = {
+  phd: "PhD",
+  postdoc: "Postdoc",
+  meng: "M.Eng.",
+  ms: "M.S.",
+  visiting: "Visiting students & scholars",
+  urop: "UROP / SuperUROP",
+};
+
+function sortAlumni(list: typeof alumni): typeof alumni {
+  return [...list].sort((a, b) => {
+    const ya = a.data.year_graduated ?? -Infinity;
+    const yb = b.data.year_graduated ?? -Infinity;
+    if (yb !== ya) return yb - ya;
+    return a.data.name.localeCompare(b.data.name);
+  });
+}
+
+const alumniByCategory: Record<(typeof ALUMNI_CATEGORY_ORDER)[number], typeof alumni> = {
+  phd: sortAlumni(alumni.filter((a) => a.data.category === "phd")),
+  postdoc: sortAlumni(alumni.filter((a) => a.data.category === "postdoc")),
+  meng: sortAlumni(alumni.filter((a) => a.data.category === "meng")),
+  ms: sortAlumni(alumni.filter((a) => a.data.category === "ms")),
+  visiting: sortAlumni(alumni.filter((a) => a.data.category === "visiting")),
+  urop: sortAlumni(alumni.filter((a) => a.data.category === "urop")),
+};
 
 const placementCount = (key: string) =>
-  alumniSorted.filter((a) => a.data.placement_type === key).length;
+  alumni.filter((a) => a.data.placement_type === key).length;
 ---
 
 <BaseLayout
@@ -130,7 +166,7 @@ const placementCount = (key: string) =>
     <section class="alumni" aria-labelledby="alumni-heading">
       <h2 id="alumni-heading" class="people-page__h2">
         <span>Alumni</span>
-        <span class="people-page__count mono">{alumniSorted.length}</span>
+        <span class="people-page__count mono">{alumni.length}</span>
       </h2>
 
       <div class="alumni__filter" role="group" aria-label="Filter alumni by placement">
@@ -155,27 +191,48 @@ const placementCount = (key: string) =>
         ))}
       </div>
 
-      <ul class="alumni__list">
-        {alumniSorted.map((a) => {
-          const year = a.data.year_graduated;
-          const place = [a.data.current_position, a.data.current_org]
-            .filter(Boolean)
-            .join(", ");
-          return (
-            <li
-              class="alumni__item"
-              data-alumni-row
-              data-alumni-placement={a.data.placement_type}
-            >
-              <p class="alumni__year mono">{year ?? "—"}</p>
-              <p class="alumni__name">{a.data.name}</p>
-              <p class="alumni__placement">
-                {place || <span class="alumni__placement-empty mono">{`{{TODO: placement}}`}</span>}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
+      {ALUMNI_CATEGORY_ORDER.map((cat) => {
+        const list = alumniByCategory[cat];
+        if (list.length === 0) return null;
+        return (
+          <div class="alumni-cat" data-alumni-cat={cat}>
+            <h3 class="alumni-cat__h3 mono">
+              {ALUMNI_CATEGORY_LABELS[cat]}{" "}
+              <span class="alumni-cat__count">({list.length})</span>
+            </h3>
+            <ul class="alumni__list">
+              {list.map((a) => {
+                const year = a.data.year_graduated;
+                const place = [a.data.current_position, a.data.current_org]
+                  .filter(Boolean)
+                  .join(", ");
+                return (
+                  <li
+                    class="alumni__item"
+                    data-alumni-row
+                    data-alumni-placement={a.data.placement_type}
+                  >
+                    <div class="alumni__photo">
+                      <PersonPhoto name={a.data.name} slug={a.data.slug} size="small" />
+                    </div>
+                    <div class="alumni__body">
+                      <p class="alumni__year mono">
+                        {year ?? a.data.period ?? "—"}
+                      </p>
+                      <p class="alumni__name">{a.data.name}</p>
+                      <p class="alumni__placement">
+                        {place || (
+                          <span class="alumni__placement-empty mono">—</span>
+                        )}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
 
       <p class="alumni__empty mono" data-alumni-empty hidden>
         No alumni in this category.
@@ -191,6 +248,9 @@ const placementCount = (key: string) =>
   const rows = Array.from(
     document.querySelectorAll<HTMLElement>("[data-alumni-row]"),
   );
+  const cats = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-alumni-cat]"),
+  );
   const empty = document.querySelector<HTMLElement>("[data-alumni-empty]");
 
   function applyFilter(active: string): void {
@@ -199,6 +259,13 @@ const placementCount = (key: string) =>
       const match = active === "all" || r.dataset.alumniPlacement === active;
       r.hidden = !match;
       if (match) visible++;
+    }
+    // Hide whole category sections when all their rows are filtered out.
+    for (const c of cats) {
+      const anyVisible = Array.from(
+        c.querySelectorAll<HTMLElement>("[data-alumni-row]"),
+      ).some((r) => !r.hidden);
+      c.hidden = !anyVisible;
     }
     if (empty) empty.hidden = visible > 0;
   }
@@ -427,22 +494,51 @@ const placementCount = (key: string) =>
     opacity: 0.75;
   }
 
+  .alumni-cat {
+    margin-bottom: var(--space-7);
+  }
+
+  .alumni-cat__h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-3);
+  }
+
+  .alumni-cat__count {
+    color: var(--color-fg-faint);
+    font-weight: var(--weight-regular);
+  }
+
   .alumni__list {
     list-style: none;
-    column-count: 1;
-    column-gap: var(--space-6);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   @media (min-width: 720px) {
     .alumni__list {
-      column-count: 2;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--space-6);
     }
   }
 
   .alumni__item {
-    break-inside: avoid;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-3);
+    align-items: start;
     padding-block: var(--space-3);
     border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .alumni__photo {
+    width: 56px;
+  }
+
+  .alumni__body {
+    min-width: 0;
   }
 
   .alumni__year {

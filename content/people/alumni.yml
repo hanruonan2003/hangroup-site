@@ -1,108 +1,348 @@
-# Alumni — graduated PhDs, postdocs, and M.Eng students.
-# placement_type is one of: academia, industry, national_lab, startup, unknown
-# This list is PARTIAL. Please verify and expand with your records.
+# Alumni — past members of the Terahertz Integrated Electronics Group.
+# Categories: phd, postdoc, meng, ms, visiting, urop
+# placement_type: academia, industry, national_lab, startup, unknown
+# Source of truth: hangroup.mit.edu/people/
 
 alumni:
 
-  - slug: cheng-wang
-    name: "Cheng Wang"
-    degree: "PhD"
-    year_graduated: null   # TODO
-    research: "Chip-scale molecular clock (Nature Electronics 2018, JSSC)"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
-
-  - slug: xiang-yi
-    name: "Xiang Yi"
-    degree: "PhD"
-    year_graduated: null   # TODO
-    research: "FMCW comb radar, frequency synthesis (JSSC, ISSCC 2020)"
-    current_position: "Professor"
-    current_org: "South China University of Technology"   # VERIFY
-    placement_type: "academia"
+  # ===== PhD and Postdoc =====
 
   - slug: muhammad-ibrahim-wasiq-khan
-    name: "Muhammad Ibrahim Wasiq Khan"
+    name: "Muhammad I. W. Khan"
+    category: "phd"
     degree: "PhD"
-    year_graduated: null   # TODO
-    research: "OAM-wave transceivers, THz-ID cryptographic tags"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
+    period: "09/2017–05/2022"
+    year_graduated: 2022
+    research: >
+      New Frontiers in Silicon Terahertz Electronics: Wirelessly Powered
+      THz-ID and Secure THz Links.
+    current_position: ""
+    current_org: "MediaTek"
+    placement_type: "industry"
     awards:
       - "2022 IEEE MTT-S Graduate Fellowship"
-
-  - slug: mohamed-ibrahim
-    name: "Mohamed I. Ibrahim"
-    degree: "PhD"
-    year_graduated: null   # TODO
-    research: "THz-ID, identification tags"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
-
-  - slug: nathan-monroe
-    name: "Nathan M. Monroe"
-    degree: "PhD"
-    year_graduated: null   # TODO ~2022
-    research: "265 GHz reflectarray (ISSCC 2022), high-resolution radar"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
-
-  - slug: xibi-chen
-    name: "Xibi Chen"
-    degree: "PhD"
-    year_graduated: null   # TODO
-    research: "140 GHz FMCW monostatic radar (ISSCC 2022, JSSC 2022)"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
+    photo: "muhammad-ibrahim-wasiq-khan.jpeg"
 
   - slug: mina-kim
     name: "Mina Kim"
+    category: "phd"
     degree: "PhD"
-    year_graduated: null   # TODO
-    research: "Molecular clock electronics"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
+    period: "09/2017–05/2022"
+    year_graduated: 2022
+    research: >
+      Design and Analysis of High-Stability THz Molecular Clock System.
+    current_position: ""
+    current_org: "Broadcom"
+    placement_type: "industry"
+    photo: "mina-kim.jpg"
+
+  - slug: nathan-monroe
+    name: "Nathan M. Monroe"
+    category: "phd"
+    degree: "PhD"
+    period: "02/2019–12/2021"
+    year_graduated: 2021
+    research: >
+      High Angular Resolution Beam Steering THz Antenna Arrays for
+      Imaging Applications.
+    current_position: "CEO and Founder"
+    current_org: "Cambridge Terahertz"
+    placement_type: "startup"
+    photo: "nathan-monroe.jpg"
+
+  - slug: xiang-yi
+    name: "Xiang Yi"
+    category: "postdoc"
+    degree: "Postdoc"
+    period: "08/2017–09/2020"
+    year_graduated: 2020
+    research: >
+      Ultra-Broadband THz Radar Transceiver and Full-Duplex Communication
+      and Sensing Circuits.
+    current_position: "Professor"
+    current_org: "South China University of Technology"
+    placement_type: "academia"
+    photo: "xiang-yi.jpg"
 
   - slug: jack-holloway
     name: "Jack W. Holloway"
+    category: "phd"
     degree: "PhD"
-    year_graduated: null   # TODO ~2021
-    research: "THz dielectric waveguide chip-to-chip links (ISSCC 2021)"
-    current_position: ""   # TODO  (he was concurrently at ONR/Raytheon)
-    current_org: ""
+    period: "02/2015–11/2020"
+    year_graduated: 2020
+    research: >
+      Energy Efficient sub-Terahertz Electrical Interconnect.
+    current_position: "Senior Technical Fellow and Director"
+    current_org: "Raytheon"
     placement_type: "industry"
+    photo: "jack-holloway.jpg"
 
-  - slug: mohamed-ashok
-    name: "Mohamed Ashok"
+  - slug: mohamed-ibrahim
+    name: "Mohamed I. Ibrahim"
+    category: "phd"
     degree: "PhD"
-    year_graduated: null   # TODO ~2023
-    research: "Anti-tampering chip-item interface sensing"
-    current_position: ""   # TODO
-    current_org: ""
-    placement_type: "unknown"
+    period: "09/2016–08/2021"
+    year_graduated: 2021
+    research: >
+      Miniaturized Chip-Scale Quantum and Terahertz Systems Through Tight
+      Integration of Electronics, Electromagnetics and Qubits.
+    current_position: "Professor"
+    current_org: "Cornell University"
+    placement_type: "academia"
+    awards:
+      - "2021 MIT MTL Doctoral Dissertation Award"
+      - "IEEE SSCS Predoctoral Achievement Award"
+    photo: "mohamed-ibrahim.jpg"
 
-  - slug: james-mawdsley
-    name: "James Mawdsley"
-    degree: ""   # TODO
-    research: "Molecular clock team"
+  - slug: cheng-wang
+    name: "Cheng Wang"
+    category: "phd"
+    degree: "PhD"
+    period: "09/2015–10/2019"
+    year_graduated: 2019
+    research: >
+      Terahertz Wave-Molecule Interactions via CMOS Chips: From Comb Gas
+      Sensor with Absolute Specificity to Ultra-Stable, Miniaturized
+      Clock.
+    current_position: "Professor"
+    current_org: "UESTC"
+    placement_type: "academia"
+    awards:
+      - "2019 MIT MTL Doctoral Dissertation Award"
+      - "IEEE SSCS Predoctoral Achievement Award"
+    photo: "cheng-wang.jpg"
+
+  - slug: zhi-hu
+    name: "Zhi Hu"
+    category: "phd"
+    degree: "PhD"
+    period: "09/2015–04/2020"
+    year_graduated: 2020
+    research: >
+      Large-Scale High-Density Terahertz Radiator and Receiver Arrays on
+      Silicon Chips.
+    current_position: ""
+    current_org: "SpaceX"
+    placement_type: "industry"
+    awards:
+      - "2020 MIT MTL Doctoral Dissertation Award"
+    photo: "zhi-hu.jpg"
+
+  # ===== M.Eng. =====
+
+  - slug: pranav-kaundinya
+    name: "Pranav Kaundinya"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: "Silicon Labs"
+    placement_type: "industry"
+    photo: "pranav-kaundinya.jpg"
+
+  - slug: elliott-williams
+    name: "David (Elliott) Williams"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: "Ph.D. student"
+    current_org: "Caltech"
+    placement_type: "academia"
+    photo: "elliott-williams.jpg"
+
+  - slug: xingyu-zou
+    name: "Xingyu Zou"
+    category: "meng"
+    degree: "M.Eng."
     current_position: ""
     current_org: ""
     placement_type: "unknown"
+    photo: "xingyu-zou.jpg"
+
+  - slug: yukimi-morimoto
+    name: "Yukimi Morimoto"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+    photo: "yukimi-morimoto.jpg"
+
+  - slug: lejla-skelic
+    name: "Lejla Skelic"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: "Ph.D. student"
+    current_org: "ETH Zürich"
+    placement_type: "academia"
+    photo: "lejla-skelic.jpg"
+
+  - slug: matthew-cox
+    name: "Matthew Cox"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: "Analog Devices, Inc."
+    placement_type: "industry"
+    photo: "matthew-cox.jpg"
+
+  - slug: tiffany-louie
+    name: "Tiffany Louie"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: "Keysight Technologies"
+    placement_type: "industry"
+    photo: "tiffany-louie.jpg"
+
+  # ===== M.S. =====
+
+  - slug: guo-zhang
+    name: "Guo Zhang"
+    category: "ms"
+    degree: "M.S."
+    current_position: "Researcher"
+    current_org: "Prof. Dina Katabi's group (MIT)"
+    placement_type: "academia"
+    photo: "guo-zhang.jpg"
+
+  - slug: mohamed-elsheikh
+    name: "Mohamed Elsheikh"
+    category: "ms"
+    degree: "M.S."
+    current_position: "Researcher"
+    current_org: "Prof. Harry Lee's group (MIT)"
+    placement_type: "academia"
+    photo: "mohamed-elsheikh.jpg"
+
+  # ===== Visiting students / scholars =====
+
+  - slug: luis-valenzuela
+    name: "Luis Valenzuela"
+    category: "visiting"
+    degree: "Summer intern"
+    current_position: "Ph.D. student"
+    current_org: "UC Santa Barbara"
+    placement_type: "academia"
+    photo: "luis-valenzuela.jpg"
+
+  - slug: tingting-shi
+    name: "Tingting Shi"
+    category: "visiting"
+    degree: "Visiting student"
+    current_position: "Ph.D. student"
+    current_org: "Fudan University"
+    placement_type: "academia"
+    photo: "tingting-shi.png"
 
   - slug: zihan-wang
     name: "Zihan Wang"
-    degree: ""   # TODO
-    research: "Molecular clock team"
+    category: "visiting"
+    degree: "Visiting student"
+    current_position: ""
+    current_org: "Fudan University"
+    placement_type: "academia"
+    photo: "zihan-wang.png"
+
+  - slug: lingshan-kong
+    name: "Lingshan Kong"
+    category: "visiting"
+    degree: "Visiting student"
+    research: "from Nanyang Technological University, Singapore"
+    current_position: ""
+    current_org: "Nanyang Technological University, Singapore"
+    placement_type: "academia"
+    photo: "lingshan-kong.jpeg"
+
+  - slug: joshua-lewis
+    name: "Joshua Lewis"
+    category: "visiting"
+    degree: "Visiting student"
+    research: "from University of Illinois at Urbana–Champaign"
+    current_position: ""
+    current_org: "University of Illinois at Urbana–Champaign"
+    placement_type: "academia"
+    photo: "joshua-lewis.jpg"
+
+  - slug: xingcun-li
+    name: "Xingcun Li"
+    category: "visiting"
+    degree: "Visiting student"
+    research: "from Tsinghua University"
+    current_position: ""
+    current_org: "Tsinghua University"
+    placement_type: "academia"
+    photo: "xingcun-li.jpg"
+
+  - slug: ben-yang
+    name: "Ben Yang"
+    category: "visiting"
+    degree: "Visiting high-school student"
+    research: "Tsinghua International School"
+    current_position: ""
+    current_org: "Tsinghua International School"
+    placement_type: "academia"
+    photo: "ben-yang.jpg"
+
+  - slug: rui-ma
+    name: "Rui Ma"
+    category: "visiting"
+    degree: "Visiting scientist"
+    current_position: "Principal Research Scientist"
+    current_org: "Mitsubishi Electric Research Laboratories (MERL)"
+    placement_type: "industry"
+    photo: "rui-ma.png"
+
+  # ===== UROP / SuperUROP =====
+
+  - slug: james-mawdsley
+    name: "Jimmy Mawdsley"
+    category: "urop"
+    degree: "SuperUROP"
+    current_position: ""
+    current_org: "SpaceX"
+    placement_type: "industry"
+    photo: "james-mawdsley.jpeg"
+
+  - slug: ronald-davis
+    name: "Ronald A. Davis"
+    category: "urop"
+    degree: "SuperUROP"
     current_position: ""
     current_org: ""
     placement_type: "unknown"
+    photo: "ronald-davis.jpg"
 
-# TODO: add the remaining ~5 PhD alumni from the group's history (2014–2024).
-# Per the README, 14 PhDs is the stated figure on the mockup — this needs
-# to be verified against your records before publication.
+  - slug: nestor-franco
+    name: "Nestor Franco"
+    category: "urop"
+    degree: "SuperUROP"
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+    photo: "nestor-franco.jpg"
+
+  - slug: junior-neeranartvong
+    name: "Weerachai (Junior) Neeranartvong"
+    category: "urop"
+    degree: "SuperUROP"
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+    photo: "junior-neeranartvong.jpg"
+
+  - slug: aaron-pfitzenmaier
+    name: "Aaron Pfitzenmaier"
+    category: "urop"
+    degree: "SuperUROP"
+    current_position: ""
+    current_org: ""
+    placement_type: "unknown"
+    photo: "aaron-pfitzenmaier.jpg"
+
+  - slug: nikita-romanov
+    name: "Nikita Romanov"
+    category: "urop"
+    degree: "UROP"
+    current_position: "Ph.D. student"
+    current_org: "Harvard"
+    placement_type: "academia"
+    photo: "nikita-romanov.jpg"

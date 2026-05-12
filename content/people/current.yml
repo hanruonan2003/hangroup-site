@@ -1,7 +1,8 @@
 # Current group members.
 # One entry per person. `slug` is used for the URL: /people/<slug>/
-# `photo` paths are relative to people/photos/ (to be added).
+# `photo` paths are relative to people/photos/.
 # `interests` are short tags used on the People grid cards.
+# Order within each group matches the order on hangroup.mit.edu/people/.
 
 phd_students:
 
@@ -22,29 +23,48 @@ phd_students:
       and other novel applications. He was a recipient of the IEEE MTT-S
       Undergraduate/Pre-Graduate Scholarship Award in 2019.
 
-  - slug: pradyot-yadav
-    name: "Pradyot Yadav"
-    email: "yadavps@mit.edu"
-    photo: "pradyot-yadav.jpg"
-    interests: ["sub-THz devices", "heterogeneous integration"]
+  - slug: eunseok-lee
+    name: "Eunseok Lee"
+    email: "eunseok@mit.edu"
+    photo: "eunseok-lee.jpg"
+    interests: ["hardware security", "mmW/THz ICs"]
+    awards:
+      - "Mathwork Fellowship, MIT (2023)"
+      - "Doctoral Study Abroad Scholarship, Korea Foundation for Advanced Studies (2021)"
+      - "Irwin Mark Jacobs and Joan Klein Jacobs MIT Presidential Fellowship (2020)"
     bio: >
-      Pradyot Yadav received his B.S. in electrical engineering with
-      highest honors from the Georgia Institute of Technology in 2022.
-      At Georgia Tech he worked with Prof. Hua Wang and Prof. James Kenney
-      on GaN power amplifier design. His current research interests lie at
-      the intersection of sub-THz devices, circuits, and heterogeneous
-      integration — spanning transistor fabrication in the cleanroom,
-      circuit design, and advanced package processing. He has held R&D
-      internships at Qorvo, Raytheon, and IBM, and serves as a reviewer
-      for IEEE Electron Device Letters.
+      Eunseok Lee (co-advised by Prof. Anantha Chandrakasan) received the
+      B.S. degree in electrical engineering from the Korea Advanced
+      Institute of Science and Technology (KAIST) in 2020, and the M.S.
+      degree in EECS from MIT in 2023, where he is currently pursuing the
+      Ph.D. degree. His research focus is mmWave/THz and hardware-security
+      systems for low-power, ultra-miniaturized platforms — spanning
+      digital, analog/mixed-signal, and THz ICs.
+
+  - slug: xibi-chen
+    name: "Xibi Chen"
+    email: "xibichen@mit.edu"
+    photo: "xibi-chen.jpg"
+    interests: ["FMCW radar", "sub-THz circuits"]
+    bio: >
+      Xibi Chen is a Ph.D. student in the Terahertz Integrated Electronics
+      Group at MIT. He received his B.S. and M.S. degrees from the
+      Department of Electronic Engineering, Tsinghua University, Beijing,
+      China, in 2017 and 2020, respectively. From 2015 to 2020 he was a
+      Research Assistant at the Microwave and Antenna Institute, Tsinghua
+      University. His work at MIT includes 140-GHz FMCW monostatic radar
+      transceivers (ISSCC 2022, JSSC 2022).
 
   - slug: daniel-sheen
     name: "Daniel Sheen"
     email: "dsheen@mit.edu"
     photo: "daniel-sheen.jpg"
     interests: ["radio telescopes", "phased arrays"]
+    awards:
+      - "2022 Analog Devices Graduate Fellowship"
     bio: >
-      Daniel Sheen received his B.S. in Electrical Science and Engineering
+      Daniel Sheen (co-advised by Dr. Frank Lind at MIT Haystack
+      Observatory) received his B.S. in Electrical Science and Engineering
       in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
       he worked at Haystack Observatory, designing the UHF phased array
       feed currently in use at the Westford Radio Telescope. He then
@@ -53,23 +73,110 @@ phd_students:
       to MIT as an Analog Devices Graduate Fellow, working jointly with
       Haystack Observatory and the Terahertz Integrated Electronics Group.
 
-  - slug: eunseok-lee
-    name: "Eunseok Lee"
-    email: "eunseok@mit.edu"
-    photo: "eunseok-lee.jpg"
-    interests: ["hardware security", "cryptographic tags"]
+  - slug: mingran-jia
+    name: "Mingran Jia"
+    email: "mingran@mit.edu"
+    photo: "mingran-jia.png"
+    interests: ["mmW/THz circuits"]
     bio: >
-      # TODO: paste Eunseok's bio from the site
+      Mingran Jia (co-advised by Prof. Anantha Chandrakasan) received his
+      B.S. in Electromagnetic Field and Wireless Technology from the
+      Department of Electronic Science and Engineering, University of
+      Electronic Science and Technology of China (UESTC) in 2021. He is
+      currently pursuing the Ph.D. degree at MIT's Microsystem Technology
+      Laboratories (MTL) in the Department of Electrical Engineering and
+      Computer Science.
 
-  - slug: cole-brabec
-    name: "Cole Brabec"
-    email: "cbrabec@mit.edu"
-    photo: "cole-brabec.png"
-    interests: ["analog circuits"]
+  - slug: jaehong-jung
+    name: "Jaehong Jung"
+    email: "jung0214@mit.edu"
+    photo: "jaehong-jung.jpg"
+    interests: ["clock generation", "high-speed serial links"]
     bio: >
-      Cole Brabec is a PhD student with the Terahertz Integrated
-      Electronics Group at MIT. Cole received his B.S. in Electrical
-      Engineering from the California Institute of Technology in 2021.
+      Jaehong Jung (co-advised by Prof. Anantha Chandrakasan) received the
+      B.S. and M.S. degrees in semiconductor systems engineering from
+      Sungkyunkwan University, Suwon, South Korea, in 2015 and 2017. He is
+      currently pursuing the Ph.D. at MIT EECS. Since 2017 he has been
+      with Samsung Electronics, Hwaseong, focused on high-quality clock
+      generation ICs including PLLs, DLLs, on-chip oscillators, and
+      crystal oscillators for SoC platforms and RF transceivers. His
+      interests include high-speed serial links, clock generation ICs,
+      ultra-low power ICs, and fully synthesized calibration algorithms.
+
+  - slug: yan-xu
+    name: "Yan Xu"
+    email: "yanx1326@mit.edu"
+    photo: "yan-xu.jpg"
+    interests: ["wireless data transfer", "implantable systems"]
+    bio: >
+      Yan Xu received the B.S. degree in Microelectronics Science and
+      Engineering from the University of Electronic Science and Technology
+      of China (UESTC) in 2023. She is currently pursuing the Ph.D. degree
+      in the Department of Electrical Engineering and Computer Science
+      (EECS) at MIT. During her Bachelor's she interned as a research
+      assistant in the Rice Integrated Systems and Electromagnetics (RISE)
+      Lab, working on implantable wireless data transfer.
+
+  - slug: pradyot-yadav
+    name: "Pradyot Yadav"
+    email: "yadavps@mit.edu"
+    photo: "pradyot-yadav.jpg"
+    interests: ["sub-THz devices", "heterogeneous integration"]
+    bio: >
+      Pradyot Yadav (co-advised by Prof. Tomás Palacios) received his B.S.
+      in electrical engineering with highest honors from the Georgia
+      Institute of Technology in 2022. At Georgia Tech he worked with
+      Prof. Hua Wang and Prof. James Kenney on GaN power amplifier design.
+      His current research interests lie at the intersection of sub-THz
+      devices, circuits, and heterogeneous integration — spanning
+      transistor fabrication in the cleanroom, circuit design, and
+      advanced package processing. He has held R&D internships at Qorvo,
+      Raytheon, and IBM, and serves as a reviewer for IEEE Electron Device
+      Letters.
+
+  - slug: krishna-pochana
+    name: "Krishna Pochana"
+    email: "kpochana@mit.edu"
+    photo: "krishna-pochana.jpg"
+    interests: ["mmW/THz platforms", "imaging", "biomedical"]
+    bio: >
+      Krishna Pochana received his B.S. degree in Electrical Engineering
+      from the California Institute of Technology (Caltech) in 2024. He is
+      currently pursuing a Ph.D. in Electrical Engineering and Computer
+      Science in the Terahertz Integrated Electronics Group at MIT. His
+      research interests are in mmWave/THz platforms for low-power,
+      ultra-miniaturized systems in application spaces including robotics,
+      biomedicine, imaging, and other novel areas.
+
+  - slug: nicholas-lee
+    name: "Nicholas (Sihyun) Lee"
+    email: "nsihyun@mit.edu"
+    photo: "nicholas-lee.jpg"
+    interests: ["wireline communication"]
+    awards:
+      - "2025 Grass Instrument Company Fellowship"
+    bio: >
+      Nicholas (Sihyun) Lee received his B.S. in Electrical and Computer
+      Engineering from Seoul National University in 2025. He is currently
+      pursuing a Ph.D. in EECS in the Terahertz Integrated Electronics
+      Group at MIT. At SNU he was a research intern in the Integrated
+      Circuits and Systems for Computing and Communication (IC3) Lab,
+      where he worked on next-generation equalizers for high-speed
+      wireline communication.
+
+  - slug: tyler-weigand
+    name: "Tyler Weigand"
+    email: "tweigand@mit.edu"
+    photo: "tyler-weigand.jpg"
+    interests: ["mmW/THz circuits", "quantum computing"]
+    bio: >
+      Tyler Weigand received his B.S. in Electrical Engineering and
+      Computer Science from UC Berkeley in 2025. He is currently pursuing
+      a Ph.D. in EECS in the Terahertz Integrated Electronics Group at
+      MIT. During his Bachelor's he worked on integrated-circuit design
+      for mm-wave RF-over-fiber receivers. His research interests are in
+      novel applications of mm-wave/THz circuits for sensing,
+      communications, quantum computing, and more.
 
   - slug: sanjay-chintapally
     name: "Sanjay Chintapally"
@@ -88,37 +195,47 @@ phd_students:
       sub-THz integrated circuits and applied electromagnetics for
       communication, sensing, and other emerging applications.
 
-  - slug: tyler-weigand
-    name: "Tyler Weigand"
-    email: "tweigand@mit.edu"
-    photo: "tyler-weigand.jpg"
-    interests: ["mmW/THz circuits", "quantum computing"]
-    bio: >
-      Tyler Weigand received his B.S. in Electrical Engineering and
-      Computer Science from UC Berkeley in 2025. He is currently pursuing
-      a Ph.D. in EECS in the Terahertz Integrated Electronics Group at
-      MIT. During his Bachelor's he worked on integrated-circuit design
-      for mm-wave RF-over-fiber receivers. His research interests are in
-      novel applications of mm-wave/THz circuits for sensing,
-      communications, quantum computing, and more.
-
-  - slug: nicholas-lee
-    name: "Nicholas (Sihyun) Lee"
-    email: "nsihyun@mit.edu"
-    photo: "nicholas-lee.jpg"
-    interests: ["wireline communication"]
+  - slug: cole-brabec
+    name: "Cole Brabec"
+    email: "cbrabec@mit.edu"
+    photo: "cole-brabec.png"
+    interests: ["ultrafast optoelectronics", "sensing theory"]
     awards:
-      - "2025 Grass Instrument Company Fellowship"
+      - "2022 Hertz Finalist"
+      - "2020 Donald S. Clark Award, Caltech"
     bio: >
-      Nicholas (Sihyun) Lee received his B.S. in Electrical and Computer
-      Engineering from Seoul National University in 2025. He is currently
-      pursuing a Ph.D. in EECS in the Terahertz Integrated Electronics
-      Group at MIT. At SNU he was a research intern in the Integrated
-      Circuits and Systems for Computing and Communication (IC3) Lab,
-      where he worked on next-generation equalizers for high-speed
-      wireline communication.
+      Cole Brabec is a Ph.D. student with the Terahertz Integrated
+      Electronics Group at MIT. He received his B.S. in Electrical
+      Engineering from the California Institute of Technology in 2021.
+      His research focuses include ultrafast optoelectronic systems and
+      sensing theory.
+
+  - slug: alec-yen
+    name: "Alec Yen"
+    email: "alecyen@mit.edu"
+    photo: "alec-yen.jpg"
+    interests: ["terahertz integrated systems", "analog ICs"]
+    bio: >
+      Alec Yen is from Tullahoma, TN. He received the B.S. degree
+      (summa cum laude) in Electrical Engineering from the University of
+      Tennessee, Knoxville in 2020. His undergraduate research focused on
+      analog integrated circuits, with past research in neuromorphic
+      hardware, facial recognition, and power systems. He is currently a
+      Ph.D. student in the EECS department at MIT, with a focus in
+      terahertz integrated systems.
 
 masters_students:
+
+  - slug: kyle-heinz
+    name: "Kyle Heinz"
+    email: "kyleh51@mit.edu"
+    photo: "kyle-heinz.jpg"
+    interests: []
+    bio: >
+      Kyle Heinz is a Master of Engineering student in the Terahertz
+      Integrated Electronics Group, Microsystem Technology Laboratories
+      (MTL), at MIT EECS. He received his B.S. from MIT EECS in 2025 and
+      has been a Research Assistant with TIEG since 2024.
 
   - slug: youran-gao
     name: "Youran (Yoland) Gao"
@@ -128,15 +245,22 @@ masters_students:
     bio: >
       Youran (Yoland) Gao received his SB in Electrical Engineering and
       Computer Science from MIT in 2025. He is currently pursuing an
-      MEng in the Terahertz Integrated Electronics Group at MIT EECS.
+      M.Eng. in the Terahertz Integrated Electronics Group at MIT EECS.
+
+undergrad_students:
+
+  - slug: jason-li
+    name: "Jason Li"
+    email: "jason_li@mit.edu"
+    photo: "jason-li.png"
+    interests: ["mmWave IC design", "mixed-signal ICs"]
+    bio: >
+      Jason Li is a third-year undergraduate student majoring in
+      Electrical Engineering at MIT. He has previously interned at
+      Microsoft, Lockheed Martin, and Infineon Technologies in roles
+      spanning software engineering, systems engineering, and power
+      management IC (PMIC) design. His interests include electromagnetics,
+      millimeter-wave integrated circuit (mmWave IC) design, and
+      mixed-signal IC design.
 
 postdocs: []
-  # TODO: add postdocs if any. Ava Bowen (admin assistant) is in
-  # site.yml under contact.admin, not here.
-
-# TODO: confirm whether the following names from the WordPress page
-# are still current, alumni, or never joined:
-#   - Kathleen Brody
-#   - Aaron Pfitzenmaier
-#   - Xingyu Zou
-#   - Xingcun Li  (likely visiting from Tsinghua; verify)
