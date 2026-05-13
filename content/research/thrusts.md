@@ -127,6 +127,8 @@ chip, dual-comb spectrometer.
 
 **Tag:** `security`
 
+**Figure:** anti-tampering-tag.png
+
 **Current description:**
 
 As chips spread into every supply chain, payment terminal, and
