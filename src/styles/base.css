@@ -8,6 +8,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
   color: var(--color-fg);
   background: var(--color-bg);
 }
