@@ -12,6 +12,19 @@ const thrustsSorted = [...thrusts].sort((a, b) => a.data.number - b.data.number)
 
 // Build a quick lookup by citation key.
 const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
+
+// Bundle every figure under content/research/figures/ so Vite emits each to
+// dist/_astro/ at build time. Look up by filename — the thrust `figure`
+// field is the bare filename, not a path.
+const figureUrlModules = import.meta.glob<string>(
+  "../../content/research/figures/*.{svg,png,jpg,jpeg}",
+  { eager: true, query: "?url", import: "default" },
+);
+const figureUrlByName: Record<string, string> = {};
+for (const [path, urlValue] of Object.entries(figureUrlModules)) {
+  const name = path.split("/").pop()!;
+  figureUrlByName[name] = urlValue;
+}
 ---
 
 <BaseLayout
@@ -55,13 +68,24 @@ const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
             )}
           </div>
 
-          {td.figures_todo && (
+          {td.figure && figureUrlByName[td.figure] && (
+            <figure class="thrust__figure">
+              <img
+                src={figureUrlByName[td.figure]}
+                alt={`Representative figure for ${td.title}`}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          )}
+
+          {!td.figure && td.figures_todo && (
             <aside class="thrust__figures-todo mono" aria-label="Figures to add">
               <p class="thrust__figures-label">Figures to add</p>
               <p class="thrust__figures-text">{td.figures_todo}</p>
               <p class="thrust__figures-hint">
-                Drop image files into <code>public/research/figures/</code>
-                and add a <code>figures:</code> field to this thrust to surface them here.
+                Drop image files into <code>content/research/figures/</code>
+                and add a <code>**Figure:**</code> line to this thrust to surface one here.
               </p>
             </aside>
           )}
@@ -206,6 +230,20 @@ const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
     border-left: 2px solid var(--color-amber);
     padding-left: var(--space-3);
     margin-top: var(--space-3);
+  }
+
+  .thrust__figure {
+    margin: 0 0 var(--space-4) 0;
+    max-width: 100%;
+  }
+
+  .thrust__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 720px;
+    border: 0.5px solid var(--color-border);
+    background: var(--color-gray-tint);
   }
 
   .thrust__figures-todo {

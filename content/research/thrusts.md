@@ -16,6 +16,8 @@ from publications.bib that the build script should surface on the page.
 
 **Tag:** `imaging-radar`
 
+**Figure:** 265ghz-reflectarray-slide.jpg
+
 **Current description:**
 
 A radar that fits on a credit card, sees through fog, and resolves

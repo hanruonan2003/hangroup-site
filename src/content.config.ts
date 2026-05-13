@@ -232,6 +232,7 @@ const research = defineCollection({
     description_paragraphs: z.array(z.string()),
     description_is_stale: z.boolean(),
     publications: z.array(z.string()),
+    figure: z.string().default(""),
     figures_todo: z.string(),
   }),
 });

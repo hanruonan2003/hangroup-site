@@ -13,6 +13,8 @@ export interface Thrust {
   description_is_stale: boolean;
   /** BibTeX citation keys the build script will resolve against the publications collection. */
   publications: string[];
+  /** Optional filename under content/research/figures/ rendered as the thrust hero. */
+  figure: string;
   /** Free-text description of figures that should ultimately go here. */
   figures_todo: string;
 }
@@ -101,6 +103,9 @@ export function parseThrusts(text: string): Thrust[] {
       ? figMatch[1]!.trim().replace(/\s+/g, " ")
       : "";
 
+    const figureMatch = body.match(/\*\*Figure:\*\*\s*([^\n]+)/);
+    const figure = figureMatch ? figureMatch[1]!.trim() : "";
+
     thrusts.push({
       slug,
       number,
@@ -109,6 +114,7 @@ export function parseThrusts(text: string): Thrust[] {
       description_paragraphs,
       description_is_stale,
       publications,
+      figure,
       figures_todo,
     });
   }
