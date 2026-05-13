@@ -162,6 +162,8 @@ demonstration, cryptographic wake-up receiver.
 
 **Tag:** `quantum`
 
+**Figure:** quantum_controller.png
+
 **Current description:**
 
 Scaling quantum computers from today's tens of qubits to the millions
