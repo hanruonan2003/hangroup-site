@@ -31,11 +31,6 @@ function topicLink(tags: string[]): string {
     <header class="research__header">
       <h1 class="research__h1">Research</h1>
       <p class="research__lead">{siteEntry.data.site.description}</p>
-      <nav class="research__toc mono" aria-label="Thrusts">
-        {thrustsSorted.map((t) => (
-          <a href={`#${t.data.slug}`}>{t.data.number}. {t.data.title}</a>
-        ))}
-      </nav>
     </header>
 
     {thrustsSorted.map((t) => {

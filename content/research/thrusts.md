@@ -12,15 +12,22 @@ from publications.bib that the build script should surface on the page.
 
 ---
 
-## 1. THz Sensing and Imaging
+## 1. Imaging and Radar
 
 **Tag:** `imaging-radar`
 
-**Current description (NEEDS REWRITE):**
+**Current description:**
 
-Highly sensitive sensors and imagers operating in the terahertz regime,
-enabling chemical identification, security screening, and high-resolution
-imaging in CMOS.
+A radar that fits on a credit card, sees through fog, and resolves
+millimeter-scale features at automotive distances would change how
+machines perceive the world. LiDAR is precise but fails in degraded
+weather; microwave radar is robust but bulky. The sub-terahertz band
+sits at the sweet spot — short enough wavelengths for compact apertures,
+long enough for atmospheric transparency. Realizing it in silicon CMOS
+requires solving three coupled problems: pushing chirp bandwidth near
+the transistor cutoff, duplexing TX and RX without inherent loss, and
+steering the beam across a wide field of view without mechanical
+scanning.
 
 **Representative publications:**
 - monroe2022reflectarray
