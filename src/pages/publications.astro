@@ -87,7 +87,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
           />
         </label>
 
-        <details class="pubs__filter-group" open>
+        <details class="pubs__filter-group" id="filter-year">
           <summary class="pubs__filter-summary mono">Year</summary>
           <div class="pubs__chips">
             {allYears.map((y) => (
@@ -103,7 +103,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
           </div>
         </details>
 
-        <details class="pubs__filter-group" open>
+        <details class="pubs__filter-group" id="filter-venue">
           <summary class="pubs__filter-summary mono">Venue</summary>
           <div class="pubs__chips">
             {allVenues.map((v) => (
@@ -119,7 +119,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
           </div>
         </details>
 
-        <details class="pubs__filter-group" open>
+        <details class="pubs__filter-group" id="filter-topic">
           <summary class="pubs__filter-summary mono">Topic</summary>
           <div class="pubs__chips">
             {allTopics.map((t) => (
@@ -361,6 +361,10 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
         chip.classList.add("is-active");
         chip.setAttribute("aria-pressed", "true");
       }
+    }
+    if (set.size > 0) {
+      const details = document.getElementById(`filter-${group}`) as HTMLDetailsElement | null;
+      if (details) details.open = true;
     }
   }
   const params = new URLSearchParams(window.location.search);
