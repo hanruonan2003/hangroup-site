@@ -29,7 +29,6 @@ const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a));
 >
   <section class="container news-page">
     <header class="news-page__header">
-      <p class="news-page__eyebrow mono">{news.length} items</p>
       <h1 class="news-page__h1">News</h1>
     </header>
 
@@ -39,7 +38,6 @@ const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a));
         <section class="year-section" id={`y${year}`}>
           <h2 class="year-section__h2">
             <span class="year-section__num mono">{year}</span>
-            <span class="year-section__count mono">{items.length}</span>
           </h2>
           <ul class="news-list">
             {items.map((n) => (
