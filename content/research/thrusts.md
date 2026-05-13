@@ -89,6 +89,8 @@ demonstration, wake-up receiver photos.
 
 **Tag:** `molecular-atomic`, `frequency-synthesis`
 
+**Figure:** molecular-clock-slide.jpg
+
 **Current description:**
 
 Polar molecules have rotational transitions in the sub-terahertz band
