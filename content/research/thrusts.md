@@ -102,21 +102,36 @@ chip, dual-comb spectrometer.
 
 ---
 
-## 4. Hardware Security and Tags
+## 4. Hardware Security
 
 **Tag:** `security`
 
-**Current description (NEEDS REWRITE):**
+**Current description:**
 
-Package-less, chip-scale identification and authentication tags
-operating in the sub-THz band — combining backscatter communication,
-asymmetric cryptography, and physically unclonable interface scattering.
+As chips spread into every supply chain, payment terminal, and
+connected device, the attack surface has moved from the algorithm to
+the silicon itself — counterfeit components, tampered packages,
+side-channel leakage, and physical replay all bypass conventional
+cryptography. We exploit sub-terahertz waves to push security down to
+the physics layer. Wavelengths near 1 mm interact with chip-scale
+features in ways too small to clone, sense, or substitute:
+package-less identification tags use backscatter at 260 GHz for
+unforgeable authentication, anti-tampering tags read unclonable
+scattering signatures at the chip-item interface, and
+orbital-angular-momentum modes carry signals with inherent
+eavesdropping resistance. Beyond crypto, the chip itself becomes the
+root of trust.
 
 **Representative publications:**
-- khan2020thzid
-- thzid_isscc_2020
-- lee2024antitamper
-- lee2024wakeup
+- lee2026self
+- jia2025retro
+- lee2024packageless
+- lee2024antitampering
+- lee2024264
+- khan2022thz
+- woo2022physical
+- khan2021cmos
+- ibrahim2020thzid
 
 **Figures to include:** THz-ID chip, packageless anti-tamper backscatter
 demonstration, cryptographic wake-up receiver.
