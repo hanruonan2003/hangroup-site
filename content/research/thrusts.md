@@ -50,18 +50,33 @@ radar, and the FMCW comb radar.
 
 **Tag:** `communication`, `interconnect`
 
-**Current description (NEEDS REWRITE):**
+**Current description:**
 
-Wireless and wired communication at sub-THz frequencies using novel
-modulation schemes (OAM), dielectric waveguides, and integrated
-antennas — pushing toward 100+ Gbps per link.
+As digital systems scale to deliver hundreds of gigabits per second
+between chips, between racks, and between cryogenic and
+room-temperature stages of quantum machines, the interconnect has
+become the bottleneck — copper traces lose signal at higher
+frequencies, and adding more parallel lanes burns area and power.
+The sub-terahertz band opens a clean path: wavelengths near 1 mm fit
+on a chip, can be steered with on-die antennas, and propagate
+efficiently through plastic dielectric waveguides without the
+electrical loss and return-current management of conventional metal
+lines. We build the integrated circuits that close those links. Our
+CMOS and SiGe chips drive 105 Gbps over a single dielectric
+waveguide, transmit and detect orbital-angular-momentum modes to
+spatially multiplex channels at 0.31 THz, sustain in-band full-duplex
+operation from 300 K down to 4.2 K, and integrate microwatt-class
+wake-up receivers so always-on links don't drain the battery.
 
 **Representative publications:**
-- khan2021oam_rfic
-- khan2021oam_jssc
-- holloway2021link
-- yi2020fullduplex
-- lee2024wakeup
+- wang2025bidirectional
+- lee2024264
+- lee202354mm
+- khan2022thz
+- khan202131thz
+- holloway2021105gbps
+- yi2021realization
+- holloway2017fully
 
 **Figures to include:** OAM transceiver chip, dielectric waveguide link
 demonstration, wake-up receiver photos.
