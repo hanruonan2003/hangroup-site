@@ -3,20 +3,12 @@ import { getEntry } from "astro:content";
 
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
-const { site, contact } = siteEntry.data;
-const { address } = contact;
+const { site } = siteEntry.data;
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <p class="site-footer__address mono">
-      <span>MIT {site.unit}</span>
-      <span aria-hidden="true"> · </span>
-      <span>{address.building}</span>
-      <span aria-hidden="true"> · </span>
-      <span>{address.street}, {address.city}, {address.state} {address.zip}</span>
-    </p>
     <p class="site-footer__meta">
       © {year} {site.name}, MIT
     </p>
@@ -34,14 +26,6 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-  }
-
-  .site-footer__address {
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1);
   }
 
   .site-footer__meta {
