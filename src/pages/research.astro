@@ -1,13 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PersonPhoto from "../components/PersonPhoto.astro";
 import { getCollection, getEntry } from "astro:content";
-import { interestsMatchThrust } from "../lib/research.ts";
 import { url } from "../lib/url.ts";
 
 const thrusts = await getCollection("research");
 const publications = await getCollection("publications");
-const people = await getCollection("people");
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
 
@@ -15,12 +12,6 @@ const thrustsSorted = [...thrusts].sort((a, b) => a.data.number - b.data.number)
 
 // Build a quick lookup by citation key.
 const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
-
-// Build a publications-page deep link URL like /publications/?topic=imaging-radar,communication
-function topicLink(tags: string[]): string {
-  const q = encodeURIComponent(tags.join(","));
-  return `/publications/?topic=${q}`;
-}
 ---
 
 <BaseLayout
@@ -42,14 +33,10 @@ function topicLink(tags: string[]): string {
         })
         .sort((a, b) => b.data.sort_key - a.data.sort_key);
       const missingPubs = td.publications.filter((k) => !pubsByKey.has(k));
-      const thrustPeople = people.filter((p) =>
-        interestsMatchThrust(p.data.interests, { tags: td.tags }),
-      );
 
       return (
         <article class="thrust" id={td.slug}>
           <header class="thrust__header">
-            <p class="thrust__num mono">{String(td.number).padStart(2, "0")}</p>
             <h2 class="thrust__title">{td.title}</h2>
             <ul class="thrust__tags mono">
               {td.tags.map((tag) => (
@@ -100,40 +87,10 @@ function topicLink(tags: string[]): string {
                 })}
               </p>
             )}
-            <p class="thrust__seeall mono">
-              <a href={topicLink(td.tags)}>
-                See all {td.tags.join(" + ")} papers →
-              </a>
-            </p>
             {missingPubs.length > 0 && (
               <p class="thrust__missing mono">
                 <em>{`{{TODO: ${missingPubs.length} citation key${missingPubs.length === 1 ? "" : "s"} listed in thrusts.md not found in publications.bib: ${missingPubs.join(", ")}}}`}</em>
               </p>
-            )}
-          </section>
-
-          <section class="thrust__sub" aria-labelledby={`${td.slug}-people`}>
-            <h3 class="thrust__sub-h3" id={`${td.slug}-people`}>
-              Working on this
-            </h3>
-            {thrustPeople.length === 0 ? (
-              <p class="thrust__sub-empty mono">
-                <em>{`{{TODO: no current members' interests overlap this thrust's tags — edit content/people/current.yml to add matching interest tags}}`}</em>
-              </p>
-            ) : (
-              <ul class="thrust__people">
-                {thrustPeople.map((p) => (
-                  <li class="thrust-person">
-                    <a class="thrust-person__link" href={url(`/people/${p.data.slug}/`)}>
-                      <PersonPhoto name={p.data.name} slug={p.data.slug} size="small" />
-                      <div class="thrust-person__body">
-                        <p class="thrust-person__name">{p.data.name}</p>
-                        <p class="thrust-person__role mono">{p.data.role}</p>
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
             )}
           </section>
         </article>
@@ -204,13 +161,6 @@ function topicLink(tags: string[]): string {
 
   .thrust__header {
     margin-bottom: var(--space-5);
-  }
-
-  .thrust__num {
-    font-size: var(--text-xl);
-    color: var(--color-accent);
-    font-weight: var(--weight-medium);
-    margin-bottom: var(--space-2);
   }
 
   .thrust__title {
@@ -333,23 +283,6 @@ function topicLink(tags: string[]): string {
     color: var(--color-fg-faint);
   }
 
-  .thrust__seeall {
-    font-size: var(--text-xs);
-    margin-top: var(--space-3);
-  }
-
-  .thrust__seeall a {
-    color: var(--color-fg);
-    text-decoration: none;
-    border-bottom: 0.5px solid var(--color-border);
-    padding-bottom: 1px;
-  }
-
-  .thrust__seeall a:hover {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
-  }
-
   .thrust__missing {
     font-size: var(--text-xs);
     color: var(--color-fg-faint);
@@ -357,38 +290,4 @@ function topicLink(tags: string[]): string {
     line-height: 1.5;
   }
 
-  .thrust__people {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: var(--space-3);
-  }
-
-  .thrust-person__link {
-    display: flex;
-    gap: var(--space-3);
-    text-decoration: none;
-    color: var(--color-fg);
-    align-items: center;
-  }
-
-  .thrust-person__link:hover .thrust-person__name {
-    color: var(--color-accent);
-  }
-
-  .thrust-person__body {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .thrust-person__name {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-  }
-
-  .thrust-person__role {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    margin-top: 2px;
-  }
 </style>
