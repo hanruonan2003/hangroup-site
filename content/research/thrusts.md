@@ -135,3 +135,38 @@ root of trust.
 
 **Figures to include:** THz-ID chip, packageless anti-tamper backscatter
 demonstration, cryptographic wake-up receiver.
+
+---
+
+## 5. Quantum Information and Sensing
+
+**Tag:** `quantum`
+
+**Current description:**
+
+Scaling quantum computers from today's tens of qubits to the millions
+required for error-corrected machines is increasingly a classical
+hardware problem: how to control, read out, and connect quantum
+processors at cryogenic temperatures without flooding the system with
+heat or wires. We bring silicon CMOS to that interface. Our chips
+integrate scalable quantum magnetometers based on diamond
+nitrogen-vacancy centers, cryo-CMOS controllers that drive
+color-center qubits at 4 K, and wireless terahertz datalinks that
+replace coaxial cables between cold quantum processors and
+room-temperature classical control — approaching the fundamental
+thermodynamic limit of information transfer in the process.
+
+**Representative publications:**
+- wang2026cryo
+- wang2025bidirectional
+- wang2024cmos
+- anders2023cmos
+- wang2023thzcryo
+- li2022scalable
+- ibrahim2021high
+- ibrahim2019scalable
+- trusheim2019cmos
+
+**Figures to include:** cryo-CMOS color-center quantum controller chip,
+bidirectional THz cryogenic datalink, CMOS-integrated NV-center
+magnetometer array.
