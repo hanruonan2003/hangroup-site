@@ -1,21 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
-import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../lib/authorship.ts";
 import { url } from "../lib/url.ts";
 
 const publications = await getCollection("publications");
-const people = await getCollection("people");
 const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
 
-const piName = siteEntry.data.pi.name;
 const scholarUrl = siteEntry.data.pi.scholar;
-
-const primarySet = buildPrimaryAuthorSet([
-  piName,
-  ...people.map((p) => p.data.name),
-]);
 
 // Sort newest-first.
 const sorted = [...publications].sort(
@@ -192,17 +184,12 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
                     </div>
                     <h3 class="entry__title">{d.title}</h3>
                     <p class="entry__authors">
-                      {d.authors.map((a, i) => {
-                        const isPrimary = isPrimaryAuthor(a, primarySet);
-                        return (
-                          <>
-                            {i > 0 && <span class="entry__sep" aria-hidden="true">, </span>}
-                            <span class={isPrimary ? "entry__author entry__author--primary" : "entry__author entry__author--muted"}>
-                              {renderAuthorText(a)}
-                            </span>
-                          </>
-                        );
-                      })}
+                      {d.authors.map((a, i) => (
+                        <>
+                          {i > 0 && <span class="entry__sep" aria-hidden="true">, </span>}
+                          <span class="entry__author">{renderAuthorText(a)}</span>
+                        </>
+                      ))}
                     </p>
                     {d.container && d.container !== d.venue && (
                       <p class="entry__container">{d.container}{d.pages ? `, pp. ${d.pages}` : ""}</p>
@@ -631,14 +618,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     font-size: var(--text-sm);
     line-height: 1.5;
     margin-bottom: var(--space-2);
-  }
-
-  .entry__author--primary {
-    color: var(--color-fg);
-  }
-
-  .entry__author--muted {
-    color: var(--color-fg-faint);
   }
 
   .entry__sep {
