@@ -1,16 +1,11 @@
 ---
-import { getEntry } from "astro:content";
-
-const siteEntry = await getEntry("site", "site");
-if (!siteEntry) throw new Error("site.yml not loaded");
-const { site } = siteEntry.data;
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p class="site-footer__meta">
-      © {year} {site.name}, MIT
+      © {year} Terahertz Integrated Electronics Group, MIT
     </p>
   </div>
 </footer>
