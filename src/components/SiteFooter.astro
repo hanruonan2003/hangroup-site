@@ -1,4 +1,6 @@
 ---
+import { url } from "../lib/url.ts";
+
 const year = new Date().getFullYear();
 ---
 
@@ -7,6 +9,35 @@ const year = new Date().getFullYear();
     <p class="site-footer__meta">
       © {year} Terahertz Integrated Electronics Group, MIT
     </p>
+    <div class="site-footer__affiliations" aria-label="Affiliations: MIT, RLE, MTL">
+      <a
+        class="affiliation-logo affiliation-logo--mit"
+        href="https://www.mit.edu/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Massachusetts Institute of Technology"
+      >
+        <img src={url("/logos/mit.png")} alt="MIT" />
+      </a>
+      <a
+        class="affiliation-logo"
+        href="https://www.rle.mit.edu/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Research Laboratory of Electronics at MIT"
+      >
+        <img src={url("/logos/rle-mark.png")} alt="RLE" />
+      </a>
+      <a
+        class="affiliation-logo"
+        href="https://www.mtl.mit.edu/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Microsystems Technology Laboratories at MIT"
+      >
+        <img src={url("/logos/mtl-mark.png")} alt="MTL" />
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -20,11 +51,52 @@ const year = new Date().getFullYear();
   .site-footer__inner {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  @media (min-width: 720px) {
+    .site-footer__inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-6);
+    }
   }
 
   .site-footer__meta {
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
+  }
+
+  .site-footer__affiliations {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .affiliation-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 0;
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+  }
+
+  .affiliation-logo:hover {
+    opacity: 1;
+  }
+
+  .affiliation-logo img {
+    height: 20px;
+    width: auto;
+    display: block;
+  }
+
+  /* MIT wordmark ships as a flat black mark; invert it to white for the
+     dark theme. RLE and MTL keep their brand colors. */
+  .affiliation-logo--mit img {
+    filter: invert(1);
   }
 </style>

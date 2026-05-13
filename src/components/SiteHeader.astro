@@ -31,35 +31,6 @@ const isActive = (href: string): boolean => {
     <a class="site-mark" href={url("/")} aria-label={`${siteName} home`}>
       <span class="site-mark__square" aria-hidden="true"></span>
       <span class="site-mark__name">{siteName}</span>
-      <span class="site-mark__affiliations" aria-label="Affiliations: MIT, RLE, MTL">
-        <a
-          class="affiliation-logo affiliation-logo--mit"
-          href="https://www.mit.edu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Massachusetts Institute of Technology"
-        >
-          <img src={url("/logos/mit.png")} alt="MIT" />
-        </a>
-        <a
-          class="affiliation-logo"
-          href="https://www.rle.mit.edu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Research Laboratory of Electronics at MIT"
-        >
-          <img src={url("/logos/rle-mark.png")} alt="RLE" />
-        </a>
-        <a
-          class="affiliation-logo affiliation-logo--mtl"
-          href="https://www.mtl.mit.edu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Microsystems Technology Laboratories at MIT"
-        >
-          <img src={url("/logos/mtl-mark.png")} alt="MTL" />
-        </a>
-      </span>
     </a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
@@ -124,59 +95,6 @@ const isActive = (href: string): boolean => {
   .site-mark__name {
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
-  }
-
-  /* Affiliation logos — tight horizontal cluster linking to MIT / RLE / MTL.
-     A thin hairline rule separates the cluster from the group name; logos
-     sit at uniform 20px height with 70% opacity (full opacity on hover) so
-     they read as muted institutional signals rather than competing focal
-     points with the group name. Hidden under 700px to save header space. */
-  .site-mark__affiliations {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    margin-left: 8px;
-  }
-
-  .site-mark__affiliations::before {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 16px;
-    background: var(--color-border);
-    margin-right: 14px;
-    flex-shrink: 0;
-  }
-
-  .affiliation-logo {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    line-height: 0;
-    opacity: 0.7;
-    transition: opacity 0.15s ease;
-  }
-
-  .affiliation-logo:hover {
-    opacity: 1;
-  }
-
-  .affiliation-logo img {
-    height: 20px;
-    width: auto;
-    display: block;
-  }
-
-  /* MIT wordmark ships as a flat black mark; invert it to white for the
-     dark theme. RLE and MTL keep their brand colors. */
-  .affiliation-logo--mit img {
-    filter: invert(1);
-  }
-
-  @media (max-width: 700px) {
-    .site-mark__affiliations {
-      display: none;
-    }
   }
 
   .site-nav ul {
