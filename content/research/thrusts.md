@@ -123,10 +123,9 @@ eavesdropping resistance. Beyond crypto, the chip itself becomes the
 root of trust.
 
 **Representative publications:**
-- lee2024packageless
+- lee2024antitampering
 - lee2026self
 - jia2025retro
-- lee2024antitampering
 - lee2024264
 - khan2022thz
 - woo2022physical
