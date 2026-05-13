@@ -86,26 +86,19 @@ function topicLink(tags: string[]): string {
             {thrustPubs.length === 0 ? (
               <p class="thrust__sub-empty mono">No publications resolved.</p>
             ) : (
-              <ul class="thrust__pubs">
-                {thrustPubs.map((p) => {
+              <p class="thrust__pubs mono">
+                {thrustPubs.map((p, i) => {
                   const pd = p.data;
-                  const monthLabel = pd.month
-                    ? new Date(pd.year, pd.month - 1, 1).toLocaleString("en-US", { month: "short" })
-                    : "";
-                  const dateLabel = monthLabel ? `${monthLabel} ${pd.year}` : String(pd.year);
+                  const venue = pd.venue || pd.container || "Pub";
+                  const label = `${venue} ${pd.year}`;
                   return (
-                    <li class="thrust-pub">
-                      <p class="thrust-pub__meta mono">
-                        {pd.venue && <span class="thrust-pub__venue">{pd.venue}</span>}
-                        <span class="thrust-pub__date">{dateLabel}</span>
-                      </p>
-                      <p class="thrust-pub__title">
-                        <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
-                      </p>
-                    </li>
+                    <>
+                      {i > 0 && <span class="thrust__pubs-sep" aria-hidden="true">, </span>}
+                      <a class="thrust__pubs-link" href={url(`/publications/#${pd.key}`)}>{label}</a>
+                    </>
                   );
                 })}
-              </ul>
+              </p>
             )}
             <p class="thrust__seeall mono">
               <a href={topicLink(td.tags)}>
@@ -314,55 +307,30 @@ function topicLink(tags: string[]): string {
     padding: var(--space-2) 0;
   }
 
+  /* Representative publications — flat comma-separated list of
+     "Venue Year" citations, each linking to the entry on /publications/. */
   .thrust__pubs {
-    list-style: none;
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--color-fg-muted);
     margin-bottom: var(--space-3);
   }
 
-  .thrust-pub {
-    padding-block: var(--space-3);
-    border-bottom: 0.5px solid var(--color-border);
-  }
-
-  .thrust-pub:first-child {
-    padding-top: 0;
-  }
-
-  .thrust-pub:last-child {
-    border-bottom: 0;
-  }
-
-  .thrust-pub__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    font-size: var(--text-xs);
-    margin-bottom: var(--space-1);
-  }
-
-  .thrust-pub__venue {
-    background: var(--color-accent-tint);
-    color: var(--color-accent);
-    padding: 1px 6px;
-  }
-
-  .thrust-pub__date {
-    color: var(--color-fg-faint);
-    padding: 1px 6px;
-  }
-
-  .thrust-pub__title {
-    font-size: var(--text-sm);
-    line-height: 1.5;
-  }
-
-  .thrust-pub__title a {
+  .thrust__pubs-link {
     color: var(--color-fg);
     text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+    white-space: nowrap;
   }
 
-  .thrust-pub__title a:hover {
+  .thrust__pubs-link:hover {
     color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .thrust__pubs-sep {
+    color: var(--color-fg-faint);
   }
 
   .thrust__seeall {
