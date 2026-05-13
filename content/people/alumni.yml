@@ -7,6 +7,25 @@ alumni:
 
   # ===== PhD and Postdoc =====
 
+  - slug: jinchen-wang
+    name: "Jinchen Wang"
+    category: "phd"
+    degree: "PhD"
+    year_graduated: 2026
+    current_position: "Postdoc"
+    current_org: "Prof. Dirk Englund's group (MIT)"
+    placement_type: "academia"
+    photo: "jinchen-wang.jpg"
+
+  - slug: mingran-jia
+    name: "Mingran Jia"
+    category: "phd"
+    degree: "PhD student"
+    current_position: "Ph.D. student"
+    current_org: "Prof. Dirk Englund's group (MIT)"
+    placement_type: "academia"
+    photo: "mingran-jia.png"
+
   - slug: muhammad-ibrahim-wasiq-khan
     name: "Muhammad I. W. Khan"
     category: "phd"

@@ -5,7 +5,7 @@ site:
   name: "Terahertz Integrated Electronics Group"
   short_name: "TIE Group"
   institution: "MIT"
-  unit: "Microsystems Technology Laboratories"
+  unit: "Research Laboratory of Electronics / Microsystems Technology Laboratories"
   department: "Electrical Engineering and Computer Science"
   url: "https://hangroup.mit.edu"
   established: 2014
@@ -56,8 +56,8 @@ pi:
 
 contact:
   address:
-    street: "60 Vassar Street"
-    building: "Building 39, Room 527A"
+    street: "50 Vassar Street"
+    building: "Building 38, Room 201"
     city: "Cambridge"
     state: "MA"
     zip: "02139"
@@ -79,4 +79,4 @@ recruiting:
     design, electromagnetics, and physics. Apply through the MIT EECS
     Graduate Admissions process and mention Prof. Han's group in your
     statement of purpose.
-  apply_url: "https://www.eecs.mit.edu/academics/graduate-programs/admissions/"
+  apply_url: "https://www.eecs.mit.edu/academics/graduate-programs/admission-process/"

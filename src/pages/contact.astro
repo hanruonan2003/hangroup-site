@@ -89,13 +89,14 @@ const { address, admin } = contact;
           {address.city}, {address.state} {address.zip}
         </span>
       </address>
-    </section>
-
-    <section class="contact-page__section" aria-labelledby="dir-h2">
-      <h2 id="dir-h2" class="contact-page__h2">Directions to Building 39</h2>
-      <p class="contact-page__directions-todo">
-        <em class="mono">{`{{TODO: write a short paragraph describing how to reach Building 39 from public transit (Kendall/MIT and Central Square stops), parking options on Vassar Street, and best entrance for visitors}}`}</em>
-      </p>
+      <figure class="contact-page__map">
+        <img
+          src={url("/images/lab-location-map.png")}
+          alt="Map showing the lab location at Building 38, 50 Vassar Street, MIT campus, Cambridge MA."
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
     </section>
   </section>
 </BaseLayout>
@@ -219,13 +220,14 @@ const { address, admin } = contact;
     gap: var(--space-1);
   }
 
-  .contact-page__directions-todo {
-    border-left: 2px solid var(--color-amber);
-    background: var(--color-amber-tint);
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
-    line-height: 1.6;
-    max-width: 70ch;
+  .contact-page__map {
+    margin: var(--space-5) 0 0;
+    max-width: 770px;
+  }
+
+  .contact-page__map img {
+    width: 100%;
+    height: auto;
+    border: 0.5px solid var(--color-border);
   }
 </style>

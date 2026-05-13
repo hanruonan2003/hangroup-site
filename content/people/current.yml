@@ -6,23 +6,6 @@
 
 phd_students:
 
-  - slug: jinchen-wang
-    name: "Jinchen Wang"
-    email: "jinchen@mit.edu"
-    photo: "jinchen-wang.jpg"
-    interests: ["radar imaging", "communication", "quantum"]
-    bio: >
-      Jinchen Wang received the B.Eng. degree in electronic information
-      engineering from the University of Electronic Science and Technology
-      of China in 2019, and the B.Eng. degree with first-class honors in
-      electronics and electrical engineering from the University of Glasgow
-      in 2019. He is currently pursuing the Ph.D. degree with the
-      Department of Electrical Engineering and Computer Science, MIT.
-      His research interests include RF/mmW/THz circuits, algorithms, and
-      systems for radar imaging, wireless communication, quantum computing,
-      and other novel applications. He was a recipient of the IEEE MTT-S
-      Undergraduate/Pre-Graduate Scholarship Award in 2019.
-
   - slug: eunseok-lee
     name: "Eunseok Lee"
     email: "eunseok@mit.edu"
@@ -54,38 +37,6 @@ phd_students:
       Research Assistant at the Microwave and Antenna Institute, Tsinghua
       University. His work at MIT includes 140-GHz FMCW monostatic radar
       transceivers (ISSCC 2022, JSSC 2022).
-
-  - slug: daniel-sheen
-    name: "Daniel Sheen"
-    email: "dsheen@mit.edu"
-    photo: "daniel-sheen.jpg"
-    interests: ["radio telescopes", "phased arrays"]
-    awards:
-      - "2022 Analog Devices Graduate Fellowship"
-    bio: >
-      Daniel Sheen (co-advised by Dr. Frank Lind at MIT Haystack
-      Observatory) received his B.S. in Electrical Science and Engineering
-      in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
-      he worked at Haystack Observatory, designing the UHF phased array
-      feed currently in use at the Westford Radio Telescope. He then
-      joined Diversified Technologies Inc. developing high-power solid-
-      state microwave amplifier systems. Since Fall 2022 he has returned
-      to MIT as an Analog Devices Graduate Fellow, working jointly with
-      Haystack Observatory and the Terahertz Integrated Electronics Group.
-
-  - slug: mingran-jia
-    name: "Mingran Jia"
-    email: "mingran@mit.edu"
-    photo: "mingran-jia.png"
-    interests: ["mmW/THz circuits"]
-    bio: >
-      Mingran Jia (co-advised by Prof. Anantha Chandrakasan) received his
-      B.S. in Electromagnetic Field and Wireless Technology from the
-      Department of Electronic Science and Engineering, University of
-      Electronic Science and Technology of China (UESTC) in 2021. He is
-      currently pursuing the Ph.D. degree at MIT's Microsystem Technology
-      Laboratories (MTL) in the Department of Electrical Engineering and
-      Computer Science.
 
   - slug: jaehong-jung
     name: "Jaehong Jung"
@@ -195,34 +146,23 @@ phd_students:
       sub-THz integrated circuits and applied electromagnetics for
       communication, sensing, and other emerging applications.
 
-  - slug: cole-brabec
-    name: "Cole Brabec"
-    email: "cbrabec@mit.edu"
-    photo: "cole-brabec.png"
-    interests: ["ultrafast optoelectronics", "sensing theory"]
+  - slug: daniel-sheen
+    name: "Daniel Sheen"
+    email: "dsheen@mit.edu"
+    photo: "daniel-sheen.jpg"
+    interests: ["radio telescopes", "phased arrays"]
     awards:
-      - "2022 Hertz Finalist"
-      - "2020 Donald S. Clark Award, Caltech"
+      - "2022 Analog Devices Graduate Fellowship"
     bio: >
-      Cole Brabec is a Ph.D. student with the Terahertz Integrated
-      Electronics Group at MIT. He received his B.S. in Electrical
-      Engineering from the California Institute of Technology in 2021.
-      His research focuses include ultrafast optoelectronic systems and
-      sensing theory.
-
-  - slug: alec-yen
-    name: "Alec Yen"
-    email: "alecyen@mit.edu"
-    photo: "alec-yen.jpg"
-    interests: ["terahertz integrated systems", "analog ICs"]
-    bio: >
-      Alec Yen is from Tullahoma, TN. He received the B.S. degree
-      (summa cum laude) in Electrical Engineering from the University of
-      Tennessee, Knoxville in 2020. His undergraduate research focused on
-      analog integrated circuits, with past research in neuromorphic
-      hardware, facial recognition, and power systems. He is currently a
-      Ph.D. student in the EECS department at MIT, with a focus in
-      terahertz integrated systems.
+      Daniel Sheen (co-advised by Dr. Frank Lind at MIT Haystack
+      Observatory) received his B.S. in Electrical Science and Engineering
+      in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
+      he worked at Haystack Observatory, designing the UHF phased array
+      feed currently in use at the Westford Radio Telescope. He then
+      joined Diversified Technologies Inc. developing high-power solid-
+      state microwave amplifier systems. Since Fall 2022 he has returned
+      to MIT as an Analog Devices Graduate Fellow, working jointly with
+      Haystack Observatory and the Terahertz Integrated Electronics Group.
 
 masters_students:
 
