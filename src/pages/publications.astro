@@ -132,9 +132,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
         </button>
       </div>
 
-      <p class="pubs__live mono" aria-live="polite">
-        Showing <span data-total-count>{totalCount}</span> of {totalCount}
-      </p>
     </header>
 
     <div class="pubs__empty mono" data-empty-state hidden>
@@ -259,7 +256,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     year: (el as HTMLElement).dataset.yearSection ?? "",
   }));
 
-  const totalEl = $<HTMLElement>("[data-total-count]");
   const emptyEl = $<HTMLElement>("[data-empty-state]");
   const searchEl = $<HTMLInputElement>("[data-search]");
   const clearEl = $<HTMLButtonElement>("[data-clear]");
@@ -289,7 +285,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
       if (yc) yc.textContent = String(visibleInYear);
     }
     if (emptyEl) emptyEl.hidden = total > 0;
-    if (totalEl) totalEl.textContent = String(total);
   }
 
   searchEl?.addEventListener("input", () => {
@@ -523,12 +518,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
 
   .pubs__clear:hover {
     color: var(--color-accent);
-  }
-
-  .pubs__live {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    margin-top: var(--space-3);
   }
 
   .pubs__empty {
