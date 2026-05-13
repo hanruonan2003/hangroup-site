@@ -157,7 +157,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                     })
                   : "";
                 const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
-                const doiHref = d.doi ? `https://doi.org/${d.doi}` : undefined;
                 const showContainer = d.container && d.container !== d.venue;
                 const visibleAuthors = d.authors.filter(
                   (a) => !(a.literal && a.family === "others"),
@@ -205,9 +204,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                       <span class="entry__inline-links mono">
                         {d.pdf && (
                           <a href={d.pdf} class="entry__link">PDF</a>
-                        )}
-                        {doiHref && (
-                          <a href={doiHref} class="entry__link" target="_blank" rel="noopener noreferrer">DOI</a>
                         )}
                         {d.video && (
                           <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
