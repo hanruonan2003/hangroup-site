@@ -30,13 +30,15 @@ steering the beam across a wide field of view without mechanical
 scanning.
 
 **Representative publications:**
-- monroe2022reflectarray
-- chen2022radar
-- chen2022radar_jssc
-- yi2020fmcw_jssc
-- yi2020fmcw_isscc
-- radar_collab_isscc_2020
-- heterodyne_jssc_2019
+- chen2026234
+- chen2024265
+- monroe2022electronic
+- chen2022140
+- chen2022140ghz
+- yi2021220
+- yi2020isscc
+- han2015sige
+- han2013active
 
 **Figures to include:** chip photos and field plots from the 265 GHz
 reflectarray (most visually striking project), the 140 GHz monostatic
