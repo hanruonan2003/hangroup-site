@@ -40,10 +40,6 @@ const searchText = (pub: (typeof sorted)[number]): string =>
 
 // Format a topic keyword for display: "imaging-radar" → "imaging radar".
 const formatTopic = (k: string): string => k.replace(/-/g, " ");
-
-// Format an author line piece — used for "et al." substitution.
-const renderAuthorText = (a: { raw: string; family: string; literal?: boolean }): string =>
-  a.literal && a.family === "others" ? "et al." : a.raw;
 ---
 
 <BaseLayout
@@ -53,85 +49,80 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
   <section class="container pubs">
     <header class="pubs__header">
       <div class="pubs__title-row">
-        <div>
-          <p class="pubs__eyebrow mono">{totalCount} entries · {allVenues.join(" · ")}</p>
-          <h1 class="pubs__h1">Publications</h1>
-        </div>
-        <div class="pubs__topright mono">
-          <a href={url("/publications.bib")} download>Download .bib</a>
+        <h1 class="pubs__h1">Publications</h1>
+        <div class="pubs__actions mono">
+          <a class="pubs__action" href={url("/publications.bib")} download>
+            .bib <span aria-hidden="true">↓</span>
+          </a>
           {scholarUrl && (
-            <a href={scholarUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              class="pubs__action"
+              href={scholarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Google Scholar
             </a>
           )}
         </div>
       </div>
 
-      <div class="pubs__controls">
-        <label class="pubs__search">
-          <span class="pubs__search-label mono">Search</span>
-          <input
-            type="search"
-            data-search
-            placeholder="Title or author…"
-            autocomplete="off"
-            spellcheck="false"
-          />
-        </label>
+      <div class="pubs__toolbar" role="group" aria-label="Filter publications">
+        <input
+          class="pubs__search"
+          type="search"
+          data-search
+          placeholder="Search title or author…"
+          aria-label="Search publications"
+          autocomplete="off"
+          spellcheck="false"
+        />
 
-        <details class="pubs__filter-group" id="filter-year">
-          <summary class="pubs__filter-summary mono">Year</summary>
-          <div class="pubs__chips">
-            {allYears.map((y) => (
-              <button
-                type="button"
-                class="chip mono"
-                data-chip={`year:${y}`}
-                aria-pressed="false"
-              >
-                {y}
-              </button>
-            ))}
-          </div>
-        </details>
+        <div class="pubs__chip-group" role="group" aria-label="Year">
+          {allYears.map((y) => (
+            <button
+              type="button"
+              class="chip mono"
+              data-chip={`year:${y}`}
+              aria-pressed="false"
+            >
+              {y}
+            </button>
+          ))}
+        </div>
 
-        <details class="pubs__filter-group" id="filter-venue">
-          <summary class="pubs__filter-summary mono">Venue</summary>
-          <div class="pubs__chips">
-            {allVenues.map((v) => (
-              <button
-                type="button"
-                class="chip mono"
-                data-chip={`venue:${v}`}
-                aria-pressed="false"
-              >
-                {v}
-              </button>
-            ))}
-          </div>
-        </details>
+        <div class="pubs__chip-group" role="group" aria-label="Venue">
+          {allVenues.map((v) => (
+            <button
+              type="button"
+              class="chip mono"
+              data-chip={`venue:${v}`}
+              aria-pressed="false"
+            >
+              {v}
+            </button>
+          ))}
+        </div>
 
-        <details class="pubs__filter-group" id="filter-topic">
-          <summary class="pubs__filter-summary mono">Topic</summary>
-          <div class="pubs__chips">
-            {allTopics.map((t) => (
-              <button
-                type="button"
-                class="chip mono"
-                data-chip={`topic:${t}`}
-                aria-pressed="false"
-              >
-                {formatTopic(t)}
-              </button>
-            ))}
-          </div>
-        </details>
-
-        <button type="button" class="pubs__clear mono" data-clear>
-          Clear filters
-        </button>
+        <div class="pubs__chip-group" role="group" aria-label="Topic">
+          {allTopics.map((t) => (
+            <button
+              type="button"
+              class="chip mono"
+              data-chip={`topic:${t}`}
+              aria-pressed="false"
+            >
+              {formatTopic(t)}
+            </button>
+          ))}
+        </div>
       </div>
 
+      <p class="pubs__status mono">
+        <span data-total-count>{totalCount}</span> papers
+        <span aria-hidden="true" class="pubs__status-sep">·</span>
+        <button type="button" class="pubs__clear" data-clear>Clear filters</button>
+      </p>
     </header>
 
     <div class="pubs__empty mono" data-empty-state hidden>
@@ -160,6 +151,11 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
                   : "";
                 const dateLabel = monthLabel ? `${monthLabel} ${d.year}` : String(d.year);
                 const doiHref = d.doi ? `https://doi.org/${d.doi}` : undefined;
+                const showContainer = d.container && d.container !== d.venue;
+                const visibleAuthors = d.authors.filter(
+                  (a) => !(a.literal && a.family === "others"),
+                );
+                const authorsLine = visibleAuthors.map((a) => a.raw).join(", ");
                 return (
                   <li
                     class="entry"
@@ -171,41 +167,51 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
                     data-pub-topics={d.keywords.join(" ")}
                     data-pub-text={searchText(pub)}
                   >
-                    <div class="entry__badges mono">
-                      {venueLabel && <span class="badge badge--venue">{venueLabel}</span>}
-                      <span class="badge badge--date">{dateLabel}</span>
+                    <p class="entry__meta mono">
+                      {venueLabel && (
+                        <span class="entry__meta-item entry__meta-item--venue">{venueLabel}</span>
+                      )}
+                      <span class="entry__meta-item">{dateLabel}</span>
                       {d.keywords.map((k) => (
-                        <span class="badge badge--topic">{formatTopic(k)}</span>
+                        <span class="entry__meta-item entry__meta-item--topic">{formatTopic(k)}</span>
                       ))}
-                      {d.highlight && <span class="badge badge--highlight">Highlight</span>}
-                    </div>
-                    <h3 class="entry__title">{d.title}</h3>
-                    <p class="entry__authors">
-                      {d.authors.map((a, i) => (
-                        <>
-                          {i > 0 && <span class="entry__sep" aria-hidden="true">, </span>}
-                          <span class="entry__author">{renderAuthorText(a)}</span>
-                        </>
-                      ))}
+                      {d.highlight && (
+                        <span class="entry__meta-item entry__meta-item--highlight">Highlight</span>
+                      )}
                     </p>
-                    {d.container && d.container !== d.venue && (
-                      <p class="entry__container">{d.container}{d.pages ? `, pp. ${d.pages}` : ""}</p>
-                    )}
-                    {d.note && <p class="entry__note">{d.note}</p>}
-                    <div class="entry__links mono">
-                      {d.pdf && (
-                        <a href={d.pdf} class="entry__link">PDF</a>
+                    <h3 class="entry__title">{d.title}</h3>
+                    <div class="entry__byline">
+                      <span class="entry__authors">{authorsLine}</span>
+                      {showContainer && (
+                        <>
+                          <span class="entry__byline-sep" aria-hidden="true">—</span>
+                          <span class="entry__container">
+                            {d.container}{d.pages ? `, pp. ${d.pages}` : ""}
+                          </span>
+                        </>
                       )}
-                      {doiHref && (
-                        <a href={doiHref} class="entry__link" target="_blank" rel="noopener noreferrer">DOI</a>
+                      {d.note && (
+                        <span class="entry__note">
+                          <span aria-hidden="true">— </span><em>{d.note}</em>
+                        </span>
                       )}
-                      {d.video && (
-                        <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
-                      )}
-                      <details class="entry__bib">
-                        <summary class="entry__link">BibTeX</summary>
-                        <pre class="entry__bib-pre">{d.raw_bib}</pre>
-                      </details>
+                      <span class="entry__inline-links mono">
+                        {d.pdf && (
+                          <a href={d.pdf} class="entry__link">PDF</a>
+                        )}
+                        {doiHref && (
+                          <a href={doiHref} class="entry__link" target="_blank" rel="noopener noreferrer">DOI</a>
+                        )}
+                        {d.video && (
+                          <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
+                        )}
+                        <details class="entry__bib">
+                          <summary class="entry__link entry__bib-summary">
+                            BibTeX <span aria-hidden="true">▾</span>
+                          </summary>
+                          <pre class="entry__bib-pre">{d.raw_bib}</pre>
+                        </details>
+                      </span>
                     </div>
                   </li>
                 );
@@ -256,6 +262,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     year: (el as HTMLElement).dataset.yearSection ?? "",
   }));
 
+  const totalEl = $<HTMLElement>("[data-total-count]");
   const emptyEl = $<HTMLElement>("[data-empty-state]");
   const searchEl = $<HTMLInputElement>("[data-search]");
   const clearEl = $<HTMLButtonElement>("[data-clear]");
@@ -285,6 +292,7 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
       if (yc) yc.textContent = String(visibleInYear);
     }
     if (emptyEl) emptyEl.hidden = total > 0;
+    if (totalEl) totalEl.textContent = String(total);
   }
 
   searchEl?.addEventListener("input", () => {
@@ -344,10 +352,6 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
         chip.setAttribute("aria-pressed", "true");
       }
     }
-    if (set.size > 0) {
-      const details = document.getElementById(`filter-${group}`) as HTMLDetailsElement | null;
-      if (details) details.open = true;
-    }
   }
   const params = new URLSearchParams(window.location.search);
   applyParam("topic", state.topics, params.get("topic") ?? "");
@@ -360,33 +364,22 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
 
 <style>
   .pubs {
-    padding-block: var(--space-8) var(--space-10);
+    padding-block: var(--space-6) var(--space-10);
   }
 
+  /* Header */
+
   .pubs__header {
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
   }
 
   .pubs__title-row {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    align-items: flex-start;
-    margin-bottom: var(--space-6);
-  }
-
-  @media (min-width: 720px) {
-    .pubs__title-row {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-  }
-
-  .pubs__eyebrow {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    margin-bottom: var(--space-2);
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
   }
 
   .pubs__h1 {
@@ -399,103 +392,100 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     }
   }
 
-  .pubs__topright {
+  .pubs__actions {
     display: flex;
-    gap: var(--space-4);
-    font-size: var(--text-sm);
+    gap: var(--space-3);
+    font-size: var(--text-xs);
   }
 
-  .pubs__topright a {
+  .pubs__action {
     color: var(--color-fg);
     text-decoration: none;
     border-bottom: 0.5px solid var(--color-border);
-    padding-bottom: 2px;
+    padding-bottom: 1px;
   }
 
-  .pubs__topright a:hover {
+  .pubs__action:hover {
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
   }
 
-  .pubs__controls {
+  /* Toolbar — search + chip groups on one row, wraps as needed */
+
+  .pubs__toolbar {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding-block: var(--space-4);
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
     border-block: 0.5px solid var(--color-border);
   }
 
   .pubs__search {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .pubs__search-label {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-  }
-
-  .pubs__search input {
+    width: 240px;
+    flex-shrink: 0;
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     color: var(--color-fg);
     background: transparent;
     border: 0;
     border-bottom: 0.5px solid var(--color-border);
-    padding: var(--space-1) 0;
-    width: 100%;
-    max-width: 32rem;
+    padding: 4px 0;
+    min-height: 32px;
   }
 
-  .pubs__search input:focus {
+  @media (max-width: 480px) {
+    .pubs__search {
+      width: 100%;
+    }
+  }
+
+  .pubs__search:focus {
     outline: 0;
     border-bottom-color: var(--color-accent);
   }
 
-  .pubs__filter-group {
-    border: 0;
-  }
-
-  .pubs__filter-summary {
-    cursor: pointer;
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    padding-block: var(--space-1);
-    list-style: none;
-  }
-
-  .pubs__filter-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .pubs__filter-summary::before {
-    content: "▸";
-    display: inline-block;
-    margin-right: var(--space-2);
-    transition: transform 0.15s ease;
-  }
-
-  .pubs__filter-group[open] .pubs__filter-summary::before {
-    transform: rotate(90deg);
-  }
-
-  .pubs__chips {
+  .pubs__chip-group {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
-    padding-top: var(--space-2);
+    gap: var(--space-1);
+    align-items: center;
+  }
+
+  /* Thin vertical divider between groups (desktop only — on wrap, dividers
+     would look odd at the start of a new line, so we drop them under 480px). */
+  .pubs__chip-group + .pubs__chip-group {
+    padding-left: var(--space-3);
+    margin-left: var(--space-1);
+    border-left: 0.5px solid var(--color-border);
+  }
+
+  @media (max-width: 480px) {
+    .pubs__chip-group + .pubs__chip-group {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: 0;
+    }
   }
 
   .chip {
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
+    font-size: 11px;
     color: var(--color-fg);
     background: transparent;
     border: 0.5px solid var(--color-border);
-    padding: 4px 10px;
+    padding: 0 8px;
     cursor: pointer;
     line-height: 1.4;
+    min-height: 24px;
+  }
+
+  /* Touch targets a bit larger on coarse pointers. */
+  @media (pointer: coarse) {
+    .chip {
+      min-height: 32px;
+      padding: 4px 10px;
+    }
   }
 
   .chip:hover {
@@ -508,9 +498,25 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     border-color: var(--color-accent);
   }
 
-  .pubs__clear {
-    align-self: flex-start;
+  /* Status line — paper count + clear, compact */
+
+  .pubs__status {
+    margin-top: var(--space-2);
     font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+
+  .pubs__status-sep {
+    color: var(--color-fg-faint);
+  }
+
+  .pubs__clear {
+    font-family: inherit;
+    font-size: inherit;
     color: var(--color-fg-faint);
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -527,21 +533,23 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     font-size: var(--text-sm);
   }
 
+  /* Year sections (kept as-is) */
+
   .year-section {
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-8);
   }
 
   .year-section__h2 {
     display: flex;
     align-items: baseline;
     gap: var(--space-3);
-    margin-bottom: var(--space-5);
-    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-1);
     border-bottom: 0.5px solid var(--color-border);
   }
 
   .year-section__num {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--color-accent);
     font-weight: var(--weight-medium);
   }
@@ -556,82 +564,102 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     list-style: none;
   }
 
+  /* Entry — three-line layout, tight */
+
   .entry {
-    padding-block: var(--space-5);
+    padding-block: var(--space-2);
     border-bottom: 0.5px solid var(--color-border);
+    line-height: 1.35;
   }
 
   .entry:first-child {
-    padding-top: 0;
+    padding-top: var(--space-1);
   }
 
-  .entry__badges {
+  .entry__meta {
+    font-size: 11px;
+    color: var(--color-fg-faint);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-bottom: var(--space-3);
+    gap: 0;
+    align-items: baseline;
+    margin-bottom: 2px;
+    line-height: 1.4;
   }
 
-  .badge {
-    font-size: var(--text-xs);
-    padding: 2px 8px;
-    line-height: 1.5;
+  .entry__meta-item {
+    padding: 0 6px 0 0;
   }
 
-  .badge--venue {
-    background: var(--color-accent-tint);
-    color: var(--color-accent);
-  }
-
-  .badge--date {
+  .entry__meta-item + .entry__meta-item::before {
+    content: "· ";
     color: var(--color-fg-faint);
+    margin-right: 6px;
   }
 
-  .badge--topic {
-    background: var(--color-gray-tint);
+  .entry__meta-item--venue {
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+  }
+
+  .entry__meta-item--topic {
     color: var(--color-fg-muted);
   }
 
-  .badge--highlight {
-    background: var(--color-amber-tint);
+  .entry__meta-item--highlight {
     color: var(--color-amber);
   }
 
   .entry__title {
-    font-size: var(--text-md);
-    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: 1.35;
+    margin-bottom: 2px;
+  }
+
+  @media (min-width: 720px) {
+    .entry__title {
+      font-size: var(--text-md);
+    }
+  }
+
+  .entry__byline {
+    font-size: 13px;
+    color: var(--color-fg-muted);
     line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
   }
 
   .entry__authors {
-    font-size: var(--text-sm);
-    line-height: 1.5;
-    margin-bottom: var(--space-2);
+    /* author list flows inline; long lists wrap naturally */
   }
 
-  .entry__sep {
+  .entry__byline-sep {
     color: var(--color-fg-faint);
   }
 
   .entry__container {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    margin-bottom: var(--space-2);
+    color: var(--color-fg-muted);
   }
 
   .entry__note {
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-    font-style: italic;
-    margin-bottom: var(--space-2);
+    color: var(--color-fg-faint);
   }
 
-  .entry__links {
-    display: flex;
+  .entry__note em {
+    font-style: italic;
+  }
+
+  .entry__inline-links {
+    margin-left: auto;
+    display: inline-flex;
     flex-wrap: wrap;
     gap: var(--space-3);
+    font-size: 11px;
     align-items: baseline;
-    font-size: var(--text-xs);
   }
 
   .entry__link {
@@ -640,6 +668,8 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     border-bottom: 0.5px solid var(--color-border);
     padding-bottom: 1px;
     cursor: pointer;
+    background: transparent;
+    font-family: var(--font-mono);
   }
 
   .entry__link:hover {
@@ -647,26 +677,31 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     border-bottom-color: var(--color-accent);
   }
 
+  /* BibTeX disclosure — summary stays inline on the byline; the pre
+     expands below on full row when open. `display: contents` on
+     details lets summary and pre participate in the parent flex
+     layout. */
+
   .entry__bib {
-    display: inline;
+    display: contents;
   }
 
-  .entry__bib summary {
+  .entry__bib-summary {
     list-style: none;
-    display: inline;
   }
 
-  .entry__bib summary::-webkit-details-marker {
+  .entry__bib-summary::-webkit-details-marker {
     display: none;
   }
 
-  .entry__bib[open] summary {
+  .entry__bib[open] .entry__bib-summary {
     color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .entry__bib-pre {
-    display: block;
-    margin-top: var(--space-3);
+    flex-basis: 100%;
+    margin-top: var(--space-2);
     padding: var(--space-3);
     background: var(--color-gray-tint);
     font-family: var(--font-mono);
@@ -676,6 +711,10 @@ const renderAuthorText = (a: { raw: string; family: string; literal?: boolean })
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
+  }
+
+  .entry__bib:not([open]) .entry__bib-pre {
+    display: none;
   }
 
   [hidden] {
