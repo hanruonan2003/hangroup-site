@@ -2,7 +2,7 @@
 # All fields shown here will be referenced by Astro pages at build time.
 
 site:
-  name: "Terahertz Integrated Electronics Group"
+  name: "MIT Terahertz Integrated Electronics Group"
   short_name: "TIE Group"
   institution: "MIT"
   unit: "Research Laboratory of Electronics / Microsystems Technology Laboratories"
