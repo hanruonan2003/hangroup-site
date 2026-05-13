@@ -16,7 +16,6 @@ const { address, admin } = contact;
 >
   <section class="container contact-page">
     <header class="contact-page__header">
-      <p class="contact-page__eyebrow mono">{site.name}</p>
       <h1 class="contact-page__h1">Contact</h1>
     </header>
 
@@ -42,12 +41,6 @@ const { address, admin } = contact;
             <span class="contact-block__label">Phone</span>
             <span>{pi.phone}</span>
           </li>
-          {pi.fax && (
-            <li>
-              <span class="contact-block__label">Fax</span>
-              <span>{pi.fax}</span>
-            </li>
-          )}
           <li>
             <span class="contact-block__label">Office</span>
             <span>Building {pi.office}</span>
