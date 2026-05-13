@@ -67,7 +67,13 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
         </div>
       </div>
 
-      <div class="pubs__toolbar" role="group" aria-label="Filter publications">
+      <details class="pubs__filters" data-filters>
+        <summary class="pubs__filters-toggle mono">
+          <span>Filters</span>
+          <span aria-hidden="true" class="pubs__filters-caret">▾</span>
+        </summary>
+
+        <div class="pubs__toolbar" role="group" aria-label="Filter publications">
         <input
           class="pubs__search"
           type="search"
@@ -118,11 +124,12 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
         </div>
       </div>
 
-      <p class="pubs__status mono">
-        <span data-total-count>{totalCount}</span> papers
-        <span aria-hidden="true" class="pubs__status-sep">·</span>
-        <button type="button" class="pubs__clear" data-clear>Clear filters</button>
-      </p>
+        <p class="pubs__status mono">
+          <span data-total-count>{totalCount}</span> papers
+          <span aria-hidden="true" class="pubs__status-sep">·</span>
+          <button type="button" class="pubs__clear" data-clear>Clear filters</button>
+        </p>
+      </details>
     </header>
 
     <div class="pubs__empty mono" data-empty-state hidden>
@@ -354,6 +361,24 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
   if (state.topics.size || state.venues.size || state.years.size) {
     applyFilters();
   }
+
+  // Filters are collapsed by default so mobile readers see papers sooner.
+  // On desktop (>= 720px) we force-open the panel and hide the toggle via CSS,
+  // so desktop behaves exactly as before. The matchMedia listener keeps things
+  // sane if the viewport is resized (or the user rotates a tablet).
+  const filtersDetails = document.querySelector<HTMLDetailsElement>("[data-filters]");
+  if (filtersDetails) {
+    const desktop = window.matchMedia("(min-width: 720px)");
+    const syncFiltersToViewport = (): void => {
+      if (desktop.matches) filtersDetails.open = true;
+    };
+    syncFiltersToViewport();
+    // If a deep-link param activated any chips, surface them on mobile too.
+    if (state.topics.size || state.venues.size || state.years.size) {
+      filtersDetails.open = true;
+    }
+    desktop.addEventListener("change", syncFiltersToViewport);
+  }
 </script>
 
 <style>
@@ -402,6 +427,47 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
   .pubs__action:hover {
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
+  }
+
+  /* Filters wrapper — collapsed by default on mobile so the paper list
+     appears sooner. JS opens it on desktop (>= 720px) and on deep-links;
+     the toggle is hidden on desktop via the media query below. */
+
+  .pubs__filters {
+    /* No border around the details element itself. */
+  }
+
+  .pubs__filters-toggle {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 0;
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    border-bottom: 0.5px solid var(--color-border);
+    width: 100%;
+  }
+
+  .pubs__filters-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .pubs__filters-caret {
+    display: inline-block;
+    transition: transform 0.15s ease;
+    color: var(--color-fg-faint);
+  }
+
+  .pubs__filters[open] .pubs__filters-caret {
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 720px) {
+    .pubs__filters-toggle {
+      display: none;
+    }
   }
 
   /* Toolbar — search + chip groups on one row, wraps as needed */
