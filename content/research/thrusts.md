@@ -52,6 +52,8 @@ radar, and the FMCW comb radar.
 
 **Tag:** `communication`, `interconnect`
 
+**Figure:** thz-link-combined.jpg
+
 **Current description:**
 
 As digital systems scale to deliver hundreds of gigabits per second
