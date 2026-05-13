@@ -68,22 +68,34 @@ demonstration, wake-up receiver photos.
 
 ---
 
-## 3. THz Frequency Synthesis and Molecular/Atomic Devices
+## 3. THz Spectroscopy and Molecular Clocks
 
 **Tag:** `molecular-atomic`, `frequency-synthesis`
 
-**Current description (NEEDS REWRITE):**
+**Current description:**
 
-Chip-scale molecular clocks using rotational spectroscopy of polar
-molecules, and quantum-coherent sensing using nitrogen-vacancy centers
-in diamond, integrated with CMOS readout and control electronics.
+Polar molecules have rotational transitions in the sub-terahertz band
+that are sharp, immune to environmental perturbation, and identical for
+every molecule of a given species anywhere in the universe — making
+them ideal references for both precision timekeeping and chemical
+identification. Today's atomic clocks and laboratory spectrometers
+exploit this physics but require benchtop instruments. We build the
+same capability into silicon. By integrating broadband sub-THz sources,
+high-harmonic interrogation, and frequency-comb spectrometers on CMOS,
+our chips lock to molecular rotational lines for atomic-clock-grade
+timing, and scan hundreds of GHz of bandwidth to identify trace gases
+— bringing molecular spectroscopy to chip scale.
 
 **Representative publications:**
-- wang2018clock_natelec
-- magnetometry_natelec_2019
-- magnetometry_isscc_2019
-- dualcomb_isscc_2017
-- dualcomb_jssc_2017
+- kim2022sub
+- wang2021terahertz
+- wang2020sub
+- wang2019chip
+- wang2018chip
+- wang2017rapid
+- wang2017dual
+- yi2021sub
+- han2013cmos
 
 **Figures to include:** molecular clock spectrum, NV-center magnetometer
 chip, dual-comb spectrometer.
