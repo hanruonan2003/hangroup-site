@@ -205,12 +205,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                         {d.video && (
                           <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
                         )}
-                        <details class="entry__bib">
-                          <summary class="entry__link entry__bib-summary">
-                            BibTeX <span aria-hidden="true">▾</span>
-                          </summary>
-                          <pre class="entry__bib-pre">{d.raw_bib}</pre>
-                        </details>
                       </span>
                     </div>
                   </li>
@@ -675,46 +669,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
   .entry__link:hover {
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
-  }
-
-  /* BibTeX disclosure — summary stays inline on the byline; the pre
-     expands below on full row when open. `display: contents` on
-     details lets summary and pre participate in the parent flex
-     layout. */
-
-  .entry__bib {
-    display: contents;
-  }
-
-  .entry__bib-summary {
-    list-style: none;
-  }
-
-  .entry__bib-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .entry__bib[open] .entry__bib-summary {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
-  }
-
-  .entry__bib-pre {
-    flex-basis: 100%;
-    margin-top: var(--space-2);
-    padding: var(--space-3);
-    background: var(--color-gray-tint);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: 1.5;
-    color: var(--color-fg);
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  .entry__bib:not([open]) .entry__bib-pre {
-    display: none;
   }
 
   [hidden] {
