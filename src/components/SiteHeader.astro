@@ -126,15 +126,26 @@ const isActive = (href: string): boolean => {
     font-weight: var(--weight-medium);
   }
 
-  /* Affiliation logos — small inline marks linking to MIT / RLE / MTL.
-     No background pill; RLE's red square and MTL's yellow wordmark read
-     well on dark mode in their original brand colors. The MIT wordmark
-     is a flat black mark, so it's filtered to white for dark mode. */
+  /* Affiliation logos — tight horizontal cluster linking to MIT / RLE / MTL.
+     A thin hairline rule separates the cluster from the group name; logos
+     sit at uniform 20px height with 70% opacity (full opacity on hover) so
+     they read as muted institutional signals rather than competing focal
+     points with the group name. Hidden under 700px to save header space. */
   .site-mark__affiliations {
     display: inline-flex;
     align-items: center;
-    gap: 0;
-    margin-left: 4px;
+    gap: 14px;
+    margin-left: 8px;
+  }
+
+  .site-mark__affiliations::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+    background: var(--color-border);
+    margin-right: 14px;
+    flex-shrink: 0;
   }
 
   .affiliation-logo {
@@ -142,7 +153,7 @@ const isActive = (href: string): boolean => {
     align-items: center;
     text-decoration: none;
     line-height: 0;
-    opacity: 0.9;
+    opacity: 0.7;
     transition: opacity 0.15s ease;
   }
 
@@ -150,38 +161,22 @@ const isActive = (href: string): boolean => {
     opacity: 1;
   }
 
-  /* Thin vertical pipe separator BEFORE every logo — including the first,
-     so the affiliations cluster reads as "<name> | MIT | rle | MTL". */
-  .affiliation-logo::before {
-    content: "|";
-    color: var(--color-fg-faint);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    line-height: 1;
-    margin-inline: 4px;
-    align-self: center;
-  }
-
   .affiliation-logo img {
-    height: 18px;
+    height: 20px;
     width: auto;
     display: block;
   }
 
-  /* MIT wordmark is a flat black mark; flip it to white for dark mode. The
-     wordmark's rightmost element (the T's horizontal bar) ends midway up the
-     bounding box, so a small negative right margin lets the next pipe sit
-     visually flush with the wordmark instead of marooned in empty space. */
+  /* MIT wordmark ships as a flat black mark; invert it to white for the
+     dark theme. RLE and MTL keep their brand colors. */
   .affiliation-logo--mit img {
-    height: 20px;
     filter: invert(1);
-    margin-right: -10px;
   }
 
-  /* MTL wordmark sits a hair lower visually because of the letter shapes;
-     a small downscale keeps it balanced with the RLE square next to it. */
-  .affiliation-logo--mtl img {
-    height: 17px;
+  @media (max-width: 700px) {
+    .site-mark__affiliations {
+      display: none;
+    }
   }
 
   .site-nav ul {

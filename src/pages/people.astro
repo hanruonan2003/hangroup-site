@@ -102,23 +102,6 @@ const placementCount = (key: string) =>
             <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
           </p>
         )}
-        <ul class="pi__contact mono">
-          <li><a href={`mailto:${pi.email}`}>{pi.email}</a></li>
-          <li>{pi.phone}</li>
-          <li>Building {pi.office}</li>
-          {pi.scholar && (
-            <li>
-              <a href={pi.scholar} target="_blank" rel="noopener noreferrer">
-                Google Scholar
-              </a>
-            </li>
-          )}
-          {pi.cv_url && (
-            <li>
-              <a href={pi.cv_url} target="_blank" rel="noopener noreferrer">CV</a>
-            </li>
-          )}
-        </ul>
       </div>
     </section>
 
@@ -358,27 +341,6 @@ const placementCount = (key: string) =>
     color: var(--color-fg-muted);
     line-height: 1.6;
     margin-bottom: var(--space-4);
-  }
-
-  .pi__contact {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    list-style: none;
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-  }
-
-  .pi__contact a {
-    color: var(--color-fg);
-    text-decoration: none;
-    border-bottom: 0.5px solid var(--color-border);
-    padding-bottom: 1px;
-  }
-
-  .pi__contact a:hover {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
   }
 
   /* Current members */
