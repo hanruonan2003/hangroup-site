@@ -127,7 +127,7 @@ chip, dual-comb spectrometer.
 
 **Tag:** `security`
 
-**Figure:** anti-tampering-tag.jpg
+**Figure:** try-2.jpg
 
 **Current description:**
 
