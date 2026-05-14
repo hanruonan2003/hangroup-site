@@ -218,9 +218,9 @@ alumni:
     name: "Guo Zhang"
     category: "ms"
     degree: "M.S."
-    current_position: "Researcher"
-    current_org: "Prof. Dina Katabi's group (MIT)"
-    placement_type: "academia"
+    current_position: "CEO/Founder"
+    current_org: "Rama Alpaca"
+    placement_type: "startup"
     photo: "guo-zhang.jpg"
 
   - slug: mohamed-elsheikh
