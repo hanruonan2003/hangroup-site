@@ -62,6 +62,16 @@ const people = defineCollection({
     interests: z.array(z.string()).default([]),
     awards: z.array(z.string()).optional(),
     bio: z.string(),
+    // Optional outbound profile links. All four are independently optional;
+    // a person can set any subset.
+    links: z
+      .object({
+        website: z.string().url().optional(),
+        scholar: z.string().url().optional(),
+        orcid: z.string().url().optional(),
+        linkedin: z.string().url().optional(),
+      })
+      .optional(),
     role: z.enum(["PhD student", "M.Eng student", "Postdoc", "Undergraduate"]),
     role_group: z.enum([
       "phd_students",

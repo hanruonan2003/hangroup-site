@@ -60,6 +60,22 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
             <a href={`mailto:${d.email}`}>{d.email}</a>
           </p>
         )}
+        {d.links && (d.links.website || d.links.scholar || d.links.orcid || d.links.linkedin) && (
+          <ul class="profile__links mono">
+            {d.links.website && (
+              <li><a href={d.links.website} target="_blank" rel="noopener noreferrer">Website ↗</a></li>
+            )}
+            {d.links.scholar && (
+              <li><a href={d.links.scholar} target="_blank" rel="noopener noreferrer">Google Scholar ↗</a></li>
+            )}
+            {d.links.orcid && (
+              <li><a href={d.links.orcid} target="_blank" rel="noopener noreferrer">ORCID ↗</a></li>
+            )}
+            {d.links.linkedin && (
+              <li><a href={d.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+            )}
+          </ul>
+        )}
       </div>
     </div>
 
@@ -355,6 +371,27 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
     line-height: 1.5;
+  }
+
+  .profile__links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    font-size: var(--text-xs);
+    margin-top: var(--space-2);
+  }
+
+  .profile__links a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .profile__links a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .profile-pub__note {
