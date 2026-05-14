@@ -30,6 +30,11 @@ const ROLE_LABELS = {
 
 type RoleGroup = keyof typeof ROLE_LABELS;
 
+// Note: the people loader intentionally does NOT load personal-publication
+// .bib files (content/people/<slug>.bib). Those are read on demand by the
+// profile page via src/lib/personal-pubs.ts so that the dedup helper has
+// access to the parsed group publications collection. See CLAUDE.md
+// (section "Per-person personal publications") for the editorial rule.
 const people = defineCollection({
   loader: async () => {
     const data = await readYAML<Record<RoleGroup, unknown[]>>(
