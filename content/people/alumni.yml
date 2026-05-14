@@ -277,8 +277,8 @@ alumni:
     degree: "Visiting student"
     research: "from University of Illinois at Urbana–Champaign"
     current_position: ""
-    current_org: "University of Illinois at Urbana–Champaign"
-    placement_type: "academia"
+    current_org: "Nvidia"
+    placement_type: "industry"
     photo: "joshua-lewis.jpg"
 
   - slug: xingcun-li
@@ -296,8 +296,8 @@ alumni:
     category: "visiting"
     degree: "Visiting high-school student"
     research: "Tsinghua International School"
-    current_position: ""
-    current_org: "Tsinghua International School"
+    current_position: "Undergraduate"
+    current_org: "UCLA"
     placement_type: "academia"
     photo: "ben-yang.jpg"
 
