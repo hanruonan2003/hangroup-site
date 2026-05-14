@@ -58,7 +58,7 @@ phd_students:
     name: "Yan Xu"
     email: "yanx1326@mit.edu"
     photo: "yan-xu.jpg"
-    interests: ["wireless data transfer", "implantable systems"]
+    interests: ["Artificial Intelligence", "EDA"]
     bio: >
       Yan Xu received the B.S. degree in Microelectronics Science and
       Engineering from the University of Electronic Science and Technology
@@ -73,9 +73,9 @@ phd_students:
     email: "yadavps@mit.edu"
     photo: "pradyot-yadav.jpg"
     interests:
-      - "3D heterogeneous integration (GaN / Si CMOS / glass / diamond)"
-      - "sub-THz & mmWave devices and circuits"
-      - "advanced packaging, DTCO/STCO"
+      - "3D heterogeneous integration"
+      - "sub-THz & mmWave circuits"
+      - "advanced packaging"
     links:
       website: "https://yadavps.com"
       scholar: "https://scholar.google.com/citations?user=2tQI6eAAAAAJ"
