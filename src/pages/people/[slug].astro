@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PersonPhoto from "../../components/PersonPhoto.astro";
 import { getCollection } from "astro:content";
 import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../../lib/authorship.ts";
+import { loadDedupedPersonalPubs } from "../../lib/personal-pubs.ts";
 import { url } from "../../lib/url.ts";
 
 export const getStaticPaths = (async () => {
@@ -26,6 +27,12 @@ const personSet = buildPrimaryAuthorSet([d.name]);
 const personPubs = [...publications]
   .filter((p) => p.data.authors.some((a) => isPrimaryAuthor(a, personSet)))
   .sort((a, b) => b.data.sort_key - a.data.sort_key);
+
+// Personal publications: papers from content/people/<slug>.bib that the
+// group bib does NOT already cover. See src/lib/personal-pubs.ts and
+// CLAUDE.md for the editorial rule (R. Han as a co-author → group bib).
+const groupPubsForDedup = publications.map((p) => p.data);
+const personalPubs = await loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
 
 const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
 ---
@@ -113,6 +120,44 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
         </ul>
       )}
     </section>
+
+    {personalPubs.length > 0 && (
+      <section class="profile__section">
+        <h2 class="profile__h2">
+          <span>Other publications</span>
+          <span class="profile__h2-count mono">{personalPubs.length}</span>
+        </h2>
+        <p class="profile__personal-sub mono">
+          Co-authored before joining the group, or independent collaborations
+          not involving the Han group.
+        </p>
+        <ul class="profile__pubs">
+          {personalPubs.map((pd) => {
+            const monthLabel = pd.month
+              ? new Date(pd.year, pd.month - 1, 1).toLocaleString("en-US", { month: "short" })
+              : "";
+            const dateLabel = monthLabel ? `${monthLabel} ${pd.year}` : String(pd.year);
+            return (
+              <li class="profile-pub">
+                <p class="profile-pub__meta mono">
+                  {pd.venue && <span class="profile-pub__venue">{pd.venue}</span>}
+                  <span class="profile-pub__date">{dateLabel}</span>
+                </p>
+                <h3 class="profile-pub__title">{pd.title}</h3>
+                <p class="profile-pub__authors">{pd.authors_display}</p>
+                {pd.note && (
+                  <p class="profile-pub__note"><em>{pd.note}</em></p>
+                )}
+                <details class="profile-pub__bibtex">
+                  <summary class="mono">BibTeX</summary>
+                  <pre class="mono">{pd.raw_bib}</pre>
+                </details>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
   </section>
 </BaseLayout>
 
@@ -310,5 +355,43 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
     line-height: 1.5;
+  }
+
+  .profile-pub__note {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-2);
+  }
+
+  .profile-pub__bibtex {
+    margin-top: var(--space-2);
+  }
+
+  .profile-pub__bibtex summary {
+    cursor: pointer;
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    user-select: none;
+  }
+
+  .profile-pub__bibtex summary:hover {
+    color: var(--color-accent);
+  }
+
+  .profile-pub__bibtex pre {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    background: var(--color-gray-tint);
+    padding: var(--space-3);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .profile__personal-sub {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-4);
+    max-width: 60ch;
   }
 </style>
