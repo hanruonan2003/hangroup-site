@@ -163,8 +163,8 @@ alumni:
     category: "meng"
     degree: "M.Eng."
     current_position: ""
-    current_org: ""
-    placement_type: "unknown"
+    current_org: "Texas Instruments"
+    placement_type: "industry"
     photo: "xingyu-zou.jpg"
 
   - slug: yukimi-morimoto
