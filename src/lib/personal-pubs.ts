@@ -16,13 +16,26 @@
 // See CLAUDE.md for the editorial rule: when in doubt, ASK whether R. Han is
 // a co-author. Personal bib if not, group bib if yes.
 
-import { readFile, access } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
 import { parsePublicationsBib, type NormalizedPublication } from "./publications.ts";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const contentDir = resolve(__dirname, "../../content");
+/**
+ * Vite glob: every `content/people/*.bib` file is read at build time and the
+ * raw text is bundled into this module. Doing it this way (rather than fs.readFile
+ * with a path derived from import.meta.url) avoids the fact that Astro's
+ * bundler relocates the compiled chunk into dist/ and breaks any
+ * filesystem path computed from __dirname. Same pattern PersonPhoto.astro
+ * uses for headshots.
+ */
+const PERSONAL_BIB_RAW = import.meta.glob<string>(
+  "../../content/people/*.bib",
+  { eager: true, query: "?raw", import: "default" },
+);
+/** slug -> raw bib text. Keyed by filename minus the .bib extension. */
+const personalBibBySlug: Record<string, string> = {};
+for (const [path, text] of Object.entries(PERSONAL_BIB_RAW)) {
+  const name = path.split("/").pop()!.replace(/\.bib$/i, "");
+  personalBibBySlug[name] = text;
+}
 
 /**
  * Set PERSONAL_PUBS_STRICT=1 to convert "duplicate suppressed" warnings into
@@ -39,18 +52,13 @@ const dedupCache = new Map<string, NormalizedPublication[]>();
  * not exist. Throws on parse errors so a malformed personal bib fails the
  * build loudly instead of silently degrading.
  */
-export async function loadPersonalBib(
-  slug: string,
-): Promise<NormalizedPublication[]> {
+export function loadPersonalBib(slug: string): NormalizedPublication[] {
   if (bibCache.has(slug)) return bibCache.get(slug)!;
-  const bibPath = resolve(contentDir, `people/${slug}.bib`);
-  try {
-    await access(bibPath);
-  } catch {
+  const text = personalBibBySlug[slug];
+  if (text === undefined) {
     bibCache.set(slug, []);
     return [];
   }
-  const text = await readFile(bibPath, "utf-8");
   const pubs = parsePublicationsBib(text);
   bibCache.set(slug, pubs);
   return pubs;
@@ -155,11 +163,11 @@ export function dedupAgainstGroup(
  * Convenience: load + dedup in one call. Returns the personal publications
  * ready for rendering, sorted newest-first.
  */
-export async function loadDedupedPersonalPubs(
+export function loadDedupedPersonalPubs(
   slug: string,
   groupPubs: NormalizedPublication[],
-): Promise<NormalizedPublication[]> {
-  const personal = await loadPersonalBib(slug);
+): NormalizedPublication[] {
+  const personal = loadPersonalBib(slug);
   const kept = dedupAgainstGroup(personal, groupPubs, slug);
   return [...kept].sort((a, b) => b.sort_key - a.sort_key);
 }

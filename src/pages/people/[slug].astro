@@ -32,7 +32,7 @@ const personPubs = [...publications]
 // group bib does NOT already cover. See src/lib/personal-pubs.ts and
 // CLAUDE.md for the editorial rule (R. Han as a co-author → group bib).
 const groupPubsForDedup = publications.map((p) => p.data);
-const personalPubs = await loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
+const personalPubs = loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
 
 const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
 ---
