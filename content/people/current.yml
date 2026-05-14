@@ -72,18 +72,50 @@ phd_students:
     name: "Pradyot Yadav"
     email: "yadavps@mit.edu"
     photo: "pradyot-yadav.jpg"
-    interests: ["sub-THz devices", "heterogeneous integration"]
+    interests:
+      - "3D heterogeneous integration (GaN / Si CMOS / glass / diamond)"
+      - "sub-THz & mmWave devices and circuits"
+      - "advanced packaging, DTCO/STCO"
+    links:
+      website: "https://yadavps.com"
+      scholar: "https://scholar.google.com/citations?user=2tQI6eAAAAAJ"
+      orcid: "https://orcid.org/0000-0003-2071-5647"
+      linkedin: "https://www.linkedin.com/in/pradyot-yadav-b284b216a/"
     bio: >
-      Pradyot Yadav (co-advised by Prof. Tomás Palacios) received his B.S.
-      in electrical engineering with highest honors from the Georgia
-      Institute of Technology in 2022. At Georgia Tech he worked with
-      Prof. Hua Wang and Prof. James Kenney on GaN power amplifier design.
-      His current research interests lie at the intersection of sub-THz
-      devices, circuits, and heterogeneous integration — spanning
-      transistor fabrication in the cleanroom, circuit design, and
-      advanced package processing. He has held R&D internships at Qorvo,
-      Raytheon, and IBM, and serves as a reviewer for IEEE Electron Device
-      Letters.
+      Pradyot Yadav (Graduate Student Member, IEEE) is a 4th-year Ph.D.
+      candidate at MIT, co-advised by Prof. Tomás Palacios and Prof.
+      Ruonan Han. He received his B.S. in Electrical Engineering with
+      highest honors from the Georgia Institute of Technology in 2022,
+      where he worked with Prof. Hua Wang and Prof. James Kenney on GaN
+      power amplifier design, and his S.M. in Electrical Engineering from
+      MIT in 2024. His current research interests are the development of
+      devices, circuits, and packages for RF 3D heterogeneously integrated
+      chips — advancing mmWave and sub-THz systems through the integration
+      of GaN, Si CMOS, glass, and diamond substrates, novel sub-THz GaN
+      transistors, and advanced packaging using DTCO/STCO.
+
+
+      From 2020 to 2021, he was a Microwave Module Intern and R&D Intern
+      at Qorvo Inc., Richardson, TX. From 2024 to 2025, he was a Quantum
+      Research Scientist Intern at the IBM Thomas J. Watson Research
+      Center, Yorktown Heights, NY. He is currently an Advanced Technology
+      Intern at Raytheon, Tewksbury, MA, alongside his role as a Graduate
+      Research Assistant at MIT.
+
+
+      Mr. Yadav received First Place in the High-Efficiency Power
+      Amplifier (HEPA) Student Design Competition for his 3-GHz GaN
+      Doherty amplifier design at the IEEE MTT-S International Microwave
+      Symposium (IMS) 2019. He received the Best Student Award in
+      Electronic Devices at the 15th International Conference on Nitride
+      Semiconductors (ICNS-15), the IEEE MTT-S 2023 Graduate Research
+      Fellowship, and the SRC JUMP 2.0 CHIMES Annual Review Best Poster
+      Award in 2023, 2024, and 2025. He was also an IEEE Radio Frequency
+      Integrated Circuits Symposium (RFIC) 2025 Best Student Paper
+      Finalist. He is a Department of War National Defense Science and
+      Engineering Graduate (DoW NDSEG) Fellow and a Barry Goldwater
+      Scholar. He serves as a reviewer for IEEE Electron Device Letters
+      and IEEE Microwave and Wireless Technology Letters.
 
   - slug: krishna-pochana
     name: "Krishna Pochana"
