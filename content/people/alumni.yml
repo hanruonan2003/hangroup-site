@@ -305,8 +305,8 @@ alumni:
     name: "Rui Ma"
     category: "visiting"
     degree: "Visiting scientist"
-    current_position: "Principal Research Scientist"
-    current_org: "Mitsubishi Electric Research Laboratories (MERL)"
+    current_position: ""
+    current_org: "PSemi/Murata"
     placement_type: "industry"
     photo: "rui-ma.png"
 
