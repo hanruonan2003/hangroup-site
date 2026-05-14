@@ -28,15 +28,29 @@ phd_students:
     name: "Xibi Chen"
     email: "xibichen@mit.edu"
     photo: "xibi-chen.jpg"
-    interests: ["FMCW radar", "sub-THz circuits"]
+    interests:
+      - "THz integrated circuits & systems"
+      - "advanced packaging"
+      - "electromagnetics"
+    links:
+      scholar: "https://scholar.google.com/citations?hl=en&user=rID_h_EAAAAJ"
     bio: >
       Xibi Chen is a Ph.D. student in the Terahertz Integrated Electronics
-      Group at MIT. He received his B.S. and M.S. degrees from the
-      Department of Electronic Engineering, Tsinghua University, Beijing,
-      China, in 2017 and 2020, respectively. From 2015 to 2020 he was a
-      Research Assistant at the Microwave and Antenna Institute, Tsinghua
-      University. His work at MIT includes 140-GHz FMCW monostatic radar
-      transceivers (ISSCC 2022, JSSC 2022).
+      Group at MIT. He received his B.S. and M.S. degrees from Tsinghua
+      University, Beijing, China, in 2017 and 2020, respectively. From
+      2015 to 2017, he was a Research Assistant with the Microwave and
+      Antenna Institute, Department of Electronic Engineering, Tsinghua
+      University. He later became a Graduate Student Researcher in the
+      same institute from 2017 to 2020. His research background includes
+      terahertz (THz) integrated circuits and systems, electromagnetics,
+      advanced packaging technologies, large-scale phased arrays, radar
+      sensing, and high-speed communications. He worked in Texas
+      Instruments (Kilby Lab) and Intel Corporation as Summer Research
+      Interns in 2023 and 2024, respectively. Xibi was the recipient of
+      the 2025–2026 IEEE SSCS Predoctoral Achievement Award, and the 2024
+      IEEE MTT-S Tom Brazil Graduate Fellowship. He also received the
+      2025 MIT EECS MathWorks Fellowship Award, ISSCC 2022 Student Travel
+      Grant Award, and Analog Devices Outstanding Student Designer Award.
 
   - slug: jaehong-jung
     name: "Jaehong Jung"
