@@ -17,15 +17,6 @@ alumni:
     placement_type: "academia"
     photo: "jinchen-wang.jpg"
 
-  - slug: mingran-jia
-    name: "Mingran Jia"
-    category: "phd"
-    degree: "PhD student"
-    current_position: "Ph.D. student"
-    current_org: "Prof. Dirk Englund's group (MIT)"
-    placement_type: "academia"
-    photo: "mingran-jia.png"
-
   - slug: muhammad-ibrahim-wasiq-khan
     name: "Muhammad I. W. Khan"
     category: "phd"
@@ -213,6 +204,15 @@ alumni:
     photo: "tiffany-louie.jpg"
 
   # ===== M.S. =====
+
+  - slug: mingran-jia
+    name: "Mingran Jia"
+    category: "ms"
+    degree: "M.S."
+    current_position: "Ph.D. student"
+    current_org: "Prof. Dirk Englund's group (MIT)"
+    placement_type: "academia"
+    photo: "mingran-jia.png"
 
   - slug: guo-zhang
     name: "Guo Zhang"
