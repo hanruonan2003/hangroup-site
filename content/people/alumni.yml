@@ -353,8 +353,8 @@ alumni:
     category: "urop"
     degree: "SuperUROP"
     current_position: ""
-    current_org: ""
-    placement_type: "unknown"
+    current_org: "Illumina"
+    placement_type: "industry"
     photo: "aaron-pfitzenmaier.jpg"
 
   - slug: nikita-romanov
