@@ -22,7 +22,7 @@ export async function GET(context: APIContext): Promise<Response> {
   ];
 
   // Include the configured base path so sitemap entries point at the right
-  // location on a sub-path deploy (e.g. /ruonan/hangroup-site/ on MIT GHES Pages).
+  // location on a sub-path deploy (e.g. /pages/ruonan/hangroup-site/ on MIT GHES Pages).
   const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
   const urls = paths
     .map((p) => `  <url><loc>${new URL(BASE + p, site).toString()}</loc></url>`)

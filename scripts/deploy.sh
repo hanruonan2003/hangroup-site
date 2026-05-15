@@ -7,7 +7,7 @@
 #
 # In repo Settings -> Pages, set Source = "Deploy from a branch", branch =
 # `gh-pages`, folder = `/(root)`. The site will be served at:
-#   https://pages.github.mit.edu/ruonan/hangroup-site/
+#   https://github.mit.edu/pages/ruonan/hangroup-site/
 #
 # Note: this force-pushes `gh-pages` every run. That branch is a build-output
 # mirror — never commit hand-written changes to it.
@@ -46,5 +46,5 @@ git worktree remove --force "$WORKTREE_DIR"
 
 echo ""
 echo "Done. Site will be live at:"
-echo "  https://pages.github.mit.edu/ruonan/hangroup-site/"
+echo "  https://github.mit.edu/pages/ruonan/hangroup-site/"
 echo "(GHES Pages takes ~30–60s to publish after the push.)"

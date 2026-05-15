@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pages.github.mit.edu/ruonan/hangroup-site/sitemap.xml
+Sitemap: https://github.mit.edu/pages/ruonan/hangroup-site/sitemap.xml
