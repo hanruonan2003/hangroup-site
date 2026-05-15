@@ -192,7 +192,7 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                         <>
                           <span class="entry__byline-sep" aria-hidden="true">—</span>
                           <span class="entry__container">
-                            {d.container}{d.pages ? `, pp. ${d.pages}` : ""}
+                            {d.container}
                           </span>
                         </>
                       )}
@@ -605,7 +605,7 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
   }
 
   .year-section__num {
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     color: var(--color-accent);
     font-weight: var(--weight-medium);
   }
