@@ -43,6 +43,7 @@ git -C "$WORKTREE_DIR" push --force origin gh-pages
 
 echo "==> Cleaning up worktree"
 git worktree remove --force "$WORKTREE_DIR"
+git branch -D gh-pages 2>/dev/null || true
 
 echo ""
 echo "Done. Site will be live at:"
