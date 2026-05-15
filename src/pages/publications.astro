@@ -281,7 +281,18 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                         <span class="entry__meta-item entry__meta-item--highlight">Highlight</span>
                       )}
                     </p>
-                    <h3 class="entry__title">{d.title}</h3>
+                    <h3 class="entry__title">
+                      {d.doi ? (
+                        <a
+                          class="entry__title-link"
+                          href={`https://doi.org/${d.doi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >{d.title}</a>
+                      ) : (
+                        d.title
+                      )}
+                    </h3>
                     <div class="entry__byline">
                       <span class="entry__authors">{authorsLine}</span>
                       {showContainer && (
@@ -863,6 +874,19 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     .entry__title {
       font-size: var(--text-sm);
     }
+  }
+
+  /* When a paper has a DOI, the title becomes a link to doi.org (which
+     resolves to the publisher's page). Inherits the title's typography
+     and uses a hover-only accent — no underline, since the title is
+     already visually prominent. */
+  .entry__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .entry__title-link:hover {
+    color: var(--color-accent);
   }
 
   .entry__byline {
