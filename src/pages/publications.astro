@@ -23,8 +23,25 @@ for (const p of sorted) {
 }
 const years = [...byYear.keys()].sort((a, b) => b - a);
 
-// Filter chip options — sorted for stable order.
-const allYears = years.map(String);
+const pubsConfig = siteEntry.data.publications;
+
+// Year chips render in two tiers (see content/site/site.yml):
+//   1. Recent row = years in [currentYear - (year_window - 1), currentYear]
+//      that have at least one paper, sorted desc.
+//   2. "Older ▾" disclosure = all years with papers before the window,
+//      sorted desc. Years with zero papers are NOT rendered (no empty
+//      chips for gap years like 2014).
+// An older chip stays visible in the main row when its filter is active,
+// so the user can see what they've selected without re-expanding.
+const yearWindow: number = pubsConfig.year_window;
+const currentYear = new Date().getFullYear();
+const windowStart = currentYear - (yearWindow - 1);
+const recentYears = years.filter((y) => y >= windowStart && y <= currentYear);
+const olderYears = years.filter((y) => y < windowStart);
+// DOM order: recent first (desc), then older (desc). CSS hides the older
+// chips by default; the "Older" toggle reveals them, and an .is-active
+// older chip is exempted from hiding via a CSS rule.
+const yearChips = [...recentYears, ...olderYears];
 
 // Venue chips render in two tiers (see content/site/site.yml):
 //   1. Top row = featured_venues (always shown, in YAML order)
@@ -32,8 +49,8 @@ const allYears = years.map(String);
 //   2. "More venues ▾" disclosure = everything else, alphabetical
 // Featured venues with zero papers in the current bib still appear as
 // credential-signaling chips — clicking one just yields an empty result.
-const featuredVenues: string[] = siteEntry.data.featured_venues;
-const threshold: number = siteEntry.data.featured_venues_threshold;
+const featuredVenues: string[] = pubsConfig.featured_venues;
+const threshold: number = pubsConfig.featured_venues_threshold;
 
 const venueCounts = new Map<string, number>();
 for (const p of sorted) {
@@ -110,17 +127,36 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
           spellcheck="false"
         />
 
-        <div class="pubs__chip-group" role="group" aria-label="Year">
-          {allYears.map((y) => (
+        <div
+          class="pubs__chip-group"
+          role="group"
+          aria-label="Year"
+          data-year-group
+        >
+          {yearChips.map((y) => {
+            const tier = y >= windowStart ? "recent" : "older";
+            return (
+              <button
+                type="button"
+                class="chip mono"
+                data-chip={`year:${y}`}
+                data-tier={tier}
+                aria-pressed="false"
+              >
+                {y}
+              </button>
+            );
+          })}
+          {olderYears.length > 0 && (
             <button
               type="button"
-              class="chip mono"
-              data-chip={`year:${y}`}
-              aria-pressed="false"
+              class="pubs__more-toggle mono"
+              data-older-toggle
+              aria-expanded="false"
             >
-              {y}
+              Older <span aria-hidden="true" class="pubs__more-caret">▾</span>
             </button>
-          ))}
+          )}
         </div>
 
         <div class="pubs__chip-group" role="group" aria-label="Venue">
@@ -395,6 +431,22 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     setMoreVenuesOpen(moreVenuesRow?.hidden ?? false);
   });
 
+  // "Older ▾" toggle — reveals the older year chips inline. Active older
+  // chips remain visible even when the disclosure is collapsed (the
+  // .is-active CSS rule exempts them from the hide).
+  const olderToggle = $<HTMLButtonElement>("[data-older-toggle]");
+  const yearGroup = $<HTMLElement>("[data-year-group]");
+  function setOlderYearsOpen(open: boolean): void {
+    if (!olderToggle || !yearGroup) return;
+    yearGroup.classList.toggle("is-expanded", open);
+    olderToggle.setAttribute("aria-expanded", String(open));
+    olderToggle.classList.toggle("is-open", open);
+  }
+  olderToggle?.addEventListener("click", () => {
+    const isOpen = yearGroup?.classList.contains("is-expanded") ?? false;
+    setOlderYearsOpen(!isOpen);
+  });
+
   clearEl?.addEventListener("click", () => {
     state.search = "";
     state.years.clear();
@@ -632,6 +684,20 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     background: var(--color-accent);
     color: var(--color-bg);
     border-color: var(--color-accent);
+  }
+
+  /* Older year chips: hidden by default, revealed when the parent group
+     is marked .is-expanded by the "Older ▾" toggle. Active chips are
+     exempt so a selected older year stays visible even after collapsing
+     the disclosure (matches the persistence rule called out in the
+     filter spec). */
+  .chip[data-tier="older"] {
+    display: none;
+  }
+
+  [data-year-group].is-expanded .chip[data-tier="older"],
+  .chip[data-tier="older"].is-active {
+    display: inline-block;
   }
 
   /* "More venues ▾" — a subtle text toggle at the end of the venue row;

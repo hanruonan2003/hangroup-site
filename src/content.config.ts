@@ -194,12 +194,22 @@ const site = defineCollection({
       body: z.string(),
       apply_url: z.string().url(),
     }),
-    // Top venue chips on /publications/ are a UNION of this list (always
-    // shown, in YAML order) and any venues with >= featured_venues_threshold
-    // papers in the current bib. Everything else collapses into a
-    // "More venues ▾" disclosure, sorted alphabetically.
-    featured_venues: z.array(z.string()).default([]),
-    featured_venues_threshold: z.number().int().min(1).default(3),
+    // /publications/ filter-row knobs.
+    //   year_window: number of most-recent years to keep in the always-
+    //     visible chip row. Older years (those with papers but outside the
+    //     window) collapse into an "Older ▾" disclosure.
+    //   featured_venues: always-visible venue chips, in YAML order. Their
+    //     paper count is irrelevant — they appear as credential signals.
+    //   featured_venues_threshold: the auto-include cutoff for the top
+    //     venue row (venues not in featured_venues but with ≥ this many
+    //     papers in the current bib still surface to the top row).
+    publications: z
+      .object({
+        year_window: z.number().int().min(1).default(10),
+        featured_venues: z.array(z.string()).default([]),
+        featured_venues_threshold: z.number().int().min(1).default(3),
+      })
+      .default({}),
   }),
 });
 
