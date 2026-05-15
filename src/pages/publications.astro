@@ -190,19 +190,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
           )}
         </div>
 
-        <div class="pubs__chip-group" role="group" aria-label="Topic">
-          {allTopics.map((t) => (
-            <button
-              type="button"
-              class="chip mono"
-              data-chip={`topic:${t}`}
-              aria-pressed="false"
-            >
-              {formatTopic(t)}
-            </button>
-          ))}
-        </div>
-
         {moreVenues.length > 0 && (
           <div
             class="pubs__chip-group pubs__chip-group--more"
@@ -224,6 +211,19 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
             ))}
           </div>
         )}
+
+        <div class="pubs__chip-group" role="group" aria-label="Topic">
+          {allTopics.map((t) => (
+            <button
+              type="button"
+              class="chip mono"
+              data-chip={`topic:${t}`}
+              aria-pressed="false"
+            >
+              {formatTopic(t)}
+            </button>
+          ))}
+        </div>
       </div>
       </details>
     </header>
