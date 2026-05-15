@@ -194,6 +194,12 @@ const site = defineCollection({
       body: z.string(),
       apply_url: z.string().url(),
     }),
+    // Top venue chips on /publications/ are a UNION of this list (always
+    // shown, in YAML order) and any venues with >= featured_venues_threshold
+    // papers in the current bib. Everything else collapses into a
+    // "More venues ▾" disclosure, sorted alphabetically.
+    featured_venues: z.array(z.string()).default([]),
+    featured_venues_threshold: z.number().int().min(1).default(3),
   }),
 });
 

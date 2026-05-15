@@ -25,9 +25,35 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 
 // Filter chip options — sorted for stable order.
 const allYears = years.map(String);
-const allVenues = [
-  ...new Set(sorted.map((p) => p.data.venue).filter(Boolean)),
-].sort();
+
+// Venue chips render in two tiers (see content/site/site.yml):
+//   1. Top row = featured_venues (always shown, in YAML order)
+//                  ∪ venues with ≥ threshold papers (auto, by count desc)
+//   2. "More venues ▾" disclosure = everything else, alphabetical
+// Featured venues with zero papers in the current bib still appear as
+// credential-signaling chips — clicking one just yields an empty result.
+const featuredVenues: string[] = siteEntry.data.featured_venues;
+const threshold: number = siteEntry.data.featured_venues_threshold;
+
+const venueCounts = new Map<string, number>();
+for (const p of sorted) {
+  const v = p.data.venue;
+  if (!v) continue;
+  venueCounts.set(v, (venueCounts.get(v) ?? 0) + 1);
+}
+
+const featuredSet = new Set(featuredVenues);
+const autoTopVenues = [...venueCounts.entries()]
+  .filter(([v, c]) => c >= threshold && !featuredSet.has(v))
+  .sort((a, b) => b[1] - a[1])
+  .map(([v]) => v);
+const topVenues = [...featuredVenues, ...autoTopVenues];
+const topVenueSet = new Set(topVenues);
+
+const moreVenues = [...venueCounts.keys()]
+  .filter((v) => !topVenueSet.has(v))
+  .sort();
+
 const allTopics = [
   ...new Set(sorted.flatMap((p) => p.data.keywords)),
 ].sort();
@@ -98,7 +124,7 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
         </div>
 
         <div class="pubs__chip-group" role="group" aria-label="Venue">
-          {allVenues.map((v) => (
+          {topVenues.map((v) => (
             <button
               type="button"
               class="chip mono"
@@ -108,6 +134,17 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
               {v}
             </button>
           ))}
+          {moreVenues.length > 0 && (
+            <button
+              type="button"
+              class="pubs__more-toggle mono"
+              data-more-toggle
+              aria-expanded="false"
+              aria-controls="pubs-more-venues"
+            >
+              More venues <span aria-hidden="true" class="pubs__more-caret">▾</span>
+            </button>
+          )}
         </div>
 
         <div class="pubs__chip-group" role="group" aria-label="Topic">
@@ -122,6 +159,28 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
             </button>
           ))}
         </div>
+
+        {moreVenues.length > 0 && (
+          <div
+            class="pubs__chip-group pubs__chip-group--more"
+            id="pubs-more-venues"
+            role="group"
+            aria-label="More venues"
+            data-more-venues
+            hidden
+          >
+            {moreVenues.map((v) => (
+              <button
+                type="button"
+                class="chip mono"
+                data-chip={`venue:${v}`}
+                aria-pressed="false"
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
         <p class="pubs__status mono">
@@ -323,6 +382,19 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     });
   });
 
+  // "More venues ▾" toggle — reveals the alphabetical fallback row.
+  const moreToggle = $<HTMLButtonElement>("[data-more-toggle]");
+  const moreVenuesRow = $<HTMLElement>("[data-more-venues]");
+  function setMoreVenuesOpen(open: boolean): void {
+    if (!moreToggle || !moreVenuesRow) return;
+    moreVenuesRow.hidden = !open;
+    moreToggle.setAttribute("aria-expanded", String(open));
+    moreToggle.classList.toggle("is-open", open);
+  }
+  moreToggle?.addEventListener("click", () => {
+    setMoreVenuesOpen(moreVenuesRow?.hidden ?? false);
+  });
+
   clearEl?.addEventListener("click", () => {
     state.search = "";
     state.years.clear();
@@ -356,6 +428,14 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
   applyParam("year", state.years, params.get("year") ?? "");
   if (state.topics.size || state.venues.size || state.years.size) {
     applyFilters();
+  }
+  // If a deep-link selected a venue that lives in the "more" row, expand it
+  // so the activated chip is visible.
+  if (moreVenuesRow) {
+    const hasActiveMore = $$<HTMLButtonElement>(
+      "[data-more-venues] [data-chip].is-active",
+    ).length > 0;
+    if (hasActiveMore) setMoreVenuesOpen(true);
   }
 
   // Filters are collapsed by default so mobile readers see papers sooner.
@@ -552,6 +632,57 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     background: var(--color-accent);
     color: var(--color-bg);
     border-color: var(--color-accent);
+  }
+
+  /* "More venues ▾" — a subtle text toggle at the end of the venue row;
+     deliberately not chip-shaped so it reads as an action, not a filter. */
+  .pubs__more-toggle {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    background: transparent;
+    border: 0;
+    padding: 0 4px;
+    margin-left: var(--space-1);
+    cursor: pointer;
+    line-height: 1.4;
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .pubs__more-toggle:hover {
+    color: var(--color-accent);
+  }
+
+  .pubs__more-caret {
+    display: inline-block;
+    transition: transform 0.15s ease;
+    color: var(--color-fg-faint);
+  }
+
+  .pubs__more-toggle.is-open .pubs__more-caret {
+    transform: rotate(180deg);
+  }
+
+  /* Secondary row of less-frequent venues; lives at the bottom of the
+     toolbar and spans the full width, so the alphabetical chips wrap
+     into their own dedicated band rather than crowding the top row. */
+  .pubs__chip-group--more {
+    flex: 0 0 100%;
+    padding-top: var(--space-2);
+    margin-top: var(--space-1);
+    border-top: 0.5px dashed var(--color-border);
+  }
+
+  /* The generic ".pubs__chip-group + .pubs__chip-group" adds a left
+     border between adjacent groups — drop it here, this row is its own
+     full-width band. */
+  .pubs__chip-group + .pubs__chip-group--more {
+    padding-left: 0;
+    margin-left: 0;
+    border-left: 0;
   }
 
   /* Status line — paper count + clear, compact */

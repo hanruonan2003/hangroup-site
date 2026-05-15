@@ -80,3 +80,20 @@ recruiting:
     Graduate Admissions process and mention Prof. Han's group in your
     statement of purpose.
   apply_url: "https://www.eecs.mit.edu/academics/graduate-programs/admission-process/"
+
+# Top-row venue chips on /publications/. The page renders these first
+# (in this order), then appends any other venues that have at least
+# `featured_venues_threshold` papers in the current bib, sorted by
+# paper count descending. Everything else lives in "More venues ▾".
+# Values must match the `venue` field used in publications.bib exactly.
+featured_venues:
+  - ISSCC
+  - JSSC
+  - NatElec
+  - RFIC
+  - IEDM
+  - T-MTT
+  - Nature
+  - CICC
+  - VLSI
+featured_venues_threshold: 3
