@@ -117,15 +117,22 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
         </summary>
 
         <div class="pubs__toolbar" role="group" aria-label="Filter publications">
-        <input
-          class="pubs__search"
-          type="search"
-          data-search
-          placeholder="Search title or author…"
-          aria-label="Search publications"
-          autocomplete="off"
-          spellcheck="false"
-        />
+        <div class="pubs__search-row">
+          <input
+            class="pubs__search"
+            type="search"
+            data-search
+            placeholder="Search title or author…"
+            aria-label="Search publications"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <p class="pubs__status mono">
+            <span data-total-count>{totalCount}</span> papers
+            <span aria-hidden="true" class="pubs__status-sep">·</span>
+            <button type="button" class="pubs__clear" data-clear>Clear filters</button>
+          </p>
+        </div>
 
         <div
           class="pubs__chip-group"
@@ -218,12 +225,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
           </div>
         )}
       </div>
-
-        <p class="pubs__status mono">
-          <span data-total-count>{totalCount}</span> papers
-          <span aria-hidden="true" class="pubs__status-sep">·</span>
-          <button type="button" class="pubs__clear" data-clear>Clear filters</button>
-        </p>
       </details>
     </header>
 
@@ -598,15 +599,26 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     }
   }
 
-  /* Toolbar — search + chip groups on one row, wraps as needed */
+  /* Toolbar — one stacked row per filter group (search+status, years,
+     venues, topics). Each row's internal layout wraps independently. */
 
   .pubs__toolbar {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
     gap: var(--space-3);
     padding-block: var(--space-2);
     border-block: 0.5px solid var(--color-border);
+  }
+
+  /* Row 1: search box on the left, status (paper count · clear) on the
+     right. Wraps at narrow widths — the search goes full-width and the
+     status drops below, left-aligned. */
+  .pubs__search-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
   }
 
   .pubs__search {
@@ -622,7 +634,7 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     min-height: 32px;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 700px) {
     .pubs__search {
       width: 100%;
     }
@@ -638,22 +650,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     flex-wrap: wrap;
     gap: var(--space-1);
     align-items: center;
-  }
-
-  /* Thin vertical divider between groups (desktop only — on wrap, dividers
-     would look odd at the start of a new line, so we drop them under 480px). */
-  .pubs__chip-group + .pubs__chip-group {
-    padding-left: var(--space-3);
-    margin-left: var(--space-1);
-    border-left: 0.5px solid var(--color-border);
-  }
-
-  @media (max-width: 480px) {
-    .pubs__chip-group + .pubs__chip-group {
-      padding-left: 0;
-      margin-left: 0;
-      border-left: 0;
-    }
   }
 
   .chip {
@@ -732,35 +728,28 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     transform: rotate(180deg);
   }
 
-  /* Secondary row of less-frequent venues; lives at the bottom of the
-     toolbar and spans the full width, so the alphabetical chips wrap
-     into their own dedicated band rather than crowding the top row. */
+  /* Secondary row of less-frequent venues; sits at the bottom of the
+     toolbar so the alphabetical chips get their own dedicated band
+     rather than crowding the top venue row. */
   .pubs__chip-group--more {
-    flex: 0 0 100%;
     padding-top: var(--space-2);
-    margin-top: var(--space-1);
     border-top: 0.5px dashed var(--color-border);
   }
 
-  /* The generic ".pubs__chip-group + .pubs__chip-group" adds a left
-     border between adjacent groups — drop it here, this row is its own
-     full-width band. */
-  .pubs__chip-group + .pubs__chip-group--more {
-    padding-left: 0;
-    margin-left: 0;
-    border-left: 0;
-  }
-
-  /* Status line — paper count + clear, compact */
+  /* Status line — paper count + clear, compact. Sits inline with the
+     search input on row 1 (margin-left:auto pushes it to the right
+     edge; on wrap it lands on its own line, left-aligned, because
+     justify-content:space-between on the parent leaves a sole flex
+     item at the start of its row). */
 
   .pubs__status {
-    margin-top: var(--space-2);
     font-size: var(--text-xs);
     color: var(--color-fg-faint);
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
     align-items: baseline;
+    margin: 0;
   }
 
   .pubs__status-sep {
