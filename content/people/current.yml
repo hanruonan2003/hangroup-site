@@ -249,4 +249,13 @@ undergrad_students:
       millimeter-wave integrated circuit (mmWave IC) design, and
       mixed-signal IC design.
 
+  - slug: fansen-funata
+    name: "Fansen Funata"
+    photo: "fansen-funata.jpg"
+    interests: ["physics", "integrated circuits"]
+    bio: >
+      I'm Fansen, class of 2029. I am deeply interested in physics and
+      integrated circuits, and in my free time, I enjoy playing the
+      guitar.
+
 postdocs: []
