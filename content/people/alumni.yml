@@ -203,6 +203,24 @@ alumni:
     placement_type: "industry"
     photo: "tiffany-louie.jpg"
 
+  - slug: kyle-heinz
+    name: "Kyle Heinz"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: "Apple"
+    placement_type: "industry"
+    photo: "kyle-heinz.jpg"
+
+  - slug: youran-gao
+    name: "Youran (Yoland) Gao"
+    category: "meng"
+    degree: "M.Eng."
+    current_position: ""
+    current_org: "Apple"
+    placement_type: "industry"
+    photo: "youran-gao.jpeg"
+
   # ===== M.S. =====
 
   - slug: mingran-jia

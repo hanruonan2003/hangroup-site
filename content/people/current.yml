@@ -212,29 +212,6 @@ phd_students:
 
 masters_students:
 
-  - slug: kyle-heinz
-    name: "Kyle Heinz"
-    email: "kyleh51@mit.edu"
-    photo: "kyle-heinz.jpg"
-    interests: []
-    bio: >
-      Kyle Heinz is a Master of Engineering student in the Terahertz
-      Integrated Electronics Group, Microsystem Technology Laboratories
-      (MTL), at MIT EECS. He received his B.S. from MIT EECS in 2025 and
-      has been a Research Assistant with TIEG since 2024.
-
-  - slug: youran-gao
-    name: "Youran (Yoland) Gao"
-    email: "youran@mit.edu"
-    photo: "youran-gao.jpeg"
-    interests: []
-    bio: >
-      Youran (Yoland) Gao received his SB in Electrical Engineering and
-      Computer Science from MIT in 2025. He is currently pursuing an
-      M.Eng. in the Terahertz Integrated Electronics Group at MIT EECS.
-
-undergrad_students:
-
   - slug: jason-li
     name: "Jason Li"
     email: "jason_li@mit.edu"
@@ -248,6 +225,8 @@ undergrad_students:
       management IC (PMIC) design. His interests include electromagnetics,
       millimeter-wave integrated circuit (mmWave IC) design, and
       mixed-signal IC design.
+
+undergrad_students:
 
   - slug: fansen-funata
     name: "Fansen Funata"
