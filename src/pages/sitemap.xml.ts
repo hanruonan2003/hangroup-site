@@ -21,8 +21,9 @@ export async function GET(context: APIContext): Promise<Response> {
     "/contact/",
   ];
 
-  // Include the configured base path so sitemap entries point at the right
-  // location on a sub-path deploy (e.g. /hangroup-site/ on GitHub Pages).
+  // Include the configured base path so sitemap entries stay correct under
+  // both a root deploy (current setup at hangroup.mit.edu) and a future
+  // sub-path deploy.
   const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
   const urls = paths
     .map((p) => `  <url><loc>${new URL(BASE + p, site).toString()}</loc></url>`)

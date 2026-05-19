@@ -3,7 +3,8 @@
 # In repo Settings → Pages, set Source = "GitHub Actions" (not "Deploy from
 # a branch"). The deploy job publishes to the `github-pages` environment;
 # the URL is surfaced on the workflow run page and at:
-#   https://hanruonan2003.github.io/hangroup-site/
+#   https://hangroup.mit.edu/
+# The custom domain is pinned via public/CNAME.
 
 name: Deploy to GitHub Pages
 
