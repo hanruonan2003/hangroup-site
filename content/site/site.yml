@@ -11,8 +11,8 @@ site:
   established: 2014
   tagline: "Pushing semiconductor electronics to its high-frequency limits."
   description: >
-    We design integrated circuits and systems operating at terahertz and
-    above, advancing the next generation of sensing, metrology, security,
+    We design integrated circuits and systems operating at up to terahertz,
+    advancing the next generation of sensing, metrology, security,
     and communication.
 
 pi:
