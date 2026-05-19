@@ -113,6 +113,20 @@ const alumni = defineCollection({
     ]),
     awards: z.array(z.string()).optional(),
     photo: z.string().optional(),
+    // Optional carryover fields from when this alumnus was a current member.
+    // If `bio` is set, /people/<slug>/ generates a personal page just like
+    // current members. See CLAUDE.md for the editorial rule.
+    bio: z.string().optional(),
+    interests: z.array(z.string()).default([]),
+    email: z.string().email().optional(),
+    links: z
+      .object({
+        website: z.string().url().optional(),
+        scholar: z.string().url().optional(),
+        orcid: z.string().url().optional(),
+        linkedin: z.string().url().optional(),
+      })
+      .optional(),
   }),
 });
 

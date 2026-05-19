@@ -9,18 +9,37 @@ import { url } from "../../lib/url.ts";
 
 export const getStaticPaths = (async () => {
   const people = await getCollection("people");
-  return people.map((p) => ({
-    params: { slug: p.data.slug },
-    props: { person: p },
-  }));
+  const alumni = await getCollection("alumni");
+  // Alumni keep their personal page as long as their alumni.yml entry
+  // carries a bio. See CLAUDE.md for the editorial rule.
+  const alumniWithPage = alumni.filter((a) => a.data.bio);
+  return [
+    ...people.map((p) => ({
+      params: { slug: p.data.slug },
+      props: { kind: "current" as const, current: p, alum: null },
+    })),
+    ...alumniWithPage.map((a) => ({
+      params: { slug: a.data.slug },
+      props: { kind: "alumni" as const, current: null, alum: a },
+    })),
+  ];
 }) satisfies GetStaticPaths;
 
-interface Props {
-  person: Awaited<ReturnType<typeof getCollection<"people">>>[number];
-}
+const { kind, current, alum } = Astro.props;
+const isAlum = kind === "alumni";
+const d = isAlum ? alum!.data : current!.data;
 
-const { person } = Astro.props;
-const d = person.data;
+// Build the role label shown under the name. For current members it's the
+// canonical role from content.config.ts ("PhD student", "M.Eng student",
+// etc.). For alumni it folds together degree, graduation year, and current
+// destination (e.g. "PhD alum, 2026 · Neuralink").
+const roleLabel = isAlum
+  ? [
+      `${alum!.data.degree || "Alum"} alum`,
+      alum!.data.year_graduated ? `'${String(alum!.data.year_graduated).slice(-2)}` : "",
+    ].filter(Boolean).join(" ") +
+    (alum!.data.current_org ? ` · ${alum!.data.current_org}` : "")
+  : current!.data.role;
 
 const publications = await getCollection("publications");
 const personSet = buildPrimaryAuthorSet([d.name]);
@@ -34,10 +53,13 @@ const personPubs = [...publications]
 const groupPubsForDedup = publications.map((p) => p.data);
 const personalPubs = loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
 
-const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
+// Alumni pages are filtered to require a bio in getStaticPaths above, so
+// d.bio is guaranteed defined here.
+const bioText = d.bio!;
+const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
 ---
 
-<BaseLayout title={d.name} description={`${d.name} — ${d.role}, Terahertz Integrated Electronics Group.`}>
+<BaseLayout title={d.name} description={`${d.name} — ${roleLabel}, Terahertz Integrated Electronics Group.`}>
   <section class="container profile">
     <p class="profile__back mono"><a href={url("/people/")}>← People</a></p>
 
@@ -47,7 +69,7 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
       </div>
       <div class="profile__head-body">
         <h1 class="profile__name">{d.name}</h1>
-        <p class="profile__role mono">{d.role}</p>
+        <p class="profile__role mono">{roleLabel}</p>
         {d.interests.length > 0 && (
           <ul class="profile__tags mono">
             {d.interests.map((t) => (
@@ -86,7 +108,7 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(d.bio.trim());
           <em>{`{{TODO: write a bio for ${d.name} in content/people/current.yml}}`}</em>
         </p>
       ) : (
-        <p class="profile__bio">{d.bio}</p>
+        <p class="profile__bio">{bioText}</p>
       )}
     </section>
 

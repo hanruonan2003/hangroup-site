@@ -6,24 +6,6 @@
 
 phd_students:
 
-  - slug: eunseok-lee
-    name: "Eunseok Lee"
-    email: "eunseok@mit.edu"
-    photo: "eunseok-lee.jpg"
-    interests: ["hardware security", "mmW/THz ICs"]
-    awards:
-      - "Mathwork Fellowship, MIT (2023)"
-      - "Doctoral Study Abroad Scholarship, Korea Foundation for Advanced Studies (2021)"
-      - "Irwin Mark Jacobs and Joan Klein Jacobs MIT Presidential Fellowship (2020)"
-    bio: >
-      Eunseok Lee (co-advised by Prof. Anantha Chandrakasan) received the
-      B.S. degree in electrical engineering from the Korea Advanced
-      Institute of Science and Technology (KAIST) in 2020, and the M.S.
-      degree in EECS from MIT in 2023, where he is currently pursuing the
-      Ph.D. degree. His research focus is mmWave/THz and hardware-security
-      systems for low-power, ultra-miniaturized platforms — spanning
-      digital, analog/mixed-signal, and THz ICs.
-
   - slug: xibi-chen
     name: "Xibi Chen"
     email: "xibichen@mit.edu"

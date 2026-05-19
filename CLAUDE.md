@@ -35,10 +35,19 @@ Rules:
 - The `keywords` and `highlight` fields on personal entries are ignored:
   personal pubs don't get topic chips on the group page or highlight
   badges anywhere.
-- When a person leaves the group: delete BOTH their entry in
-  `content/people/current.yml` AND `content/people/<slug>.bib` together,
-  and move their record into `content/people/alumni.yml`. Keep their group
-  publications in `publications.bib` — only the personal `.bib` goes away.
+- When a person leaves the group: move their record from
+  `content/people/current.yml` into `content/people/alumni.yml`, carrying
+  over `bio`, `interests`, `email`, `awards`, and `photo`. The presence
+  of `bio` on an alumni entry is what makes
+  `src/pages/people/[slug].astro` keep generating their personal page —
+  without it they only appear in the alumni grid. Edit the bio into past
+  tense (e.g. "is currently pursuing the Ph.D." → "received the Ph.D.
+  in YYYY") and fill in `year_graduated`, `current_org`, and
+  `placement_type`. Move the photo from `content/people/photos/` to
+  `content/people/photos/alumni/`. Keep their personal `.bib` at
+  `content/people/<slug>.bib` so their "Other publications" section
+  survives. Keep their group publications in `publications.bib`
+  untouched.
 
 When the user asks "add this paper to <person>'s page": **ask explicitly
 whether R. Han is a co-author.**
