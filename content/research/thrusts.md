@@ -48,7 +48,7 @@ radar, and the FMCW comb radar.
 
 ---
 
-## 2. THz Communication and Interconnect
+## 5. THz Communication and Interconnect
 
 **Tag:** `communication`, `interconnect`
 
@@ -160,7 +160,7 @@ demonstration, cryptographic wake-up receiver.
 
 ---
 
-## 5. Quantum Information and Sensing
+## 2. Quantum Information and Sensing
 
 **Tag:** `quantum`
 
