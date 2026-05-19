@@ -8,6 +8,13 @@ const year = new Date().getFullYear();
   <div class="container site-footer__inner">
     <p class="site-footer__meta">
       © {year} Terahertz Integrated Electronics Group, MIT
+      <span class="site-footer__sep" aria-hidden="true">·</span>
+      <a
+        class="site-footer__a11y"
+        href="https://accessibility.mit.edu"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Accessibility at MIT</a>
     </p>
     <div class="site-footer__affiliations" aria-label="Affiliations: MIT, RLE, MTL">
       <a
@@ -67,6 +74,23 @@ const year = new Date().getFullYear();
   .site-footer__meta {
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
+  }
+
+  .site-footer__sep {
+    color: var(--color-fg-faint);
+    margin-inline: 4px;
+  }
+
+  .site-footer__a11y {
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .site-footer__a11y:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .site-footer__affiliations {
