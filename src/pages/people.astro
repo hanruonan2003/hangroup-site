@@ -202,7 +202,13 @@ const placementCount = (key: string) =>
                       <p class="alumni__year mono">
                         {year ?? a.data.period ?? "—"}
                       </p>
-                      <p class="alumni__name">{a.data.name}</p>
+                      <p class="alumni__name">
+                        {a.data.bio ? (
+                          <a class="alumni__name-link" href={url(`/people/${a.data.slug}/`)}>{a.data.name}</a>
+                        ) : (
+                          a.data.name
+                        )}
+                      </p>
                       <p class="alumni__placement">
                         {place || (
                           <span class="alumni__placement-empty mono">—</span>
@@ -519,6 +525,18 @@ const placementCount = (key: string) =>
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
     margin-top: 2px;
+  }
+
+  .alumni__name-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .alumni__name-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .alumni__placement {
