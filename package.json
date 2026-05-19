@@ -10,8 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "deploy": "bash scripts/deploy.sh"
+    "astro": "astro"
   },
   "dependencies": {
     "@retorquere/bibtex-parser": "^9.0.29",
