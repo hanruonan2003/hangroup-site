@@ -127,7 +127,6 @@ const placementCount = (key: string) =>
                     <PersonPhoto name={p.data.name} slug={p.data.slug} />
                     <div class="person-card__body">
                       <p class="person-card__name">{p.data.name}</p>
-                      <p class="person-card__role mono">{p.data.role}</p>
                       {p.data.interests.length > 0 && (
                         <ul class="person-card__tags mono">
                           {p.data.interests.map((t) => (
@@ -417,12 +416,6 @@ const placementCount = (key: string) =>
   .person-card__name {
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
-  }
-
-  .person-card__role {
-    font-size: var(--text-xs);
-    color: var(--color-fg-faint);
-    margin-top: 2px;
   }
 
   .person-card__tags {
