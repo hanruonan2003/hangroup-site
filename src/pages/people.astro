@@ -333,16 +333,12 @@ const placementCount = (key: string) =>
   .pi__name {
     font-size: var(--text-lg);
     margin-bottom: var(--space-1);
-    max-width: 85%;
-    margin-inline: auto;
   }
 
   .pi__title {
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
     margin-bottom: var(--space-4);
-    max-width: 85%;
-    margin-inline: auto;
   }
 
   .pi__bio {
@@ -350,8 +346,18 @@ const placementCount = (key: string) =>
     color: var(--color-fg-muted);
     line-height: 1.6;
     margin-bottom: var(--space-4);
-    max-width: 85%;
-    margin-inline: auto;
+  }
+
+  /* Narrow the text column on desktop only. On mobile the .pi grid is a
+     single column, so adding margin-inline:auto would center the text
+     while the 180px photo sits at the left edge — visibly misaligned. */
+  @media (min-width: 720px) {
+    .pi__name,
+    .pi__title,
+    .pi__bio {
+      max-width: 85%;
+      margin-inline: auto;
+    }
   }
 
   /* Current members */
