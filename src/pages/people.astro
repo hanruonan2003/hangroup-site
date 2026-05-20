@@ -350,7 +350,11 @@ const placementCount = (key: string) =>
     }
   }
 
-  .pi__photo { grid-area: photo; }
+  /* Nudge the photo down by the line-box's leading above "Ruonan Han"
+     (font-size 24px × line-height 1.2 leaves ≈6px of space above the
+     cap-height) so the photo's top edge sits flush with the visible
+     top of the heading text, not the line-box top. */
+  .pi__photo { grid-area: photo; margin-top: 6px; }
   .pi__head  { grid-area: head; align-self: start; }
   .pi__bio   { grid-area: bio; }
 
