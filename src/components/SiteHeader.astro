@@ -28,9 +28,15 @@ const isActive = (href: string): boolean => {
 };
 ---
 
-<header class="site-header">
+<header class="site-header" transition:persist="site-header">
   <div class="container site-header__inner">
-    <a class="site-mark" href={url("/")} aria-label={`${siteName} home`}>
+    <a
+      class="site-mark"
+      href={url("/")}
+      aria-label={`${siteName} home`}
+      data-nav-target="home"
+      aria-current={currentPath === "/" ? "page" : undefined}
+    >
       <span class="site-mark__square" aria-hidden="true"></span>
       <span class="site-mark__name">{siteName}</span>
     </a>
@@ -40,6 +46,7 @@ const isActive = (href: string): boolean => {
           <li>
             <a
               href={url(item.href)}
+              data-nav-target={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
@@ -48,6 +55,7 @@ const isActive = (href: string): boolean => {
         ))}
       </ul>
     </nav>
+    <span class="site-header__underline" data-underline aria-hidden="true"></span>
   </div>
 </header>
 
@@ -55,16 +63,44 @@ const isActive = (href: string): boolean => {
   .site-header {
     border-bottom: 0.5px solid var(--color-border);
     padding-block: var(--space-4);
+    /* The .site-header__inner is position: relative so the underline
+       (absolutely positioned) is measured against the inner content
+       box, matching what the active-target getBoundingClientRect calls
+       see. */
+  }
+
+  /* Sliding active-tab underline. Positioned absolutely inside the
+     header's inner box; JS sets translate + width on each navigation
+     so it animates from old → new active target. Lives across pages
+     via transition:persist on the header. */
+  .site-header__underline {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    transition: transform 220ms ease-out, width 220ms ease-out;
+  }
+
+  /* No transition before the first measurement places it under the
+     initial active target — prevents an animation from (0,0). */
+  .site-header__underline[data-initial] {
+    transition: none;
   }
 
   /* Mobile (default): two-row header. Row 1 = logo (red square + full
      site title, links home), row 2 = all 5 tabs distributed across the
-     row. Stretch the children so the nav can use the full width. */
+     row. Stretch the children so the nav can use the full width.
+     position: relative anchors the absolutely positioned underline. */
   .site-header__inner {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
     align-items: stretch;
+    position: relative;
   }
 
   /* Desktop: single row, logo on the left, tabs on the right. */
@@ -173,7 +209,104 @@ const isActive = (href: string): boolean => {
     color: var(--color-accent);
   }
 
-  .site-nav a[aria-current="page"] {
-    border-bottom-color: var(--color-accent);
-  }
+  /* Active-page indicator is now the sliding .site-header__underline
+     element; per-tab border-bottom is left transparent so the slider
+     owns the visual without doubling up. */
 </style>
+
+<script>
+  // Sliding active-tab underline. The header is persisted across
+  // client-side navigations (transition:persist="site-header"), so the
+  // underline DOM survives. On each astro:page-load we recompute the
+  // active target and animate the underline to it. Initial paint
+  // positions without animation via the [data-initial] attribute.
+  //
+  // Active target rules:
+  //   - On "/", target the .site-mark (logo + title).
+  //   - On any tab path, target the matching <a data-nav-target="...">.
+  //
+  // The init guard prevents listener accumulation if this script ever
+  // re-executes during a swap (which can happen if Astro detects the
+  // module needs to re-run).
+  if (!(window as any).__siteHeaderUnderlineInit) {
+    (window as any).__siteHeaderUnderlineInit = true;
+
+    const findActive = (): HTMLElement | null => {
+      const header = document.querySelector<HTMLElement>(".site-header");
+      if (!header) return null;
+      const path = window.location.pathname.replace(/\/+$/, "") + "/";
+      // Strip the configured base from the request path before matching.
+      const base = ((import.meta as any).env?.BASE_URL ?? "/").replace(
+        /\/+$/,
+        "",
+      );
+      const stripped = path.startsWith(base) ? path.slice(base.length) : path;
+      const requestPath = stripped || "/";
+      // Tab match first (longest-prefix wins so /people/ruonan-han/ → /people/).
+      const tabs = Array.from(
+        header.querySelectorAll<HTMLAnchorElement>("[data-nav-target]"),
+      ).filter((t) => t.dataset.navTarget !== "home");
+      const sortedByLen = [...tabs].sort(
+        (a, b) =>
+          (b.dataset.navTarget?.length ?? 0) -
+          (a.dataset.navTarget?.length ?? 0),
+      );
+      for (const t of sortedByLen) {
+        const href = t.dataset.navTarget ?? "";
+        if (requestPath === href || requestPath.startsWith(href)) return t;
+      }
+      // No tab matched → underline lives under the logo on home.
+      return header.querySelector<HTMLElement>('[data-nav-target="home"]');
+    };
+
+    const sync = (animate: boolean): void => {
+      const header = document.querySelector<HTMLElement>(".site-header");
+      const inner = header?.querySelector<HTMLElement>(".site-header__inner");
+      const underline = header?.querySelector<HTMLElement>("[data-underline]");
+      if (!header || !inner || !underline) return;
+
+      const active = findActive();
+      // Update aria-current to reflect the new page since the persisted
+      // header is not re-rendered by the server.
+      header
+        .querySelectorAll<HTMLElement>("[data-nav-target]")
+        .forEach((el) => el.removeAttribute("aria-current"));
+      if (active) active.setAttribute("aria-current", "page");
+      if (!active) {
+        underline.style.width = "0";
+        return;
+      }
+
+      if (!animate) underline.setAttribute("data-initial", "");
+
+      const innerRect = inner.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      const x = r.left - innerRect.left;
+      const y = r.bottom - innerRect.top - 2; // 2 = underline height
+      underline.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      underline.style.width = `${r.width}px`;
+
+      if (!animate) {
+        // Force a reflow so the no-transition position applies, then
+        // remove the marker so subsequent updates animate.
+        void underline.offsetWidth;
+        requestAnimationFrame(() => underline.removeAttribute("data-initial"));
+      }
+    };
+
+    let firstRun = true;
+    const syncOnNavigation = (): void => {
+      sync(!firstRun);
+      firstRun = false;
+    };
+
+    document.addEventListener("astro:page-load", syncOnNavigation);
+
+    // Reposition on resize without animation (snap), debounced via RAF.
+    let resizeFrame = 0;
+    window.addEventListener("resize", () => {
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => sync(false));
+    });
+  }
+</script>

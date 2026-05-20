@@ -3,6 +3,7 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { ClientRouter } from "astro:transitions";
 import { getEntry } from "astro:content";
 import { url } from "../lib/url.ts";
 
@@ -57,6 +58,12 @@ const canonical = Astro.site
     <meta name="twitter:description" content={metaDescription} />
 
     <meta name="generator" content={Astro.generator} />
+
+    {/* View Transitions: enables client-side navigation site-wide so the
+        persistent header (and its sliding underline) can animate between
+        pages instead of being rebuilt. Falls back to a full page load in
+        browsers without View Transitions support. */}
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>

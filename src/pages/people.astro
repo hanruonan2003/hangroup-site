@@ -230,44 +230,52 @@ const placementCount = (key: string) =>
 </BaseLayout>
 
 <script>
-  const chips = Array.from(
-    document.querySelectorAll<HTMLButtonElement>("[data-alumni-chip]"),
-  );
-  const rows = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-alumni-row]"),
-  );
-  const cats = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-alumni-cat]"),
-  );
-  const empty = document.querySelector<HTMLElement>("[data-alumni-empty]");
+  // ClientRouter swaps the DOM without firing DOMContentLoaded, so the
+  // alumni placement filter has to re-bind on every astro:page-load —
+  // both the initial load and every client-side return to /people/.
+  function setup(): void {
+    const chips = Array.from(
+      document.querySelectorAll<HTMLButtonElement>("[data-alumni-chip]"),
+    );
+    if (chips.length === 0) return; // Not on the people page; skip.
+    const rows = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-alumni-row]"),
+    );
+    const cats = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-alumni-cat]"),
+    );
+    const empty = document.querySelector<HTMLElement>("[data-alumni-empty]");
 
-  function applyFilter(active: string): void {
-    let visible = 0;
-    for (const r of rows) {
-      const match = active === "all" || r.dataset.alumniPlacement === active;
-      r.hidden = !match;
-      if (match) visible++;
+    function applyFilter(active: string): void {
+      let visible = 0;
+      for (const r of rows) {
+        const match = active === "all" || r.dataset.alumniPlacement === active;
+        r.hidden = !match;
+        if (match) visible++;
+      }
+      // Hide whole category sections when all their rows are filtered out.
+      for (const c of cats) {
+        const anyVisible = Array.from(
+          c.querySelectorAll<HTMLElement>("[data-alumni-row]"),
+        ).some((r) => !r.hidden);
+        c.hidden = !anyVisible;
+      }
+      if (empty) empty.hidden = visible > 0;
     }
-    // Hide whole category sections when all their rows are filtered out.
-    for (const c of cats) {
-      const anyVisible = Array.from(
-        c.querySelectorAll<HTMLElement>("[data-alumni-row]"),
-      ).some((r) => !r.hidden);
-      c.hidden = !anyVisible;
-    }
-    if (empty) empty.hidden = visible > 0;
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const active = chip.dataset.alumniChip ?? "all";
+        chips.forEach((c) => {
+          c.classList.toggle("is-active", c === chip);
+          c.setAttribute("aria-pressed", c === chip ? "true" : "false");
+        });
+        applyFilter(active);
+      });
+    });
   }
 
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const active = chip.dataset.alumniChip ?? "all";
-      chips.forEach((c) => {
-        c.classList.toggle("is-active", c === chip);
-        c.setAttribute("aria-pressed", c === chip ? "true" : "false");
-      });
-      applyFilter(active);
-    });
-  });
+  document.addEventListener("astro:page-load", setup);
 </script>
 
 <style>

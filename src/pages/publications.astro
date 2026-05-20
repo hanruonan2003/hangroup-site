@@ -329,6 +329,13 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
 </BaseLayout>
 
 <script>
+  // ClientRouter (View Transitions) swaps the DOM on navigation
+  // without firing DOMContentLoaded, so the binding code below has to
+  // run on every astro:page-load — both the initial load and every
+  // client-side navigation to /publications/. Without this the filter
+  // chips, search, and disclosures would be dead after navigating
+  // here from another page.
+  function setup(): void {
   const $ = <T extends Element = Element>(sel: string, root: ParentNode = document): T | null =>
     root.querySelector<T>(sel);
   const $$ = <T extends Element = Element>(sel: string, root: ParentNode = document): T[] =>
@@ -517,8 +524,28 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     if (state.topics.size || state.venues.size || state.years.size) {
       filtersDetails.open = true;
     }
+    // Stash the listener on the element so we can detach it on the next
+    // page-load setup() call — otherwise re-entering /publications/
+    // would accumulate one matchMedia listener per visit.
+    type Filters = HTMLDetailsElement & {
+      __viewportListener?: (e: MediaQueryListEvent) => void;
+      __viewportMedia?: MediaQueryList;
+    };
+    const f = filtersDetails as Filters;
+    if (f.__viewportMedia && f.__viewportListener) {
+      f.__viewportMedia.removeEventListener("change", f.__viewportListener);
+    }
+    f.__viewportMedia = desktop;
+    f.__viewportListener = syncFiltersToViewport;
     desktop.addEventListener("change", syncFiltersToViewport);
   }
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    // Only run on the /publications/ page (the script ships on every
+    // page via the layout, but its DOM hooks only exist here).
+    if (document.querySelector("[data-pub-entry]")) setup();
+  });
 </script>
 
 <style>
