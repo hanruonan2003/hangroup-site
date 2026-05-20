@@ -11,6 +11,17 @@ html {
   color-scheme: dark;
   color: var(--color-fg);
   background: var(--color-bg);
+  /* The sticky site header pins to top:0, so anchor jumps (e.g.
+     /publications/#paper-key) need this gutter to avoid landing the
+     anchored element behind it. Mobile gets more room because the
+     two-row header is taller. */
+  scroll-padding-top: 64px;
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 96px;
+  }
 }
 
 body {

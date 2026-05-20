@@ -67,6 +67,31 @@ const isActive = (href: string): boolean => {
        (absolutely positioned) is measured against the inner content
        box, matching what the active-target getBoundingClientRect calls
        see. */
+
+    /* Stick to the top of the viewport while scrolling. The opaque dark
+       background prevents page content from showing through; z-index sits
+       above content (publications filters, hero images, etc.). */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-bg);
+
+    /* Mobile gets a slide-up animation when JS adds .is-hidden on
+       scroll-down; desktop keeps transform untouched (no-op). The
+       shadow appears once .is-scrolled is set (scroll > 4px) so the
+       pinned header reads as separated from the content beneath. */
+    transition: transform 200ms ease, box-shadow 160ms ease;
+    will-change: transform;
+  }
+
+  .site-header.is-scrolled {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  }
+
+  @media (max-width: 767px) {
+    .site-header.is-hidden {
+      transform: translateY(-100%);
+    }
   }
 
   /* Sliding active-tab underline. Positioned absolutely inside the
@@ -308,5 +333,73 @@ const isActive = (href: string): boolean => {
       if (resizeFrame) cancelAnimationFrame(resizeFrame);
       resizeFrame = requestAnimationFrame(() => sync(false));
     });
+  }
+
+  // Sticky/hide-on-scroll behavior. Same one-time-init pattern as the
+  // underline above — the header is persisted across client-side
+  // navigations (transition:persist="site-header"), so the scroll
+  // listener attached to window also survives. We just reset internal
+  // state on astro:page-load so a fresh page that arrives at scrollY=0
+  // doesn't inherit a stale .is-hidden class from the previous page.
+  if (!(window as any).__siteHeaderScrollInit) {
+    (window as any).__siteHeaderScrollInit = true;
+
+    // Threshold below which scroll jitter doesn't toggle visibility.
+    const HIDE_THRESHOLD_PX = 10;
+    // scrollY > this adds .is-scrolled (drop shadow). Kept small so the
+    // shadow appears almost immediately on first scroll.
+    const SHADOW_THRESHOLD_PX = 4;
+    const mobileMQ = window.matchMedia("(max-width: 767px)");
+
+    let lastScroll = Math.max(0, window.scrollY);
+    let frame = 0;
+
+    const update = (): void => {
+      frame = 0;
+      const header = document.querySelector<HTMLElement>(".site-header");
+      if (!header) return;
+      const y = Math.max(0, window.scrollY);
+
+      header.classList.toggle("is-scrolled", y > SHADOW_THRESHOLD_PX);
+
+      if (mobileMQ.matches) {
+        const dy = y - lastScroll;
+        const headerH = header.getBoundingClientRect().height || 96;
+        if (Math.abs(dy) > HIDE_THRESHOLD_PX) {
+          if (dy > 0 && y > headerH) {
+            // Scrolling down, past the header's own height — hide it.
+            header.classList.add("is-hidden");
+          } else if (dy < 0) {
+            // Any upward scroll reveals immediately.
+            header.classList.remove("is-hidden");
+          }
+          lastScroll = y;
+        }
+        // Always visible at the very top of the page.
+        if (y <= 0) header.classList.remove("is-hidden");
+      } else {
+        // Desktop stays pinned regardless.
+        header.classList.remove("is-hidden");
+        lastScroll = y;
+      }
+    };
+
+    const onScroll = (): void => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Reset on each Astro navigation: the persisted header could carry
+    // an .is-hidden class from the previous page even though the new
+    // page lands at scrollY=0.
+    document.addEventListener("astro:page-load", () => {
+      lastScroll = Math.max(0, window.scrollY);
+      update();
+    });
+
+    // Initial sync (covers the very first page paint).
+    update();
   }
 </script>
