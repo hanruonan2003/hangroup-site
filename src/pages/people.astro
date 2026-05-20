@@ -315,10 +315,12 @@ const placementCount = (key: string) =>
   /* PI */
 
   /* Two-column grid at every size; on mobile the bio drops to a third
-     row spanning both columns (photo + name/title in row 1, bio below). */
+     row spanning both columns (photo + name/title in row 1, bio below).
+     Mobile uses a narrower photo (140px) so the right column has room
+     for "Ruonan Han" at text-lg without overflowing. */
   .pi {
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 140px 1fr;
     grid-template-areas:
       "photo head"
       "bio   bio";
@@ -328,19 +330,45 @@ const placementCount = (key: string) =>
     padding-bottom: var(--space-8);
   }
 
+  /* Shrink the PersonPhoto wrapper to match the mobile grid column.
+     PersonPhoto's own scoped rule hardcodes width: 180px on
+     .person-photo--large; :global() lets us override that here. */
+  .pi__photo > :global(.person-photo--large) {
+    width: 140px;
+  }
+
   @media (min-width: 720px) {
     .pi {
+      grid-template-columns: 180px 1fr;
       grid-template-areas:
         "photo head"
         "photo bio";
       column-gap: var(--space-6);
       align-items: start;
     }
+
+    .pi__photo > :global(.person-photo--large) {
+      width: 180px;
+    }
   }
 
   .pi__photo { grid-area: photo; }
-  .pi__head  { grid-area: head; align-self: center; }
-  .pi__bio   { grid-area: bio; }
+  /* On mobile, head sits beside the photo, flush-right and bottom-aligned
+     so its bottom-right corner lines up with the photo's bottom-right
+     corner. The desktop override below restores the centered look.
+     min-width: 0 lets grid items shrink below their min-content size;
+     without it, the default min-width: auto can push the grid wider
+     than the viewport at narrow widths. */
+  .pi__head  {
+    grid-area: head;
+    align-self: end;
+    text-align: right;
+    min-width: 0;
+  }
+  .pi__bio   {
+    grid-area: bio;
+    min-width: 0;
+  }
 
   .pi__name {
     font-size: var(--text-lg);
@@ -366,6 +394,10 @@ const placementCount = (key: string) =>
      the head sits next to the photo (full right column) and the bio
      spans the full container width. */
   @media (min-width: 720px) {
+    .pi__head {
+      align-self: center;
+      text-align: left;
+    }
     .pi__head,
     .pi__bio {
       max-width: 85%;

@@ -97,6 +97,16 @@ const isActive = (href: string): boolean => {
     font-weight: var(--weight-medium);
   }
 
+  /* Stretch the nav to fill the column-stacked header on narrow widths,
+     and let it shrink below its content's min-width so flex-wrap on the
+     inner ul can actually wrap. Without min-width:0 the nav's intrinsic
+     content (~460px of nav items) keeps the body wider than the
+     viewport on phones, which forced horizontal overflow on every page. */
+  .site-nav {
+    align-self: stretch;
+    min-width: 0;
+  }
+
   .site-nav ul {
     display: flex;
     flex-wrap: wrap;
