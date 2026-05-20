@@ -6,9 +6,11 @@ const siteEntry = await getEntry("site", "site");
 if (!siteEntry) throw new Error("site.yml not loaded");
 const siteName = siteEntry.data.site.name;
 
+// The logo (red square + site title in the header) links home, so a
+// dedicated "Home" tab is redundant. On the home page no nav item gets
+// the active underline — that's intentional.
 type NavItem = { href: string; label: string };
 const navItems: NavItem[] = [
-  { href: "/", label: "Home" },
   { href: "/research/", label: "Research" },
   { href: "/people/", label: "People" },
   { href: "/publications/", label: "Publications" },
@@ -55,14 +57,18 @@ const isActive = (href: string): boolean => {
     padding-block: var(--space-4);
   }
 
+  /* Mobile (default): two-row header. Row 1 = logo (red square + full
+     site title, links home), row 2 = all 5 tabs distributed across the
+     row. Stretch the children so the nav can use the full width. */
   .site-header__inner {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    align-items: flex-start;
+    align-items: stretch;
   }
 
-  @media (min-width: 880px) {
+  /* Desktop: single row, logo on the left, tabs on the right. */
+  @media (min-width: 768px) {
     .site-header__inner {
       flex-direction: row;
       justify-content: space-between;
@@ -71,17 +77,22 @@ const isActive = (href: string): boolean => {
     }
   }
 
+  /* Logo is the only path home now that the Home tab is gone, so give
+     it a clear hover affordance on desktop (subtle brightening). On
+     mobile the row is generously tappable. */
   .site-mark {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     text-decoration: none;
     color: var(--color-fg);
-    flex-wrap: wrap;
+    align-self: flex-start;
+    transition: opacity 0.15s ease;
   }
 
   .site-mark:hover {
     color: var(--color-fg);
+    opacity: 0.85;
   }
 
   .site-mark__square {
@@ -97,20 +108,65 @@ const isActive = (href: string): boolean => {
     font-weight: var(--weight-medium);
   }
 
+  /* Nav stretches across the mobile row; min-width:0 lets the inner
+     ul shrink and flex-wrap actually wrap on very narrow viewports. */
+  .site-nav {
+    align-self: stretch;
+    min-width: 0;
+    border-top: 0.5px solid var(--color-border);
+    padding-top: var(--space-2);
+  }
+
   .site-nav ul {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-4) var(--space-5);
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
     list-style: none;
+  }
+
+  @media (min-width: 768px) {
+    .site-nav {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .site-nav ul {
+      justify-content: flex-end;
+      gap: var(--space-4) var(--space-5);
+    }
   }
 
   .site-nav a {
     display: inline-block;
-    font-size: var(--text-sm);
     text-decoration: none;
     color: var(--color-fg);
-    padding-block: 2px;
+    /* Tighter font on mobile so all 5 tabs fit on one line at 375px;
+       desktop keeps text-sm via the media override below. */
+    font-size: 13px;
+    /* ~40px tap target on mobile (10px top + 10px bottom + line-box). */
+    padding-block: 10px;
     border-bottom: 2px solid transparent;
+  }
+
+  /* Sub-breakpoint for very narrow phones (≤ 379px): shrink to 12px
+     and tighten the ul gap so all 5 tabs still fit on one line at
+     320px instead of wrapping "Contact" to a third row. */
+  @media (max-width: 379px) {
+    .site-nav ul {
+      gap: var(--space-1);
+    }
+    .site-nav a {
+      font-size: 12px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .site-nav a {
+      font-size: var(--text-sm);
+      padding-block: 2px;
+    }
   }
 
   .site-nav a:hover {
