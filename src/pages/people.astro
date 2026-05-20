@@ -90,7 +90,7 @@ const placementCount = (key: string) =>
     <!-- PI section -->
     <section class="pi" aria-labelledby="pi-heading">
       <div class="pi__photo">
-        <PersonPhoto name={pi.name} slug={pi.slug} size="large" />
+        <PersonPhoto name={pi.name} slug={pi.slug} />
       </div>
       <div class="pi__head">
         <h2 id="pi-heading" class="pi__name">{pi.name}</h2>
@@ -325,7 +325,12 @@ const placementCount = (key: string) =>
      row spanning both columns (photo + name/title in row 1, bio below). */
   .pi {
     display: grid;
-    grid-template-columns: 180px 1fr;
+    /* 200px photo column matches the rendered width of cards in the
+       current-members grid (auto-fill, minmax(180px, 1fr) lands at
+       ~188–220px depending on viewport). The .pi__photo uses
+       PersonPhoto's default "medium" size so the image fills 100% of
+       this column. */
+    grid-template-columns: 200px 1fr;
     grid-template-areas:
       "photo head"
       "bio   bio";
