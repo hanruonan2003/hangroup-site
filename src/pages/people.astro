@@ -325,12 +325,12 @@ const placementCount = (key: string) =>
      row spanning both columns (photo + name/title in row 1, bio below). */
   .pi {
     display: grid;
-    /* 200px photo column matches the rendered width of cards in the
-       current-members grid (auto-fill, minmax(180px, 1fr) lands at
-       ~188–220px depending on viewport). The .pi__photo uses
-       PersonPhoto's default "medium" size so the image fills 100% of
-       this column. */
-    grid-template-columns: 200px 1fr;
+    /* 190px photo column ≈ the rendered width of cards in the
+       current-members grid at the 1100px max container (auto-fill,
+       minmax(180px, 1fr) lands at ~188px there). The .pi__photo
+       uses PersonPhoto's default "medium" size so the image fills
+       100% of this column. */
+    grid-template-columns: 190px 1fr;
     grid-template-areas:
       "photo head"
       "bio   bio";
