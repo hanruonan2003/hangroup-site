@@ -331,8 +331,10 @@ const placementCount = (key: string) =>
       "bio   bio";
     column-gap: var(--space-4);
     row-gap: var(--space-4);
-    margin-bottom: var(--space-10);
-    padding-bottom: var(--space-8);
+    /* Raw value to land at the requested 4.75rem total gap; the token
+       scale (--space-{6,8}) only resolves to 4.5rem or 5rem here. */
+    margin-bottom: 2.75rem;
+    padding-bottom: var(--space-6);
   }
 
   @media (min-width: 720px) {
