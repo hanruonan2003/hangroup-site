@@ -92,17 +92,17 @@ const placementCount = (key: string) =>
       <div class="pi__photo">
         <PersonPhoto name={pi.name} slug={pi.slug} size="large" />
       </div>
-      <div class="pi__body">
+      <div class="pi__head">
         <h2 id="pi-heading" class="pi__name">{pi.name}</h2>
         <p class="pi__title">{pi.title} · {pi.appointment}</p>
-        {pi.bio ? (
-          <p class="pi__bio">{pi.bio}</p>
-        ) : (
-          <p class="pi__bio">
-            <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
-          </p>
-        )}
       </div>
+      {pi.bio ? (
+        <p class="pi__bio">{pi.bio}</p>
+      ) : (
+        <p class="pi__bio">
+          <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
+        </p>
+      )}
     </section>
 
     <!-- Current members -->
@@ -314,21 +314,33 @@ const placementCount = (key: string) =>
 
   /* PI */
 
+  /* Two-column grid at every size; on mobile the bio drops to a third
+     row spanning both columns (photo + name/title in row 1, bio below). */
   .pi {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-5);
+    grid-template-columns: 180px 1fr;
+    grid-template-areas:
+      "photo head"
+      "bio   bio";
+    column-gap: var(--space-4);
+    row-gap: var(--space-4);
     margin-bottom: var(--space-10);
     padding-bottom: var(--space-8);
   }
 
   @media (min-width: 720px) {
     .pi {
-      grid-template-columns: 180px 1fr;
-      gap: var(--space-6);
+      grid-template-areas:
+        "photo head"
+        "photo bio";
+      column-gap: var(--space-6);
       align-items: start;
     }
   }
+
+  .pi__photo { grid-area: photo; }
+  .pi__head  { grid-area: head; align-self: center; }
+  .pi__bio   { grid-area: bio; }
 
   .pi__name {
     font-size: var(--text-lg);
@@ -338,7 +350,7 @@ const placementCount = (key: string) =>
   .pi__title {
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
-    margin-bottom: var(--space-4);
+    margin-bottom: 0;
   }
 
   .pi__bio {
@@ -346,14 +358,15 @@ const placementCount = (key: string) =>
     color: var(--color-fg-muted);
     line-height: 1.6;
     margin-bottom: var(--space-4);
+    text-align: justify;
   }
 
-  /* Narrow the text column on desktop only. On mobile the .pi grid is a
-     single column, so adding margin-inline:auto would center the text
-     while the 180px photo sits at the left edge — visibly misaligned. */
+  /* Narrow the head + bio on desktop only, matching the previous look
+     where the right-column text sat in a centered 85% block. On mobile
+     the head sits next to the photo (full right column) and the bio
+     spans the full container width. */
   @media (min-width: 720px) {
-    .pi__name,
-    .pi__title,
+    .pi__head,
     .pi__bio {
       max-width: 85%;
       margin-inline: auto;
