@@ -51,7 +51,7 @@ const piPubs = [...publications]
     <section class="profile__section">
       <h2 class="profile__h2">Bio</h2>
       {pi.bio ? (
-        <p class="profile__bio">{pi.bio}</p>
+        <p class="profile__bio" set:html={pi.bio}></p>
       ) : (
         <p class="profile__bio profile__bio--todo">
           <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
@@ -187,6 +187,18 @@ const piPubs = [...publications]
     font-size: 13px;
     color: var(--color-fg-muted);
     line-height: 1.6;
+  }
+
+  /* Inline links inside the curated PI bio (set:html in the template). */
+  .profile__bio a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+  .profile__bio a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .profile__bio--todo {

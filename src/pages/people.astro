@@ -97,7 +97,7 @@ const placementCount = (key: string) =>
         <p class="pi__title">{pi.title} · {pi.appointment}</p>
       </div>
       {pi.bio ? (
-        <p class="pi__bio">{pi.bio}</p>
+        <p class="pi__bio" set:html={pi.bio}></p>
       ) : (
         <p class="pi__bio">
           <em>{`{{TODO: add pi.bio to site.yml — short bio of the PI}}`}</em>
@@ -351,8 +351,21 @@ const placementCount = (key: string) =>
   }
 
   .pi__photo { grid-area: photo; }
-  .pi__head  { grid-area: head; align-self: center; }
+  .pi__head  { grid-area: head; align-self: start; }
   .pi__bio   { grid-area: bio; }
+
+  /* Inline links inside the curated PI bio (set:html in the template).
+     Matches the muted-with-hairline-underline pattern used elsewhere. */
+  .pi__bio a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+  .pi__bio a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
 
   .pi__name {
     font-size: var(--text-lg);
