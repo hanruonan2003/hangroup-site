@@ -332,7 +332,9 @@ const placementCount = (key: string) =>
     column-gap: var(--space-4);
     row-gap: var(--space-4);
     margin-bottom: var(--space-8);
-    padding-bottom: var(--space-5);
+    /* Raw value: token scale (--space-{4,5}) only resolves to 1rem or
+       1.5rem here, and we want 1.25rem to hit the precise gap. */
+    padding-bottom: 1.25rem;
   }
 
   @media (min-width: 720px) {
