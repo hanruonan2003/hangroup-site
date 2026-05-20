@@ -368,15 +368,19 @@ const placementCount = (key: string) =>
     text-align: justify;
   }
 
-  /* Narrow the head + bio on desktop only, matching the previous look
-     where the right-column text sat in a centered 85% block. On mobile
+  /* Desktop only: left-anchor both blocks to the right column's start
+     so the name/title align with the bio's left edge, and widen the
+     bio by 10% (85% → 93.5%) so it has more reading room. On mobile
      the head sits next to the photo (full right column) and the bio
-     spans the full container width. */
+     spans the full container width — both untouched. */
   @media (min-width: 720px) {
-    .pi__head,
-    .pi__bio {
+    .pi__head {
       max-width: 85%;
-      margin-inline: auto;
+      margin-inline: 0;
+    }
+    .pi__bio {
+      max-width: 93.5%;
+      margin-inline: 0;
     }
   }
 
