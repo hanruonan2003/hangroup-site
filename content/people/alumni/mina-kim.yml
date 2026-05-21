@@ -4,9 +4,9 @@ name_variants: ["M. Kim", "Mina Kim"]
 role: "PhD"
 photo: "mina-kim.jpg"
 
-years_with_group: "09/2017–05/2022"
+years_with_group: "09/2017–09/2022"
 education_before_mit: []
-co_advisor: ""
+co_advisor: "Prof. Hae-Seung Lee"
 destination: "Broadcom"
 
 thesis_title: "Design and Analysis of High-Stability THz Molecular Clock System"
