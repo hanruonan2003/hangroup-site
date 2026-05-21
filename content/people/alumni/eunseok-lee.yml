@@ -1,0 +1,22 @@
+name: "Eunseok Lee"
+slug: "eunseok-lee"
+name_variants: ["E. Lee", "Eunseok Lee"]
+role: "PhD"
+photo: "eunseok-lee.jpg"
+
+years_with_group: "2026"
+education_before_mit:
+  - "B.S., Korea Advanced Institute of Science and Technology (KAIST), 2020"
+  - "M.S., MIT EECS, 2023"
+co_advisor: "Prof. Anantha Chandrakasan"
+destination: "Neuralink"
+
+thesis_title: ""
+research_summary: ""
+awards:
+  - "Mathwork Fellowship, MIT (2023)"
+  - "Doctoral Study Abroad Scholarship, Korea Foundation for Advanced Studies (2021)"
+  - "Irwin Mark Jacobs and Joan Klein Jacobs MIT Presidential Fellowship (2020)"
+placement_type: "industry"
+
+notes: ""

@@ -1,0 +1,38 @@
+# Uniform schema for PhD/Postdoc alumni profile pages at
+# /people/alumni/<slug>/. Every file in this directory MUST carry all 14
+# fields below, in this exact order, even when empty. Use "" for empty
+# strings and [] for empty lists. Never fabricate content — leave fields
+# blank until the user provides them.
+#
+# This file is documentation only; it is not consumed by the build.
+# When adding a new PhD/Postdoc alumnus, copy this template into
+# content/people/alumni/<slug>.yml and fill in what's known.
+
+name:                   ""    # full name as displayed, e.g. "Xiang Yi"
+slug:                   ""    # URL slug; also the filename, e.g. "xiang-yi"
+name_variants:          []    # every form used in the group bib for matching,
+                              # e.g. ["X. Yi", "Xiang Yi"]
+role:                   ""    # "PhD" or "Postdoc"
+photo:                  ""    # filename in content/people/photos/alumni/,
+                              # e.g. "xiang-yi.jpg"; "" if none
+
+years_with_group:       ""    # date range or single year,
+                              # e.g. "08/2017–09/2020" or "2026".
+                              # year_graduated is derived from the last year here.
+education_before_mit:   []    # pre-MIT degrees in chronological order,
+                              # e.g. ["B.S., Tsinghua University, 2015",
+                              #       "M.S., Tsinghua University, 2017"]
+co_advisor:             ""    # "Prof. Anantha Chandrakasan" — name + affiliation
+                              # if co-advised; "" otherwise.
+destination:            ""    # role + organization after the group,
+                              # e.g. "Professor, South China University of Technology"
+
+thesis_title:           ""    # leave blank until user provides; never auto-fetched
+research_summary:       ""    # freeform paragraph; "" if blank
+awards:                 []    # ["2022 IEEE MTT-S Graduate Fellowship", ...]; []
+                              # if none recorded
+placement_type:         ""    # "academia" | "industry" | "national_lab" | "startup"
+                              # drives the chip filter on /people/
+
+notes:                  ""    # freeform catch-all (anecdotes, advisor changes,
+                              # links the user later wants to surface); "" if blank

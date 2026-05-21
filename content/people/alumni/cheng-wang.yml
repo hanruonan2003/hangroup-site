@@ -1,0 +1,21 @@
+name: "Cheng Wang"
+slug: "cheng-wang"
+name_variants: ["C. Wang", "Cheng Wang"]
+role: "PhD"
+photo: "cheng-wang.jpg"
+
+years_with_group: "09/2015–10/2019"
+education_before_mit: []
+co_advisor: ""
+destination: "Professor, UESTC"
+
+thesis_title: ""
+research_summary: >
+  Terahertz Wave-Molecule Interactions via CMOS Chips: From Comb Gas
+  Sensor with Absolute Specificity to Ultra-Stable, Miniaturized Clock.
+awards:
+  - "2019 MIT MTL Doctoral Dissertation Award"
+  - "IEEE SSCS Predoctoral Achievement Award"
+placement_type: "academia"
+
+notes: ""

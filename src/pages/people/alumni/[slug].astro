@@ -1,42 +1,54 @@
 ---
+// Profile page for a PhD or Postdoc alumnus. Driven by the per-file
+// records in content/people/alumni/<slug>.yml (uniform 14-field
+// schema, see content/people/alumni/_schema.yaml). Every section
+// below is hidden when its data is empty, so sparse profiles look
+// clean rather than full of empty headers.
 import type { GetStaticPaths } from "astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PersonPhoto from "../../components/PersonPhoto.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PersonPhoto from "../../../components/PersonPhoto.astro";
 import { getCollection } from "astro:content";
-import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../../lib/authorship.ts";
-import { loadDedupedPersonalPubs } from "../../lib/personal-pubs.ts";
-import { url } from "../../lib/url.ts";
+import { buildPrimaryAuthorSet, isPrimaryAuthor } from "../../../lib/authorship.ts";
+import { loadDedupedPersonalPubs } from "../../../lib/personal-pubs.ts";
+import { url } from "../../../lib/url.ts";
 
 export const getStaticPaths = (async () => {
-  const people = await getCollection("people");
-  return people.map((p) => ({
-    params: { slug: p.data.slug },
-    props: { person: p },
-  }));
+  const alumni = await getCollection("alumni");
+  return alumni
+    .filter((a) => a.data.has_profile)
+    .map((a) => ({
+      params: { slug: a.data.slug },
+      props: { alum: a },
+    }));
 }) satisfies GetStaticPaths;
 
-interface Props {
-  person: Awaited<ReturnType<typeof getCollection<"people">>>[number];
-}
+const { alum } = Astro.props;
+const d = alum.data;
 
-const { person } = Astro.props;
-const d = person.data;
-const roleLabel = d.role;
+// Header role label: "PhD alum '22 · MediaTek" — folds role, the
+// last-year of years_with_group (derived as year_graduated), and the
+// destination. Each piece is skipped when blank.
+const yearTag = d.year_graduated ? `'${String(d.year_graduated).slice(-2)}` : "";
+const roleParts = [`${d.role || "Alum"} alum`, yearTag].filter(Boolean);
+const roleLabel = roleParts.join(" ") + (d.destination ? ` · ${d.destination}` : "");
 
+// Group publications: same author-matcher used elsewhere, fed by the
+// per-alumnus name_variants list so initialed forms ("X. Yi"), full
+// forms ("Xiang Yi"), etc. all hit. Empty list → section omitted.
 const publications = await getCollection("publications");
-const personSet = buildPrimaryAuthorSet([d.name]);
-const personPubs = [...publications]
+const personSet = buildPrimaryAuthorSet(d.name_variants.length > 0 ? d.name_variants : [d.name]);
+const groupPubs = [...publications]
   .filter((p) => p.data.authors.some((a) => isPrimaryAuthor(a, personSet)))
   .sort((a, b) => b.data.sort_key - a.data.sort_key);
 
-// Personal publications: papers from content/people/<slug>.bib that the
-// group bib does NOT already cover. See src/lib/personal-pubs.ts and
-// CLAUDE.md for the editorial rule (R. Han as a co-author → group bib).
+// "Other publications" — content/people/<slug>.bib OR
+// content/people/alumni/<slug>.bib, deduped against the group bib.
+// Reuses the same helper the current-member profiles use; the lookup
+// is by slug, so dropping a file at either location wires up.
 const groupPubsForDedup = publications.map((p) => p.data);
 const personalPubs = loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
 
-const bioText = d.bio;
-const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
+const hasResearchSection = Boolean(d.thesis_title || d.research_summary);
 ---
 
 <BaseLayout title={d.name} description={`${d.name} — ${roleLabel}, Terahertz Integrated Electronics Group.`}>
@@ -50,73 +62,60 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
       <div class="profile__head-body">
         <h1 class="profile__name">{d.name}</h1>
         <p class="profile__role mono">{roleLabel}</p>
-        {d.interests.length > 0 && (
-          <ul class="profile__tags mono">
-            {d.interests.map((t) => (
-              <li>{t}</li>
-            ))}
-          </ul>
+        {d.years_with_group && (
+          <p class="profile__meta mono">With the group: {d.years_with_group}</p>
         )}
-        {d.email && (
-          <p class="profile__contact mono">
-            <a href={`mailto:${d.email}`}>{d.email}</a>
-          </p>
-        )}
-        {d.links && (d.links.website || d.links.scholar || d.links.orcid || d.links.linkedin) && (
-          <ul class="profile__links mono">
-            {d.links.website && (
-              <li><a href={d.links.website} target="_blank" rel="noopener noreferrer">Website ↗</a></li>
-            )}
-            {d.links.scholar && (
-              <li><a href={d.links.scholar} target="_blank" rel="noopener noreferrer">Google Scholar ↗</a></li>
-            )}
-            {d.links.orcid && (
-              <li><a href={d.links.orcid} target="_blank" rel="noopener noreferrer">ORCID ↗</a></li>
-            )}
-            {d.links.linkedin && (
-              <li><a href={d.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-            )}
-          </ul>
+        {d.co_advisor && (
+          <p class="profile__meta mono">Co-advised by {d.co_advisor}</p>
         )}
       </div>
     </div>
 
-    <section class="profile__section">
-      <h2 class="profile__h2">Bio</h2>
-      {looksLikeTodoBio ? (
-        <p class="profile__bio profile__bio--todo">
-          <em>{`{{TODO: write a bio for ${d.name} in content/people/current.yml}}`}</em>
-        </p>
-      ) : (
-        <p class="profile__bio">{bioText}</p>
-      )}
-    </section>
+    {d.education_before_mit.length > 0 && (
+      <section class="profile__section">
+        <h2 class="profile__h2">Education before MIT</h2>
+        <ul class="profile__list">
+          {d.education_before_mit.map((e) => <li>{e}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {d.destination && (
+      <section class="profile__section">
+        <h2 class="profile__h2">After the group</h2>
+        <p class="profile__body">{d.destination}</p>
+      </section>
+    )}
+
+    {hasResearchSection && (
+      <section class="profile__section">
+        <h2 class="profile__h2">Research</h2>
+        {d.thesis_title && (
+          <p class="profile__body"><strong>Thesis:</strong> {d.thesis_title}</p>
+        )}
+        {d.research_summary && (
+          <p class="profile__body">{d.research_summary}</p>
+        )}
+      </section>
+    )}
 
     {d.awards && d.awards.length > 0 && (
       <section class="profile__section">
         <h2 class="profile__h2">Awards</h2>
         <ul class="profile__awards">
-          {d.awards.map((aw) => (
-            <li>{aw}</li>
-          ))}
+          {d.awards.map((aw) => <li>{aw}</li>)}
         </ul>
       </section>
     )}
 
-    <section class="profile__section">
-      <h2 class="profile__h2">
-        <span>Publications</span>
-        <span class="profile__h2-count mono">{personPubs.length}</span>
-      </h2>
-      {personPubs.length === 0 ? (
-        <p class="profile__empty mono">
-          No publications found in our BibTeX matching {d.name}. Once papers
-          with this author land in <code>content/publications/publications.bib</code>,
-          they will appear here automatically.
-        </p>
-      ) : (
+    {groupPubs.length > 0 && (
+      <section class="profile__section">
+        <h2 class="profile__h2">
+          <span>Publications in the group</span>
+          <span class="profile__h2-count mono">{groupPubs.length}</span>
+        </h2>
         <ul class="profile__pubs">
-          {personPubs.map((p) => {
+          {groupPubs.map((p) => {
             const pd = p.data;
             const monthLabel = pd.month
               ? new Date(pd.year, pd.month - 1, 1).toLocaleString("en-US", { month: "short" })
@@ -136,8 +135,8 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
             );
           })}
         </ul>
-      )}
-    </section>
+      </section>
+    )}
 
     {personalPubs.length > 0 && (
       <section class="profile__section">
@@ -163,9 +162,7 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
                 </p>
                 <h3 class="profile-pub__title">{pd.title}</h3>
                 <p class="profile-pub__authors">{pd.authors_display}</p>
-                {pd.note && (
-                  <p class="profile-pub__note"><em>{pd.note}</em></p>
-                )}
+                {pd.note && <p class="profile-pub__note"><em>{pd.note}</em></p>}
                 <details class="profile-pub__bibtex">
                   <summary class="mono">BibTeX</summary>
                   <pre class="mono">{pd.raw_bib}</pre>
@@ -174,6 +171,13 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
             );
           })}
         </ul>
+      </section>
+    )}
+
+    {d.notes && (
+      <section class="profile__section">
+        <h2 class="profile__h2">Notes</h2>
+        <p class="profile__body">{d.notes}</p>
       </section>
     )}
   </section>
@@ -229,40 +233,13 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
   .profile__role {
     font-size: var(--text-xs);
     color: var(--color-fg-faint);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
   }
 
-  .profile__tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-
-  .profile__tags li {
-    font-size: 11px;
-    color: var(--color-fg-muted);
-    background: var(--color-gray-tint);
-    padding: 1px 6px;
-    line-height: 1.5;
-  }
-
-  .profile__contact {
+  .profile__meta {
     font-size: var(--text-xs);
     color: var(--color-fg-muted);
-  }
-
-  .profile__contact a {
-    color: var(--color-fg);
-    text-decoration: none;
-    border-bottom: 0.5px solid var(--color-border);
-    padding-bottom: 1px;
-  }
-
-  .profile__contact a:hover {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
+    margin-bottom: 2px;
   }
 
   .profile__section {
@@ -285,13 +262,20 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
     font-weight: var(--weight-regular);
   }
 
-  .profile__bio {
+  .profile__body {
     color: var(--color-fg-muted);
     line-height: 1.7;
   }
 
-  .profile__bio--todo {
-    color: var(--color-fg-faint);
+  .profile__list {
+    list-style: disc;
+    padding-left: var(--space-5);
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+  }
+
+  .profile__list li {
+    margin-bottom: var(--space-1);
   }
 
   .profile__awards {
@@ -306,20 +290,6 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
     color: var(--color-fg-muted);
     padding-left: var(--space-3);
     border-left: 2px solid var(--color-accent);
-  }
-
-  .profile__empty {
-    font-size: var(--text-sm);
-    color: var(--color-fg-faint);
-    padding: var(--space-3);
-    background: var(--color-gray-tint);
-    line-height: 1.5;
-  }
-
-  .profile__empty code {
-    font-size: 0.85em;
-    background: var(--color-bg);
-    padding: 1px 4px;
   }
 
   .profile__pubs {
@@ -373,27 +343,6 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
     line-height: 1.5;
-  }
-
-  .profile__links {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-4);
-    font-size: var(--text-xs);
-    margin-top: var(--space-2);
-  }
-
-  .profile__links a {
-    color: var(--color-fg);
-    text-decoration: none;
-    border-bottom: 0.5px solid var(--color-border);
-    padding-bottom: 1px;
-  }
-
-  .profile__links a:hover {
-    color: var(--color-accent);
-    border-bottom-color: var(--color-accent);
   }
 
   .profile-pub__note {

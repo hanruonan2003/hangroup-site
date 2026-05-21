@@ -1,0 +1,21 @@
+name: "Mohamed I. Ibrahim"
+slug: "mohamed-ibrahim"
+name_variants: ["M. I. Ibrahim", "Mohamed I. Ibrahim"]
+role: "PhD"
+photo: "mohamed-ibrahim.jpg"
+
+years_with_group: "09/2016–08/2021"
+education_before_mit: []
+co_advisor: ""
+destination: "Assistant Professor, Cornell University"
+
+thesis_title: ""
+research_summary: >
+  Miniaturized Chip-Scale Quantum and Terahertz Systems Through Tight
+  Integration of Electronics, Electromagnetics and Qubits.
+awards:
+  - "2021 MIT MTL Doctoral Dissertation Award"
+  - "IEEE SSCS Predoctoral Achievement Award"
+placement_type: "academia"
+
+notes: ""
