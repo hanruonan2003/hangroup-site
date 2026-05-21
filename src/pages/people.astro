@@ -185,9 +185,10 @@ const placementCount = (key: string) =>
             <ul class="alumni__list">
               {list.map((a) => {
                 const year = a.data.year_graduated;
-                const place = [a.data.current_position, a.data.current_org]
-                  .filter(Boolean)
-                  .join(", ");
+                const place = a.data.destination ||
+                  [a.data.current_position, a.data.current_org]
+                    .filter(Boolean)
+                    .join(", ");
                 return (
                   <li
                     class="alumni__item"
@@ -202,8 +203,8 @@ const placementCount = (key: string) =>
                         {year ?? a.data.period ?? "—"}
                       </p>
                       <p class="alumni__name">
-                        {a.data.bio ? (
-                          <a class="alumni__name-link" href={url(`/people/${a.data.slug}/`)}>{a.data.name}</a>
+                        {a.data.has_profile ? (
+                          <a class="alumni__name-link" href={url(`/people/alumni/${a.data.slug}/`)}>{a.data.name}</a>
                         ) : (
                           a.data.name
                         )}

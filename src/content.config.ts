@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { parse as parseYAML } from "yaml";
@@ -13,6 +13,55 @@ async function readYAML<T = unknown>(relPath: string): Promise<T> {
   const text = await readFile(resolve(contentDir, relPath), "utf-8");
   return parseYAML(text) as T;
 }
+
+// Load every per-alumnus profile file under content/people/alumni/*.yml.
+// These hold the strict 14-field uniform schema documented in
+// content/people/alumni/_schema.yaml and drive /people/alumni/<slug>/.
+// The leading-underscore _schema.yaml and any non-.yml file are ignored.
+async function readAlumniProfiles(): Promise<Record<string, unknown>[]> {
+  const dir = resolve(contentDir, "people/alumni");
+  const files = await readdir(dir).catch(() => [] as string[]);
+  const yamlFiles = files.filter(
+    (f) => f.endsWith(".yml") && !f.startsWith("_"),
+  );
+  const profiles: Record<string, unknown>[] = [];
+  for (const f of yamlFiles) {
+    const text = await readFile(resolve(dir, f), "utf-8");
+    profiles.push(parseYAML(text) as Record<string, unknown>);
+  }
+  return profiles;
+}
+
+// Parse the last 4-digit year out of a years_with_group string. Handles
+// both ranges ("08/2017–09/2020" → 2020) and single years ("2026" → 2026).
+function deriveYearGraduated(yearsWithGroup: string): number | null {
+  const matches = yearsWithGroup.match(/\d{4}/g);
+  if (!matches || matches.length === 0) return null;
+  return Number.parseInt(matches[matches.length - 1]!, 10);
+}
+
+// Split "Position, Organization" into [position, organization]; if no
+// comma is present everything is treated as the organization. Used to
+// back-fill the legacy current_position/current_org pair from the new
+// uniform `destination` field on per-file alumni profiles.
+function splitDestination(dest: string): { position: string; org: string } {
+  if (!dest) return { position: "", org: "" };
+  const idx = dest.indexOf(",");
+  if (idx === -1) return { position: "", org: dest };
+  return {
+    position: dest.slice(0, idx).trim(),
+    org: dest.slice(idx + 1).trim(),
+  };
+}
+
+const ROLE_FROM_CATEGORY: Record<string, string> = {
+  phd: "PhD",
+  postdoc: "Postdoc",
+  meng: "M.Eng.",
+  ms: "M.S.",
+  visiting: "Visiting",
+  urop: "UROP",
+};
 
 const slugify = (s: string): string =>
   s
@@ -82,15 +131,89 @@ const people = defineCollection({
   }),
 });
 
+// The alumni collection is the union of two sources:
+//
+//   1) content/people/alumni.yml — the lightweight roster for non-
+//      PhD/Postdoc alumni (M.Eng, M.S., visiting, UROP). These entries
+//      drive the alumni grid on /people/ only — they do NOT get a
+//      personal profile page.
+//
+//   2) content/people/alumni/<slug>.yml — one file per PhD/Postdoc
+//      alumnus, holding the strict 14-field uniform schema documented
+//      in content/people/alumni/_schema.yaml. These DO get a profile
+//      page at /people/alumni/<slug>/.
+//
+// The loader normalizes both shapes into a single output record so the
+// alumni grid (which keys on category, year_graduated, current_org,
+// placement_type, photo) keeps working unchanged. Per-file entries
+// also carry the profile-specific fields (name_variants, co_advisor,
+// thesis_title, etc.) plus has_profile=true, which is what
+// /people/alumni/[slug].astro and the name-link logic on /people/
+// branch on.
 const alumni = defineCollection({
   loader: async () => {
-    const data = await readYAML<{ alumni?: Record<string, unknown>[] }>(
+    const yml = await readYAML<{ alumni?: Record<string, unknown>[] }>(
       "people/alumni.yml",
     );
-    return (data.alumni ?? []).map((a) => ({
-      id: String(a.slug),
-      ...a,
-    }));
+    const legacy = (yml.alumni ?? []).map((a) => {
+      const cp = String(a.current_position ?? "");
+      const co = String(a.current_org ?? "");
+      const destination = [cp, co].filter(Boolean).join(", ");
+      const cat = String(a.category ?? "phd");
+      return {
+        id: String(a.slug),
+        ...a,
+        destination,
+        role: ROLE_FROM_CATEGORY[cat] ?? "",
+        name_variants: [] as string[],
+        years_with_group: String(a.period ?? ""),
+        education_before_mit: [] as string[],
+        co_advisor: "",
+        thesis_title: "",
+        research_summary: "",
+        notes: "",
+        has_profile: false,
+      };
+    });
+
+    const profiles = await readAlumniProfiles();
+    const profileEntries = profiles.map((p) => {
+      const role = String(p.role ?? "");
+      const category = role.toLowerCase(); // "PhD" → "phd", "Postdoc" → "postdoc"
+      const destination = String(p.destination ?? "");
+      const { position, org } = splitDestination(destination);
+      const yearsWithGroup = String(p.years_with_group ?? "");
+      return {
+        id: String(p.slug),
+        slug: String(p.slug),
+        name: String(p.name),
+        name_variants: (p.name_variants as string[] | undefined) ?? [],
+        role,
+        photo: p.photo ? String(p.photo) : undefined,
+        years_with_group: yearsWithGroup,
+        education_before_mit:
+          (p.education_before_mit as string[] | undefined) ?? [],
+        co_advisor: String(p.co_advisor ?? ""),
+        destination,
+        thesis_title: String(p.thesis_title ?? ""),
+        research_summary: String(p.research_summary ?? ""),
+        awards: (p.awards as string[] | undefined) ?? [],
+        placement_type: String(p.placement_type ?? "industry"),
+        notes: String(p.notes ?? ""),
+        // Back-fill legacy fields so the alumni grid on /people/ keeps
+        // working without conditional logic.
+        category,
+        degree: role,
+        period: yearsWithGroup,
+        year_graduated: deriveYearGraduated(yearsWithGroup),
+        current_position: position,
+        current_org: org,
+        research: "",
+        has_profile: true,
+      };
+    });
+
+    return [...legacy, ...profileEntries];
   },
   schema: z.object({
     slug: z.string(),
@@ -99,7 +222,7 @@ const alumni = defineCollection({
     category: z
       .enum(["phd", "postdoc", "meng", "ms", "visiting", "urop"])
       .default("phd"),
-    period: z.string().default(""), // e.g. "09/2017–05/2022"
+    period: z.string().default(""),
     year_graduated: z.number().int().nullable().optional(),
     research: z.string().default(""),
     current_position: z.string().default(""),
@@ -113,20 +236,18 @@ const alumni = defineCollection({
     ]),
     awards: z.array(z.string()).optional(),
     photo: z.string().optional(),
-    // Optional carryover fields from when this alumnus was a current member.
-    // If `bio` is set, /people/<slug>/ generates a personal page just like
-    // current members. See CLAUDE.md for the editorial rule.
-    bio: z.string().optional(),
-    interests: z.array(z.string()).default([]),
-    email: z.string().email().optional(),
-    links: z
-      .object({
-        website: z.string().url().optional(),
-        scholar: z.string().url().optional(),
-        orcid: z.string().url().optional(),
-        linkedin: z.string().url().optional(),
-      })
-      .optional(),
+    // Fields below are populated for per-file PhD/Postdoc profile
+    // entries; for legacy alumni.yml entries they're empty/defaults.
+    name_variants: z.array(z.string()).default([]),
+    role: z.string().default(""),
+    years_with_group: z.string().default(""),
+    education_before_mit: z.array(z.string()).default([]),
+    co_advisor: z.string().default(""),
+    destination: z.string().default(""),
+    thesis_title: z.string().default(""),
+    research_summary: z.string().default(""),
+    notes: z.string().default(""),
+    has_profile: z.boolean().default(false),
   }),
 });
 
