@@ -9,11 +9,9 @@ education_before_mit: []
 co_advisor: ""
 destination: "SpaceX"
 
-thesis_title: ""
-dissertation_url: ""
-research_summary: >
-  Large-Scale High-Density Terahertz Radiator and Receiver Arrays on
-  Silicon Chips.
+thesis_title: "Large-scale high-density terahertz radiator and receiver Arrays on silicon chips"
+dissertation_url: "https://hdl.handle.net/1721.1/127026"
+research_summary: ""
 awards:
   - "2020 MIT MTL Doctoral Dissertation Award"
 placement_type: "industry"

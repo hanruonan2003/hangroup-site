@@ -9,11 +9,9 @@ education_before_mit: []
 co_advisor: ""
 destination: "MediaTek"
 
-thesis_title: ""
-dissertation_url: ""
-research_summary: >
-  New Frontiers in Silicon Terahertz Electronics: Wirelessly Powered
-  THz-ID and Secure THz Links.
+thesis_title: "New Frontiers in Silicon Terahertz Electronics: Wirelessly Powered THz-ID and Secure THz Links"
+dissertation_url: "https://hdl.handle.net/1721.1/144668"
+research_summary: ""
 awards:
   - "2022 IEEE MTT-S Graduate Fellowship"
 placement_type: "industry"

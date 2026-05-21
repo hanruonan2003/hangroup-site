@@ -9,11 +9,9 @@ education_before_mit: []
 co_advisor: ""
 destination: "Assistant Professor, Cornell University"
 
-thesis_title: ""
-dissertation_url: ""
-research_summary: >
-  Miniaturized Chip-Scale Quantum and Terahertz Systems Through Tight
-  Integration of Electronics, Electromagnetics and Qubits.
+thesis_title: "Miniaturized Chip-Scale Quantum and Terahertz Systems Through Tight Integration of Electronics, Electromagnetics, and Qubits"
+dissertation_url: "https://hdl.handle.net/1721.1/140061"
+research_summary: ""
 awards:
   - "2021 MIT MTL Doctoral Dissertation Award"
   - "IEEE SSCS Predoctoral Achievement Award"

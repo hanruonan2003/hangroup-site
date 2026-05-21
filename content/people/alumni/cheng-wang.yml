@@ -9,11 +9,9 @@ education_before_mit: []
 co_advisor: ""
 destination: "Professor, UESTC"
 
-thesis_title: ""
-dissertation_url: ""
-research_summary: >
-  Terahertz Wave-Molecule Interactions via CMOS Chips: From Comb Gas
-  Sensor with Absolute Specificity to Ultra-Stable, Miniaturized Clock.
+thesis_title: "Terahertz wave-molecule interactions via CMOS chips: from comb gas sensor with absolute specificity to ultra-stable, miniaturized clock"
+dissertation_url: "https://hdl.handle.net/1721.1/128330"
+research_summary: ""
 awards:
   - "2019 MIT MTL Doctoral Dissertation Award"
   - "IEEE SSCS Predoctoral Achievement Award"
