@@ -50,6 +50,12 @@
   /* Layout. */
   --container-max: 1100px;
   --container-pad: 1.5rem;
+  /* Single source of truth for the vertical gap between the site
+     header and a page's h1. Every top-level page's content section
+     (.pubs, .people-page, .research, .news-page, .contact-page)
+     uses this for padding-top, so the h1 lines up across pages and
+     stays aligned automatically when this value changes. */
+  --page-top-padding: var(--space-8);
 
   /* Borders. */
   --border-hairline: 0.5px solid var(--color-border);
