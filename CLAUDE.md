@@ -66,9 +66,9 @@ contamination is a polluted group publications list.
 
 PhD and Postdoc alumni each get an individual profile page at
 `/people/alumni/<slug>/`, driven by per-file records under
-`content/people/alumni/<slug>.yml`. The strict 14-field uniform schema
+`content/people/alumni/<slug>.yml`. The strict 15-field uniform schema
 is documented in `content/people/alumni/_schema.yaml`; every alumnus
-file MUST carry **all** 14 fields **in the same order**, even when
+file MUST carry **all** 15 fields **in the same order**, even when
 empty, so the set stays greppable and easy to extend.
 
 Rules:

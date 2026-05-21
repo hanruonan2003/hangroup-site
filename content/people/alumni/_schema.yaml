@@ -1,5 +1,5 @@
 # Uniform schema for PhD/Postdoc alumni profile pages at
-# /people/alumni/<slug>/. Every file in this directory MUST carry all 14
+# /people/alumni/<slug>/. Every file in this directory MUST carry all 15
 # fields below, in this exact order, even when empty. Use "" for empty
 # strings and [] for empty lists. Never fabricate content — leave fields
 # blank until the user provides them.
@@ -28,6 +28,9 @@ destination:            ""    # role + organization after the group,
                               # e.g. "Professor, South China University of Technology"
 
 thesis_title:           ""    # leave blank until user provides; never auto-fetched
+dissertation_url:       ""    # MIT DSpace permanent URL for the dissertation,
+                              # e.g. "https://hdl.handle.net/1721.1/XXXXX"; ""
+                              # if not yet found or not applicable (Postdocs).
 research_summary:       ""    # freeform paragraph; "" if blank
 awards:                 []    # ["2022 IEEE MTT-S Graduate Fellowship", ...]; []
                               # if none recorded

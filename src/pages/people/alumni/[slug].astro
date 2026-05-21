@@ -49,6 +49,10 @@ const groupPubsForDedup = publications.map((p) => p.data);
 const personalPubs = loadDedupedPersonalPubs(d.slug, groupPubsForDedup);
 
 const hasResearchSection = Boolean(d.thesis_title || d.research_summary);
+// Section title: "PhD Dissertation" for PhD alumni; "Research" for
+// Postdocs (no MIT dissertation to point at). The DSpace link only
+// renders when dissertation_url is set, which is PhD-only by nature.
+const researchSectionTitle = d.role === "PhD" ? "PhD Dissertation" : "Research";
 ---
 
 <BaseLayout title={d.name} description={`${d.name} — ${roleLabel}, Terahertz Integrated Electronics Group.`}>
@@ -89,9 +93,33 @@ const hasResearchSection = Boolean(d.thesis_title || d.research_summary);
 
     {hasResearchSection && (
       <section class="profile__section">
-        <h2 class="profile__h2">Research</h2>
+        <h2 class="profile__h2">{researchSectionTitle}</h2>
         {d.thesis_title && (
-          <p class="profile__body"><strong>Thesis:</strong> {d.thesis_title}</p>
+          <p class="profile__body">
+            <strong>Thesis:</strong>{" "}
+            {d.dissertation_url ? (
+              <a
+                class="profile__dspace-link"
+                href={d.dissertation_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >{d.thesis_title}</a>
+            ) : (
+              d.thesis_title
+            )}
+            {d.dissertation_url && (
+              <>
+                {" "}
+                <a
+                  class="profile__dspace-tag mono"
+                  href={d.dissertation_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Read on MIT DSpace"
+                >MIT DSpace ↗</a>
+              </>
+            )}
+          </p>
         )}
         {d.research_summary && (
           <p class="profile__body">{d.research_summary}</p>
@@ -265,6 +293,28 @@ const hasResearchSection = Boolean(d.thesis_title || d.research_summary);
   .profile__body {
     color: var(--color-fg-muted);
     line-height: 1.7;
+  }
+
+  /* DSpace dissertation link styling: matches the muted-with-hairline
+     pattern used in the PI bio and elsewhere. */
+  .profile__dspace-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+  .profile__dspace-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+  .profile__dspace-tag {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    text-decoration: none;
+    margin-left: var(--space-1);
+  }
+  .profile__dspace-tag:hover {
+    color: var(--color-accent);
   }
 
   .profile__list {
