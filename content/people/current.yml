@@ -103,7 +103,7 @@ phd_students:
     name: "Nicholas (Sihyun) Lee"
     email: "nsihyun@mit.edu"
     photo: "nicholas-lee.jpg"
-    interests: ["wireline communication"]
+    interests: ["wireless synchronization", "precision metrology", "THz GaN"]
     awards:
       - "2025 Grass Instrument Company Fellowship"
     bio: >
