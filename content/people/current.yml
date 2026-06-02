@@ -119,7 +119,7 @@ phd_students:
     name: "Tyler Weigand"
     email: "tweigand@mit.edu"
     photo: "tyler-weigand.jpg"
-    interests: ["mmW/THz circuits", "quantum computing"]
+    interests: ["Sub-THz molecular clock", "quantum computing"]
     bio: >
       Tyler Weigand received his B.S. in Electrical Engineering and
       Computer Science from UC Berkeley in 2025. He is currently pursuing
