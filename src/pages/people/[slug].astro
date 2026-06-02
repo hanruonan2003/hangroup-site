@@ -103,18 +103,12 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
       </section>
     )}
 
-    <section class="profile__section">
-      <h2 class="profile__h2">
-        <span>Publications</span>
-        <span class="profile__h2-count mono">{personPubs.length}</span>
-      </h2>
-      {personPubs.length === 0 ? (
-        <p class="profile__empty mono">
-          No publications found in our BibTeX matching {d.name}. Once papers
-          with this author land in <code>content/publications/publications.bib</code>,
-          they will appear here automatically.
-        </p>
-      ) : (
+    {personPubs.length > 0 && (
+      <section class="profile__section">
+        <h2 class="profile__h2">
+          <span>Publications</span>
+          <span class="profile__h2-count mono">{personPubs.length}</span>
+        </h2>
         <ul class="profile__pubs">
           {personPubs.map((p) => {
             const pd = p.data;
@@ -136,8 +130,8 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
             );
           })}
         </ul>
-      )}
-    </section>
+      </section>
+    )}
 
     {personalPubs.length > 0 && (
       <section class="profile__section">
@@ -306,20 +300,6 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
     color: var(--color-fg-muted);
     padding-left: var(--space-3);
     border-left: 2px solid var(--color-accent);
-  }
-
-  .profile__empty {
-    font-size: var(--text-sm);
-    color: var(--color-fg-faint);
-    padding: var(--space-3);
-    background: var(--color-gray-tint);
-    line-height: 1.5;
-  }
-
-  .profile__empty code {
-    font-size: 0.85em;
-    background: var(--color-bg);
-    padding: 1px 4px;
   }
 
   .profile__pubs {
