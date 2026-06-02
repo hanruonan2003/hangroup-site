@@ -14,7 +14,7 @@ const TEMP_FIGURE_BY_KEY: Record<string, string> = {};
 
 // Maximum number of cards shown in the Selected Work grid. Driven by the
 // number of papers marked `highlight = {yes}` in publications.bib.
-const SELECTED_WORK_LIMIT = 7;
+const SELECTED_WORK_LIMIT = 8;
 
 // Eager glob of raster figures so Astro can statically process them via <Picture>.
 const figureModules = import.meta.glob<{ default: ImageMetadata }>(
