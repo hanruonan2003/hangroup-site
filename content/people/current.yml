@@ -10,7 +10,7 @@ phd_students:
     name: "Jaehong Jung"
     email: "jung0214@mit.edu"
     photo: "jaehong-jung.jpg"
-    interests: ["clock generation", "high-speed serial links"]
+    interests: ["Sub-THz molecular clock", "low-noise frequency synthesis"]
     bio: >
       Jaehong Jung (co-advised by Prof. Anantha Chandrakasan) received the
       B.S. and M.S. degrees in semiconductor systems engineering from
