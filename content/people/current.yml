@@ -133,7 +133,7 @@ phd_students:
     name: "Sanjay Chintapally"
     email: "sanjayc@mit.edu"
     photo: "sanjay-chintapally.png"
-    interests: ["RF/mmW circuits", "applied electromagnetics"]
+    interests: ["quantum computing", "applied electromagnetics"]
     awards:
       - "2025 MIT Jacobs Presidential Fellowship"
       - "2025 SCALE Microelectronics Undergraduate Scholarship"
