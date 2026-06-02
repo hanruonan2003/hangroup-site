@@ -1,0 +1,312 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { url } from "../lib/url.ts";
+
+const thrusts = await getCollection("research");
+const publications = await getCollection("publications");
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded");
+
+const thrustsSorted = [...thrusts].sort((a, b) => a.data.number - b.data.number);
+
+// Build a quick lookup by citation key.
+const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
+
+// Bundle every figure under content/research/figures/ so Vite emits each to
+// dist/_astro/ at build time. Look up by filename — the thrust `figure`
+// field is the bare filename, not a path.
+const figureUrlModules = import.meta.glob<string>(
+  "../../content/research/figures/*.{svg,png,jpg,jpeg}",
+  { eager: true, query: "?url", import: "default" },
+);
+const figureUrlByName: Record<string, string> = {};
+for (const [path, urlValue] of Object.entries(figureUrlModules)) {
+  const name = path.split("/").pop()!;
+  figureUrlByName[name] = urlValue;
+}
+---
+
+<BaseLayout
+  title="Research"
+  description={`${siteEntry.data.site.tagline} Four research thrusts in the ${siteEntry.data.site.name}.`}
+>
+  <section class="container research">
+    <header class="research__header">
+      <h1 class="research__h1">Research</h1>
+      <p class="research__lead">{siteEntry.data.site.description}</p>
+    </header>
+
+    {thrustsSorted.map((t) => {
+      const td = t.data;
+      const thrustPubs = td.publications
+        .flatMap((key) => {
+          const p = pubsByKey.get(key);
+          return p ? [p] : [];
+        })
+        .sort((a, b) => b.data.sort_key - a.data.sort_key);
+      const missingPubs = td.publications.filter((k) => !pubsByKey.has(k));
+
+      return (
+        <article class="thrust" id={td.slug}>
+          <header class="thrust__header">
+            <h2 class="thrust__title">{td.title}</h2>
+          </header>
+
+          <div class="thrust__description">
+            {td.description_paragraphs.map((para) => <p>{para}</p>)}
+            {td.description_is_stale && (
+              <p class="thrust__stale mono">
+                Description last updated: 2019 ·
+                <em>{` {{TODO: rewrite this thrust description to reflect 2020–2026 work}}`}</em>
+              </p>
+            )}
+          </div>
+
+          {td.figure && figureUrlByName[td.figure] && (
+            <figure class="thrust__figure">
+              <img
+                src={figureUrlByName[td.figure]}
+                alt={`Representative figure for ${td.title}`}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          )}
+
+          {!td.figure && td.figures_todo && (
+            <aside class="thrust__figures-todo mono" aria-label="Figures to add">
+              <p class="thrust__figures-label">Figures to add</p>
+              <p class="thrust__figures-text">{td.figures_todo}</p>
+              <p class="thrust__figures-hint">
+                Drop image files into <code>content/research/figures/</code>
+                and add a <code>**Figure:**</code> line to this thrust to surface one here.
+              </p>
+            </aside>
+          )}
+
+          <section class="thrust__sub" aria-labelledby={`${td.slug}-pubs`}>
+            <h3 class="thrust__sub-h3" id={`${td.slug}-pubs`}>
+              Representative publications
+            </h3>
+            {thrustPubs.length === 0 ? (
+              <p class="thrust__sub-empty mono">No publications resolved.</p>
+            ) : (
+              <p class="thrust__pubs mono">
+                {thrustPubs.map((p, i) => {
+                  const pd = p.data;
+                  const venue = pd.venue || pd.container || "Pub";
+                  const label = `${venue} ${pd.year}`;
+                  return (
+                    <>
+                      {i > 0 && <span class="thrust__pubs-sep" aria-hidden="true">, </span>}
+                      <a class="thrust__pubs-link" href={url(`/publications/#${pd.key}`)}>{label}</a>
+                    </>
+                  );
+                })}
+              </p>
+            )}
+            {missingPubs.length > 0 && (
+              <p class="thrust__missing mono">
+                <em>{`{{TODO: ${missingPubs.length} citation key${missingPubs.length === 1 ? "" : "s"} listed in thrusts.md not found in publications.bib: ${missingPubs.join(", ")}}}`}</em>
+              </p>
+            )}
+          </section>
+        </article>
+      );
+    })}
+  </section>
+</BaseLayout>
+
+<style>
+  .research {
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .research__header {
+    margin-bottom: var(--space-10);
+    max-width: 70ch;
+  }
+
+  .research__eyebrow {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-bottom: var(--space-2);
+  }
+
+  .research__h1 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .research__h1 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .research__lead {
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .research__toc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) 0;
+    border-block: 0.5px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .research__toc a {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  .research__toc a:hover {
+    color: var(--color-accent);
+  }
+
+  .thrust {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .thrust:last-of-type {
+    border-bottom: 0;
+  }
+
+  .thrust__header {
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust__title {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 720px) {
+    .thrust__title {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .thrust__description {
+    max-width: 70ch;
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust__description p {
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust__stale {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    border-left: 2px solid var(--color-amber);
+    padding-left: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .thrust__figure {
+    margin: 0 0 var(--space-4) 0;
+    max-width: 720px;
+  }
+
+  .thrust__figure img {
+    display: block;
+    max-width: 100%;
+    max-height: 360px;
+    width: auto;
+    height: auto;
+    border: 0.5px solid var(--color-border);
+    background: var(--color-gray-tint);
+  }
+
+  .thrust__figures-todo {
+    background: var(--color-amber-tint);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-6);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+  }
+
+  .thrust__figures-label {
+    font-weight: var(--weight-medium);
+    color: var(--color-amber);
+    margin-bottom: var(--space-1);
+  }
+
+  .thrust__figures-text {
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  .thrust__figures-hint {
+    color: var(--color-fg-faint);
+  }
+
+  .thrust__figures-hint code {
+    background: var(--color-bg);
+    padding: 1px 4px;
+    font-size: 0.95em;
+  }
+
+  .thrust__sub {
+    margin-bottom: var(--space-2);
+  }
+
+  .thrust__sub-h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-2);
+    padding-bottom: var(--space-1);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .thrust__sub-empty {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    padding: var(--space-2) 0;
+  }
+
+  /* Representative publications — flat comma-separated list of
+     "Venue Year" citations, each linking to the entry on /publications/. */
+  .thrust__pubs {
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .thrust__pubs-link {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+    white-space: nowrap;
+  }
+
+  .thrust__pubs-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .thrust__pubs-sep {
+    color: var(--color-fg-faint);
+  }
+
+  .thrust__missing {
+    font-size: var(--text-xs);
+    color: var(--color-fg-faint);
+    margin-top: var(--space-2);
+    line-height: 1.5;
+  }
+
+</style>

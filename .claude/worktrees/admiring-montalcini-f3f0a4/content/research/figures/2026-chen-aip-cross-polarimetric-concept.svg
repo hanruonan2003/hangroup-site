@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="ill-title ill-desc">
+  <title id="ill-title">A 234–252 GHz dual-polarized transceiver in an antenna-in-package transmits at 45° polarization and receives the cross-polarized echo from a polarization-flipping tag</title>
+  <desc id="ill-desc">Left: a red CMOS chip is flip-chip attached to an organic package; an orange cross-slot antenna sits at the package's radiating face. Middle: a thick orange beam transmitted rightward is annotated with a 45° polarization indicator (forward slash); a second beam returning leftward is annotated with a 135° indicator (back slash). Right: a blue tag with anisotropic periodic rods rotates the polarization of the reflected wave by 90 degrees. Labels: 234–252 GHz, cross-polarimetric sensing, TX 45 degrees, RX 135 degrees.</desc>
+
+  <defs>
+    <style>
+      svg                        { --ill-hot:  #A31F34;
+                                   --ill-cold: #1F4F7A;
+                                   --ill-beam: #E67E22;
+                                   --ill-fg:   #111111;
+                                   --ill-fg-muted: #6B6B6B; }
+      .stroke                    { fill: none; stroke-width: 2;
+                                   stroke-linecap: round; stroke-linejoin: round; }
+      .hot                       { stroke: var(--ill-hot); }
+      .cold                      { stroke: var(--ill-cold); }
+      .beam                      { stroke: var(--ill-beam); }
+      .beam--thick               { stroke-width: 3; }
+      .beam--fill                { fill: var(--ill-beam); }
+      .label {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        fill: var(--ill-fg);
+      }
+      .label--accent { fill: var(--ill-beam); font-size: 28px; }
+      .label--muted  { fill: var(--ill-fg-muted); font-size: 24px;
+                       letter-spacing: 0.10em; }
+    </style>
+  </defs>
+
+  <!-- =================================================================
+       LEFT: chip in package (antenna-in-package)
+       ================================================================= -->
+  <g aria-label="Antenna-in-package transceiver">
+    <!-- Organic package envelope -->
+    <rect class="stroke hot" x="100" y="260" width="500" height="380" />
+
+    <!-- CMOS chip (smaller red rectangle inside, flip-chip mounted) -->
+    <rect class="stroke hot" x="200" y="320" width="200" height="120" />
+    <!-- C4 bump row beneath the chip -->
+    <g class="stroke hot">
+      <circle cx="220" cy="455" r="6" />
+      <circle cx="250" cy="455" r="6" />
+      <circle cx="280" cy="455" r="6" />
+      <circle cx="310" cy="455" r="6" />
+      <circle cx="340" cy="455" r="6" />
+      <circle cx="370" cy="455" r="6" />
+      <circle cx="390" cy="455" r="6" />
+    </g>
+
+    <!-- Step-horn antenna structure: a flared trapezoid opening rightward,
+         layered to suggest the package's stepped metal layers. -->
+    <g class="stroke hot">
+      <polygon points="400,360 500,310 500,590 400,540" />
+      <polygon points="470,330 560,290 560,610 470,570" />
+    </g>
+
+    <!-- Cross-slot radiator at the antenna aperture (a "+" of two
+         orthogonal slots in orange — the dual-pol feature) -->
+    <g class="beam stroke beam--thick">
+      <line x1="540" y1="430" x2="580" y2="470" />  <!-- 45° slot -->
+      <line x1="540" y1="470" x2="580" y2="430" />  <!-- 135° slot -->
+    </g>
+
+    <!-- Caption -->
+    <text class="label" x="350" y="720" text-anchor="middle">antenna-in-package</text>
+    <text class="label label--muted" x="350" y="760" text-anchor="middle">flip-chip · organic substrate</text>
+  </g>
+
+  <!-- =================================================================
+       MIDDLE: TX (45°) outbound and RX (135°) inbound
+       ================================================================= -->
+  <g aria-label="Cross-polarized transmit and receive beams">
+    <!-- TX beam (above the axis) -->
+    <line class="stroke beam beam--thick" x1="600" y1="410" x2="1100" y2="410" />
+    <polyline class="stroke beam" stroke-linejoin="miter"
+              points="1090,400 1100,410 1090,420"/>
+    <!-- Polarization indicator next to TX: a 45° slash -->
+    <line class="stroke beam beam--thick" x1="830" y1="370" x2="870" y2="330" />
+    <text class="label label--accent" x="850" y="310" text-anchor="middle">TX · 45°</text>
+
+    <!-- RX beam (below the axis, opposite direction) -->
+    <line class="stroke beam beam--thick" x1="1100" y1="490" x2="600" y2="490" />
+    <polyline class="stroke beam" stroke-linejoin="miter"
+              points="610,480 600,490 610,500"/>
+    <!-- Polarization indicator next to RX: a 135° back-slash -->
+    <line class="stroke beam beam--thick" x1="830" y1="530" x2="870" y2="570" />
+    <text class="label label--accent" x="850" y="610" text-anchor="middle">RX · 135°</text>
+
+    <!-- Frequency banner above both beams -->
+    <text class="label label--muted" x="850" y="260" text-anchor="middle">234–252 GHz</text>
+  </g>
+
+  <!-- =================================================================
+       RIGHT: polarization-flipping tag
+       ================================================================= -->
+  <g aria-label="Polarization-flipping tag">
+    <!-- Tag envelope (blue) -->
+    <rect class="stroke cold" x="1100" y="280" width="400" height="340" />
+
+    <!-- Anisotropic periodic rods, drawn as diagonal blue line segments
+         inside the tag. The rods convert 45° polarization → 135° polarization
+         (modeling the polarization-plate target used in the paper). -->
+    <g class="stroke cold">
+      <line x1="1140" y1="320" x2="1180" y2="360"/>
+      <line x1="1200" y1="320" x2="1240" y2="360"/>
+      <line x1="1260" y1="320" x2="1300" y2="360"/>
+      <line x1="1320" y1="320" x2="1360" y2="360"/>
+      <line x1="1380" y1="320" x2="1420" y2="360"/>
+      <line x1="1440" y1="320" x2="1480" y2="360"/>
+
+      <line x1="1140" y1="380" x2="1180" y2="420"/>
+      <line x1="1200" y1="380" x2="1240" y2="420"/>
+      <line x1="1260" y1="380" x2="1300" y2="420"/>
+      <line x1="1320" y1="380" x2="1360" y2="420"/>
+      <line x1="1380" y1="380" x2="1420" y2="420"/>
+      <line x1="1440" y1="380" x2="1480" y2="420"/>
+
+      <line x1="1140" y1="440" x2="1180" y2="480"/>
+      <line x1="1200" y1="440" x2="1240" y2="480"/>
+      <line x1="1260" y1="440" x2="1300" y2="480"/>
+      <line x1="1320" y1="440" x2="1360" y2="480"/>
+      <line x1="1380" y1="440" x2="1420" y2="480"/>
+      <line x1="1440" y1="440" x2="1480" y2="480"/>
+
+      <line x1="1140" y1="500" x2="1180" y2="540"/>
+      <line x1="1200" y1="500" x2="1240" y2="540"/>
+      <line x1="1260" y1="500" x2="1300" y2="540"/>
+      <line x1="1320" y1="500" x2="1360" y2="540"/>
+      <line x1="1380" y1="500" x2="1420" y2="540"/>
+      <line x1="1440" y1="500" x2="1480" y2="540"/>
+
+      <line x1="1140" y1="560" x2="1180" y2="600"/>
+      <line x1="1200" y1="560" x2="1240" y2="600"/>
+      <line x1="1260" y1="560" x2="1300" y2="600"/>
+      <line x1="1320" y1="560" x2="1360" y2="600"/>
+      <line x1="1380" y1="560" x2="1420" y2="600"/>
+      <line x1="1440" y1="560" x2="1480" y2="600"/>
+    </g>
+
+    <!-- Caption -->
+    <text class="label" x="1300" y="720" text-anchor="middle">polarization-flipping tag</text>
+    <text class="label label--muted" x="1300" y="760" text-anchor="middle">cross-polarimetric sensing</text>
+  </g>
+</svg>

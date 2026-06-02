@@ -1,0 +1,69 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { getEntry } from "astro:content";
+import { url } from "../lib/url.ts";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const siteEntry = await getEntry("site", "site");
+if (!siteEntry) throw new Error("site.yml not loaded as 'site' collection entry");
+const siteName = siteEntry.data.site.name;
+const defaultDescription = siteEntry.data.site.description;
+
+const { title, description } = Astro.props;
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+const metaDescription = description ?? defaultDescription;
+
+// Canonical and absolute URLs. Astro.site is the configured site URL.
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).toString()
+  : Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
+    <link rel="icon" href={url("/favicon.ico")} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph (Facebook, LinkedIn, Slack, iMessage previews) */}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+    {/* TODO: add an og:image once a hero/group photo exists. Drop it at
+        public/og-default.png (recommended size 1200×630) and uncomment:
+        <meta property="og:image" content={new URL('/og-default.png', Astro.site).toString()} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+    */}
+
+    {/* Twitter cards */}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

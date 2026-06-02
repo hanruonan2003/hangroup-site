@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(rm -rf dist/)",
+      "Bash(rm -rf .astro/)",
+      "Bash(rm -rf dist/ .astro/)",
+      "Bash(curl -s -o /tmp/*)",
+      "Bash(git push origin main)"
+    ]
+  }
+}

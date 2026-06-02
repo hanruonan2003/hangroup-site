@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="ill-title ill-desc">
+  <title id="ill-title">An on-chip molecular clock: a CMOS sub-THz source probes carbonyl sulfide gas, and its 231.06 GHz rotational absorption line locks the chip's frequency</title>
+  <desc id="ill-desc">Three-part schematic. Left: a red CMOS chip with a stylized sub-THz signal chain (VCO, multiplier, power amplifier on top; lock-in and PLL below). Middle: an orange sinusoidal wave travels rightward through three blue carbonyl sulfide (O=C=S) molecules. Right: a blue panel showing a transmission curve with a sharp absorption dip; a dashed marker line points to the dip and is labeled 231.06 GHz.</desc>
+
+  <defs>
+    <style>
+      /* Three-color palette exposed as CSS custom properties so a later
+         dark-mode pass can override without editing geometry. Fallbacks
+         match the project brief. Shared with the cryo-CMOS illustration
+         so the two read as part of one series. */
+      svg                        { --ill-hot:  #A31F34;
+                                   --ill-cold: #1F4F7A;
+                                   --ill-beam: #E67E22;
+                                   --ill-fg:   #111111;
+                                   --ill-fg-muted: #6B6B6B; }
+      .stroke                    { fill: none; stroke-width: 2;
+                                   stroke-linecap: round; stroke-linejoin: round; }
+      .hot                       { stroke: var(--ill-hot); }
+      .cold                      { stroke: var(--ill-cold); }
+      .beam                      { stroke: var(--ill-beam); }
+      .beam--thick               { stroke-width: 3; }
+      .dashed                    { stroke-dasharray: 4 7; }
+      .label {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        fill: var(--ill-fg);
+      }
+      .label--accent { fill: var(--ill-beam); font-size: 30px; }
+      .label--muted  { fill: var(--ill-fg-muted); font-size: 24px;
+                       letter-spacing: 0.10em; }
+    </style>
+  </defs>
+
+  <!-- =================================================================
+       LEFT: CMOS sub-THz source
+       ================================================================= -->
+  <g aria-label="CMOS sub-THz source">
+    <!-- Stage envelope -->
+    <rect class="stroke hot" x="100" y="180" width="500" height="500" />
+
+    <!-- Chip die -->
+    <rect class="stroke hot" x="210" y="320" width="280" height="220" />
+
+    <!-- Top row: VCO -> ×N multiplier -> PA (signal chain to 231 GHz) -->
+    <g class="stroke hot">
+      <rect x="230" y="345" width="70"  height="55" />
+      <rect x="315" y="345" width="55"  height="55" />
+      <rect x="385" y="345" width="85"  height="55" />
+      <!-- flow ticks between blocks -->
+      <line x1="300" y1="372" x2="312" y2="372" />
+      <line x1="370" y1="372" x2="382" y2="372" />
+    </g>
+
+    <!-- Middle row: detector / lock-in -->
+    <g class="stroke hot">
+      <rect x="230" y="415" width="80" height="40" />
+      <rect x="325" y="415" width="60" height="40" />
+      <rect x="400" y="415" width="70" height="40" />
+      <line x1="310" y1="435" x2="324" y2="435" />
+      <line x1="385" y1="435" x2="399" y2="435" />
+    </g>
+
+    <!-- Bottom row: PLL / digital control bar -->
+    <rect class="stroke hot" x="230" y="475" width="240" height="40" />
+
+    <!-- Chip pins, top + bottom -->
+    <g class="stroke hot">
+      <line x1="240" y1="295" x2="240" y2="320"/>
+      <line x1="280" y1="295" x2="280" y2="320"/>
+      <line x1="320" y1="295" x2="320" y2="320"/>
+      <line x1="360" y1="295" x2="360" y2="320"/>
+      <line x1="400" y1="295" x2="400" y2="320"/>
+      <line x1="440" y1="295" x2="440" y2="320"/>
+
+      <line x1="240" y1="540" x2="240" y2="565"/>
+      <line x1="280" y1="540" x2="280" y2="565"/>
+      <line x1="320" y1="540" x2="320" y2="565"/>
+      <line x1="360" y1="540" x2="360" y2="565"/>
+      <line x1="400" y1="540" x2="400" y2="565"/>
+      <line x1="440" y1="540" x2="440" y2="565"/>
+    </g>
+
+    <!-- Caption -->
+    <text class="label" x="350" y="755" text-anchor="middle">CMOS — sub-THz source</text>
+  </g>
+
+  <!-- =================================================================
+       RIGHT: OCS absorption spectrum panel
+       ================================================================= -->
+  <g aria-label="OCS rotational absorption spectrum">
+    <!-- Panel envelope -->
+    <rect class="stroke cold" x="1000" y="180" width="500" height="500" />
+
+    <!-- Transmission curve: high baseline, sharp dip near the center -->
+    <!-- Drawn as a single path: flat → smooth descent → narrow dip → smooth ascent → flat -->
+    <path class="stroke cold beam--thick"
+          d="M 1080 320
+             L 1235 320
+             C 1255 320, 1258 425, 1268 470
+             C 1270 478, 1276 478, 1278 470
+             C 1288 425, 1291 320, 1311 320
+             L 1450 320" />
+
+    <!-- Vertical dashed marker through dip center -->
+    <line class="stroke cold dashed"
+          x1="1273" y1="290" x2="1273" y2="540" />
+
+    <!-- Dip frequency label -->
+    <text class="label label--muted" x="1273" y="275" text-anchor="middle">231.06 GHz</text>
+
+    <!-- Tiny axis hint: transmission baseline tick and dip tick on the left -->
+    <g class="stroke cold">
+      <!-- Baseline level tick -->
+      <line x1="1060" y1="320" x2="1075" y2="320" />
+      <!-- Dip floor tick -->
+      <line x1="1060" y1="475" x2="1075" y2="475" />
+      <!-- Frequency-axis baseline -->
+      <line x1="1080" y1="540" x2="1450" y2="540" />
+      <line x1="1273" y1="540" x2="1273" y2="552" />
+    </g>
+
+    <!-- Small "transmission" axis label, vertical -->
+    <text class="label label--muted"
+          x="1043" y="408"
+          text-anchor="middle"
+          transform="rotate(-90 1043 408)">transmission</text>
+
+    <!-- Caption -->
+    <text class="label" x="1250" y="755" text-anchor="middle">OCS — rotational reference</text>
+  </g>
+
+  <!-- =================================================================
+       MIDDLE: 231 GHz wave probing three OCS molecules
+       ================================================================= -->
+  <g aria-label="Sub-THz wave probing OCS molecules">
+    <!-- Source horn (left chip, opens right) -->
+    <polygon class="stroke beam"
+             points="600,450 650,415 650,485 600,460" />
+    <!-- Detector horn (right panel, opens left) -->
+    <polygon class="stroke beam"
+             points="1000,450 950,415 950,485 1000,460" />
+
+    <!-- Sub-THz wave -->
+    <path class="stroke beam beam--thick"
+          d="M 650 450
+             Q 687.5 410, 725 450
+             T 800 450
+             T 875 450
+             T 950 450" />
+
+    <!-- Three OCS molecule glyphs (O=C=S, three circles in a line, growing
+         left → right in radius to suggest O < C < S atomic sizes). -->
+    <!-- glyph 1: above the wave, near x=712 -->
+    <g class="stroke cold">
+      <circle cx="690" cy="370" r="6" />
+      <line x1="697"  y1="370" x2="703"  y2="370" />
+      <circle cx="712" cy="370" r="9" />
+      <line x1="722"  y1="370" x2="728"  y2="370" />
+      <circle cx="739" cy="370" r="11" />
+    </g>
+
+    <!-- glyph 2: below the wave, near x=802 -->
+    <g class="stroke cold">
+      <circle cx="780" cy="530" r="6" />
+      <line x1="787"  y1="530" x2="793"  y2="530" />
+      <circle cx="802" cy="530" r="9" />
+      <line x1="812"  y1="530" x2="818"  y2="530" />
+      <circle cx="829" cy="530" r="11" />
+    </g>
+
+    <!-- glyph 3: above the wave, near x=892 -->
+    <g class="stroke cold">
+      <circle cx="870" cy="370" r="6" />
+      <line x1="877"  y1="370" x2="883"  y2="370" />
+      <circle cx="892" cy="370" r="9" />
+      <line x1="902"  y1="370" x2="908"  y2="370" />
+      <circle cx="919" cy="370" r="11" />
+    </g>
+  </g>
+</svg>

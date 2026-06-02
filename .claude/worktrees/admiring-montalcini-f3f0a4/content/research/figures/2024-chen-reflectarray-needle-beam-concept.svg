@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="ill-title ill-desc">
+  <title id="ill-title">A 265 GHz CMOS reflectarray forms a one-degree pencil beam that scans a human subject for high-angular-resolution radar imaging</title>
+  <desc id="ill-desc">Left: a red CMOS reflectarray chip drawn as a 12-by-12 lattice of unit cells with a small feed antenna in front. Middle: a narrow tapering orange beam crosses rightward and lands on a human subject. Right: a blue side-view silhouette of a head and torso, with three small orange marks where the beam has produced range returns.</desc>
+
+  <defs>
+    <style>
+      svg                        { --ill-hot:  #A31F34;
+                                   --ill-cold: #1F4F7A;
+                                   --ill-beam: #E67E22;
+                                   --ill-fg:   #111111;
+                                   --ill-fg-muted: #6B6B6B; }
+      .stroke                    { fill: none; stroke-width: 2;
+                                   stroke-linecap: round; stroke-linejoin: round; }
+      .hot                       { stroke: var(--ill-hot); }
+      .cold                      { stroke: var(--ill-cold); }
+      .beam                      { stroke: var(--ill-beam); }
+      .beam--thick               { stroke-width: 3; }
+      .beam--fill                { fill: var(--ill-beam); }
+      .dashed                    { stroke-dasharray: 4 7; }
+      .label {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: 36px;
+        letter-spacing: 0.04em;
+        fill: var(--ill-fg);
+      }
+      .label--accent { fill: var(--ill-beam); font-size: 30px; }
+      .label--muted  { fill: var(--ill-fg-muted); font-size: 24px;
+                       letter-spacing: 0.10em; }
+    </style>
+  </defs>
+
+  <!-- =================================================================
+       LEFT: 265 GHz CMOS reflectarray
+       ================================================================= -->
+  <g aria-label="265 GHz CMOS reflectarray">
+    <!-- Stage envelope -->
+    <rect class="stroke hot" x="100" y="180" width="500" height="500" />
+
+    <!-- Reflectarray aperture: 12×12 stylized lattice of unit cells -->
+    <g class="stroke hot">
+      <!-- Outer aperture frame -->
+      <rect x="170" y="240" width="360" height="360" />
+      <!-- Vertical grid lines -->
+      <line x1="200" y1="240" x2="200" y2="600"/>
+      <line x1="230" y1="240" x2="230" y2="600"/>
+      <line x1="260" y1="240" x2="260" y2="600"/>
+      <line x1="290" y1="240" x2="290" y2="600"/>
+      <line x1="320" y1="240" x2="320" y2="600"/>
+      <line x1="350" y1="240" x2="350" y2="600"/>
+      <line x1="380" y1="240" x2="380" y2="600"/>
+      <line x1="410" y1="240" x2="410" y2="600"/>
+      <line x1="440" y1="240" x2="440" y2="600"/>
+      <line x1="470" y1="240" x2="470" y2="600"/>
+      <line x1="500" y1="240" x2="500" y2="600"/>
+      <!-- Horizontal grid lines -->
+      <line x1="170" y1="270" x2="530" y2="270"/>
+      <line x1="170" y1="300" x2="530" y2="300"/>
+      <line x1="170" y1="330" x2="530" y2="330"/>
+      <line x1="170" y1="360" x2="530" y2="360"/>
+      <line x1="170" y1="390" x2="530" y2="390"/>
+      <line x1="170" y1="420" x2="530" y2="420"/>
+      <line x1="170" y1="450" x2="530" y2="450"/>
+      <line x1="170" y1="480" x2="530" y2="480"/>
+      <line x1="170" y1="510" x2="530" y2="510"/>
+      <line x1="170" y1="540" x2="530" y2="540"/>
+      <line x1="170" y1="570" x2="530" y2="570"/>
+    </g>
+
+    <!-- Caption -->
+    <text class="label" x="350" y="755" text-anchor="middle">265 GHz reflectarray</text>
+  </g>
+
+  <!-- =================================================================
+       RIGHT: human subject (side-view silhouette)
+       ================================================================= -->
+  <g aria-label="Human subject side-view silhouette">
+    <!-- Head -->
+    <circle class="stroke cold" cx="1300" cy="270" r="55" />
+    <!-- Neck -->
+    <path class="stroke cold" d="M 1285 325 L 1285 360 L 1315 360 L 1315 325" />
+    <!-- Shoulders + torso (very simplified side view) -->
+    <path class="stroke cold"
+          d="M 1240 360
+             L 1240 380
+             Q 1240 400, 1260 405
+             L 1260 660
+             L 1340 660
+             L 1340 405
+             Q 1360 400, 1360 380
+             L 1360 360
+             Z" />
+
+    <!-- Three small range-return marks where the beam has struck -->
+    <g class="beam beam--fill stroke">
+      <circle cx="1255" cy="470" r="5"/>
+      <circle cx="1255" cy="530" r="5"/>
+      <circle cx="1255" cy="590" r="5"/>
+    </g>
+
+    <!-- Caption -->
+    <text class="label" x="1300" y="755" text-anchor="middle">high-resolution imaging</text>
+  </g>
+
+  <!-- =================================================================
+       MIDDLE: 1° pencil beam from reflectarray to subject
+       ================================================================= -->
+  <g aria-label="One-degree pencil beam">
+    <!-- Beam: a very narrow tapering wedge from chip aperture to target -->
+    <!-- Edge points: starts wide at chip aperture (x=530), narrows just slightly
+         toward the subject (x=1255). Looks like a "needle" focused at distance. -->
+    <polygon class="beam beam--thick"
+             points="535,495 535,525 1255,514 1255,506"
+             fill="var(--ill-beam)" fill-opacity="0.15" />
+
+    <!-- Beam centerline (sharp) -->
+    <line class="beam beam--thick" x1="535" y1="510" x2="1255" y2="510"/>
+
+    <!-- Tiny arrowhead at end -->
+    <polyline class="beam" stroke-linejoin="miter"
+              points="1245,503 1255,510 1245,517" />
+
+    <!-- Frequency / beam-width annotation -->
+    <text class="label label--accent" x="895" y="455" text-anchor="middle">265 GHz · 1° beam</text>
+
+    <!-- Smaller axis-label below the beam -->
+    <text class="label label--muted" x="895" y="570" text-anchor="middle">needle beam</text>
+  </g>
+</svg>
