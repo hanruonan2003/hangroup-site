@@ -200,6 +200,15 @@ alumni:
     placement_type: "industry"
     photo: "rui-ma.png"
 
+  - slug: byran-huang
+    name: "Byran Huang"
+    category: "visiting"
+    degree: "Visiting student"
+    current_position: "Undergraduate"
+    current_org: "Yale University"
+    placement_type: "academia"
+    photo: "byran-huang.jpg"
+
   # ===== UROP / SuperUROP =====
 
   - slug: james-mawdsley
