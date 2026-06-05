@@ -3,10 +3,12 @@ slug: "byran-huang"
 name_variants: ["B. Huang", "Byran Huang"]
 role: "Visiting"
 photo: "byran-huang.jpg"
+bio: >
+  Byran was a summer intern with the group in 2024, joining from Phillips
+  Exeter Academy. He went on to intern at Neuralink in 2025.
 
-years_with_group: ""
-education_before_mit:
-  - "Phillips Exeter Academy"
+years_with_group: "Summer 2024"
+education_before_mit: []
 co_advisor: ""
 destination: "Undergraduate, Yale University (Electrical Engineering)"
 
@@ -16,4 +18,4 @@ research_summary: ""
 awards: []
 placement_type: "academia"
 
-notes: "Summer intern with the group. Interned at Neuralink in 2025."
+notes: ""

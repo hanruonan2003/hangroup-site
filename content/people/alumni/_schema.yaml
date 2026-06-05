@@ -1,8 +1,8 @@
-# Uniform schema for PhD/Postdoc alumni profile pages at
-# /people/alumni/<slug>/. Every file in this directory MUST carry all 15
-# fields below, in this exact order, even when empty. Use "" for empty
-# strings and [] for empty lists. Never fabricate content — leave fields
-# blank until the user provides them.
+# Uniform schema for alumni profile pages at /people/alumni/<slug>/.
+# Every file in this directory MUST carry all 16 fields below, in this
+# exact order, even when empty. Use "" for empty strings and [] for empty
+# lists. Never fabricate content — leave fields blank until the user
+# provides them.
 #
 # This file is documentation only; it is not consumed by the build.
 # When adding a new PhD/Postdoc alumnus, copy this template into
@@ -15,6 +15,9 @@ name_variants:          []    # every form used in the group bib for matching,
 role:                   ""    # "PhD" or "Postdoc"
 photo:                  ""    # filename in content/people/photos/alumni/,
                               # e.g. "xiang-yi.jpg"; "" if none
+bio:                    ""    # freeform intro paragraph rendered at the top
+                              # of the profile (before any section heading);
+                              # "" if blank
 
 years_with_group:       ""    # date range or single year,
                               # e.g. "08/2017–09/2020" or "2026".

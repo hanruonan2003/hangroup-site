@@ -75,6 +75,12 @@ const researchSectionTitle = d.role === "PhD" ? "PhD Dissertation" : "Research";
       </div>
     </div>
 
+    {d.bio && (
+      <section class="profile__section">
+        <p class="profile__body">{d.bio}</p>
+      </section>
+    )}
+
     {d.education_before_mit.length > 0 && (
       <section class="profile__section">
         <h2 class="profile__h2">Education before MIT</h2>

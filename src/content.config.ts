@@ -169,6 +169,7 @@ const alumni = defineCollection({
         years_with_group: String(a.period ?? ""),
         education_before_mit: [] as string[],
         co_advisor: "",
+        bio: "",
         thesis_title: "",
         dissertation_url: "",
         research_summary: "",
@@ -191,6 +192,7 @@ const alumni = defineCollection({
         name_variants: (p.name_variants as string[] | undefined) ?? [],
         role,
         photo: p.photo ? String(p.photo) : undefined,
+        bio: String(p.bio ?? ""),
         years_with_group: yearsWithGroup,
         education_before_mit:
           (p.education_before_mit as string[] | undefined) ?? [],
@@ -242,6 +244,7 @@ const alumni = defineCollection({
     // entries; for legacy alumni.yml entries they're empty/defaults.
     name_variants: z.array(z.string()).default([]),
     role: z.string().default(""),
+    bio: z.string().default(""),
     years_with_group: z.string().default(""),
     education_before_mit: z.array(z.string()).default([]),
     co_advisor: z.string().default(""),
