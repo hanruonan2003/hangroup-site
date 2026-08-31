@@ -63,11 +63,12 @@ contact:
     state: "MA"
     zip: "02139"
   admin:
-    name: "Ava Bowen"
-    slug: "ava-bowen"
+    name: "Marielle Risse"
+    slug: "marielle-risse"
     title: "Administrative Assistant"
-    email: "avabowen@mit.edu"
-    phone: "(617) 253-0719"
+    email: "mrr@mit.edu"
+    phone: "(617) 253-0446"
+    office: "36-479"
 
 recruiting:
   # Currently shown on the home page as the "Openings" paragraph.

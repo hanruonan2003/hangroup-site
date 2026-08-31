@@ -327,6 +327,7 @@ const site = defineCollection({
         title: z.string(),
         email: z.string().email(),
         phone: z.string(),
+        office: z.string().optional(),
       }),
     }),
     recruiting: z.object({

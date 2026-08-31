@@ -67,6 +67,12 @@ const { address, admin } = contact;
             <span class="contact-block__label">Phone</span>
             <span>{admin.phone}</span>
           </li>
+          {admin.office && (
+            <li>
+              <span class="contact-block__label">Office</span>
+              <span>Building {admin.office}</span>
+            </li>
+          )}
         </ul>
       </article>
     </div>
