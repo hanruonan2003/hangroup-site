@@ -164,6 +164,18 @@ phd_students:
       to MIT as an Analog Devices Graduate Fellow, working jointly with
       Haystack Observatory and the Terahertz Integrated Electronics Group.
 
+  - slug: tongjoon-kim
+    name: "TongJoon Kim"
+    photo: "tongjoon-kim.jpg"
+    interests: ["power amplifiers", "satellite communications"]
+    bio: >
+      TongJoon Kim received his B.S. in Electrical and Computer
+      Engineering from Seoul National University in 2026. He is
+      currently pursuing a Ph.D. in EECS in the Terahertz Integrated
+      Electronics Group at MIT. At SNU, he worked on power amplifiers
+      for satellite communications as a research intern in the
+      High-frequency Integrated Circuits and Systems research group.
+
 masters_students:
 
   - slug: jason-li
