@@ -40,7 +40,7 @@ const initials = getInitials(name);
 
 {photoUrl ? (
   <img
-    class={`person-photo person-photo--${size}`}
+    class={`person-photo person-photo--${size}${slug ? ` person-photo--${slug}` : ""}`}
     src={photoUrl}
     alt={name}
     loading="lazy"
@@ -61,6 +61,11 @@ const initials = getInitials(name);
     align-items: center;
     justify-content: center;
     object-fit: cover;
+  }
+
+  /* Shift TongJoon Kim up ~10% so the black top margin is cropped out. */
+  .person-photo--tongjoon-kim {
+    object-position: 50% 60%;
   }
 
   .person-photo--small {
