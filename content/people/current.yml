@@ -6,35 +6,25 @@
 
 phd_students:
 
-  - slug: jaehong-jung
-    name: "Jaehong Jung"
-    email: "jung0214@mit.edu"
-    photo: "jaehong-jung.jpg"
-    interests: ["Sub-THz molecular clock", "low-noise frequency synthesis"]
-    bio: >
-      Jaehong Jung (co-advised by Prof. Anantha Chandrakasan) received the
-      B.S. and M.S. degrees in semiconductor systems engineering from
-      Sungkyunkwan University, Suwon, South Korea, in 2015 and 2017. He is
-      currently pursuing the Ph.D. at MIT EECS. Since 2017 he has been
-      with Samsung Electronics, Hwaseong, focused on high-quality clock
-      generation ICs including PLLs, DLLs, on-chip oscillators, and
-      crystal oscillators for SoC platforms and RF transceivers. His
-      interests include high-speed serial links, clock generation ICs,
-      ultra-low power ICs, and fully synthesized calibration algorithms.
+  # Order: by year joined the group; append each new PhD student to the end.
 
-  - slug: yan-xu
-    name: "Yan Xu"
-    email: "yanx1326@mit.edu"
-    photo: "yan-xu.jpg"
-    interests: ["Artificial Intelligence", "EDA"]
+  - slug: daniel-sheen
+    name: "Daniel Sheen"
+    email: "dsheen@mit.edu"
+    photo: "daniel-sheen.jpg"
+    interests: ["radio telescopes", "phased arrays"]
+    awards:
+      - "2022 Analog Devices Graduate Fellowship"
     bio: >
-      Yan Xu received the B.S. degree in Microelectronics Science and
-      Engineering from the University of Electronic Science and Technology
-      of China (UESTC) in 2023. She is currently pursuing the Ph.D. degree
-      in the Department of Electrical Engineering and Computer Science
-      (EECS) at MIT. During her Bachelor's she interned as a research
-      assistant in the Rice Integrated Systems and Electromagnetics (RISE)
-      Lab, working on implantable wireless data transfer.
+      Daniel Sheen (co-advised by Dr. Frank Lind at MIT Haystack
+      Observatory) received his B.S. in Electrical Science and Engineering
+      in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
+      he worked at Haystack Observatory, designing the UHF phased array
+      feed currently in use at the Westford Radio Telescope. He then
+      joined Diversified Technologies Inc. developing high-power solid-
+      state microwave amplifier systems. Since Fall 2022 he has returned
+      to MIT as an Analog Devices Graduate Fellow, working jointly with
+      Haystack Observatory and the Terahertz Integrated Electronics Group.
 
   - slug: pradyot-yadav
     name: "Pradyot Yadav"
@@ -84,6 +74,36 @@ phd_students:
       Engineering Graduate (DoW NDSEG) Fellow and a Barry Goldwater
       Scholar. He serves as a reviewer for IEEE Electron Device Letters
       and IEEE Microwave and Wireless Technology Letters.
+
+  - slug: yan-xu
+    name: "Yan Xu"
+    email: "yanx1326@mit.edu"
+    photo: "yan-xu.jpg"
+    interests: ["Artificial Intelligence", "EDA"]
+    bio: >
+      Yan Xu received the B.S. degree in Microelectronics Science and
+      Engineering from the University of Electronic Science and Technology
+      of China (UESTC) in 2023. She is currently pursuing the Ph.D. degree
+      in the Department of Electrical Engineering and Computer Science
+      (EECS) at MIT. During her Bachelor's she interned as a research
+      assistant in the Rice Integrated Systems and Electromagnetics (RISE)
+      Lab, working on implantable wireless data transfer.
+
+  - slug: jaehong-jung
+    name: "Jaehong Jung"
+    email: "jung0214@mit.edu"
+    photo: "jaehong-jung.jpg"
+    interests: ["Sub-THz molecular clock", "low-noise frequency synthesis"]
+    bio: >
+      Jaehong Jung (co-advised by Prof. Anantha Chandrakasan) received the
+      B.S. and M.S. degrees in semiconductor systems engineering from
+      Sungkyunkwan University, Suwon, South Korea, in 2015 and 2017. He is
+      currently pursuing the Ph.D. at MIT EECS. Since 2017 he has been
+      with Samsung Electronics, Hwaseong, focused on high-quality clock
+      generation ICs including PLLs, DLLs, on-chip oscillators, and
+      crystal oscillators for SoC platforms and RF transceivers. His
+      interests include high-speed serial links, clock generation ICs,
+      ultra-low power ICs, and fully synthesized calibration algorithms.
 
   - slug: krishna-pochana
     name: "Krishna Pochana"
@@ -145,24 +165,6 @@ phd_students:
       Electronics Group at MIT. His research interests are in RF / mmW /
       sub-THz integrated circuits and applied electromagnetics for
       communication, sensing, and other emerging applications.
-
-  - slug: daniel-sheen
-    name: "Daniel Sheen"
-    email: "dsheen@mit.edu"
-    photo: "daniel-sheen.jpg"
-    interests: ["radio telescopes", "phased arrays"]
-    awards:
-      - "2022 Analog Devices Graduate Fellowship"
-    bio: >
-      Daniel Sheen (co-advised by Dr. Frank Lind at MIT Haystack
-      Observatory) received his B.S. in Electrical Science and Engineering
-      in 2019 and his M.Eng. in 2021, both from MIT. During his Master's
-      he worked at Haystack Observatory, designing the UHF phased array
-      feed currently in use at the Westford Radio Telescope. He then
-      joined Diversified Technologies Inc. developing high-power solid-
-      state microwave amplifier systems. Since Fall 2022 he has returned
-      to MIT as an Analog Devices Graduate Fellow, working jointly with
-      Haystack Observatory and the Terahertz Integrated Electronics Group.
 
   - slug: tongjoon-kim
     name: "TongJoon Kim"

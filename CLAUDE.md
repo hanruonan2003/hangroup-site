@@ -3,6 +3,14 @@
 Project conventions and editorial rules for the MIT Terahertz Integrated
 Electronics Group site. Read these before editing content.
 
+## Current PhD student ordering
+
+Under `phd_students:` in `content/people/current.yml`, entries are ordered
+**by the year each student joined the group** (earliest first, most recent
+last). When adding a new PhD student, **append to the end** — never re-sort
+by name, alphabetical order, or any other criterion. The rendered card
+order on `/people/` follows this sequence directly.
+
 ## Per-person personal publications
 
 Each group member may optionally have a personal BibTeX file at
