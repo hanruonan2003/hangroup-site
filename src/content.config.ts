@@ -92,14 +92,20 @@ const people = defineCollection({
     const entries: Array<Record<string, unknown>> = [];
     for (const group of Object.keys(ROLE_LABELS) as RoleGroup[]) {
       const list = data[group] ?? [];
-      for (const person of list as Record<string, unknown>[]) {
+      // `order_index` preserves the YAML file's position so consumers can
+      // re-sort against Astro's default alphabetical-by-id ordering
+      // (getCollection returns entries sorted by id). See CLAUDE.md
+      // "Current PhD student ordering" for the join-year rule.
+      list.forEach((person, index) => {
+        const p = person as Record<string, unknown>;
         entries.push({
-          id: String(person.slug),
-          ...person,
+          id: String(p.slug),
+          ...p,
           role: ROLE_LABELS[group],
           role_group: group,
+          order_index: index,
         });
-      }
+      });
     }
     return entries;
   },
@@ -111,6 +117,7 @@ const people = defineCollection({
     interests: z.array(z.string()).default([]),
     awards: z.array(z.string()).optional(),
     bio: z.string(),
+    order_index: z.number().int().nonnegative(),
     // Optional outbound profile links. All four are independently optional;
     // a person can set any subset.
     links: z

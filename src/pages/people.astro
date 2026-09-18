@@ -24,11 +24,20 @@ const ROLE_GROUP_LABELS: Record<(typeof ROLE_GROUP_ORDER)[number], string> = {
   undergrad_students: "Undergraduate students",
 };
 
+// Preserve the YAML order from content/people/current.yml. Astro's
+// getCollection returns entries sorted by id (slug) alphabetically, so
+// we re-sort each role group by `order_index` (set in the loader). See
+// CLAUDE.md "Current PhD student ordering".
+const byYamlOrder = (group: (typeof ROLE_GROUP_ORDER)[number]) =>
+  people
+    .filter((p) => p.data.role_group === group)
+    .sort((a, b) => a.data.order_index - b.data.order_index);
+
 const peopleByRole: Record<(typeof ROLE_GROUP_ORDER)[number], typeof people> = {
-  phd_students: people.filter((p) => p.data.role_group === "phd_students"),
-  postdocs: people.filter((p) => p.data.role_group === "postdocs"),
-  masters_students: people.filter((p) => p.data.role_group === "masters_students"),
-  undergrad_students: people.filter((p) => p.data.role_group === "undergrad_students"),
+  phd_students: byYamlOrder("phd_students"),
+  postdocs: byYamlOrder("postdocs"),
+  masters_students: byYamlOrder("masters_students"),
+  undergrad_students: byYamlOrder("undergrad_students"),
 };
 
 const PLACEMENT_LABELS: Record<string, string> = {
