@@ -176,6 +176,22 @@ phd_students:
       for satellite communications as a research intern in the
       High-frequency Integrated Circuits and Systems research group.
 
+  - slug: mingyang-zhang
+    name: "Mingyang Zhang"
+    email: "zhangmy@mit.edu"
+    photo: "mingyang-zhang.jpg"
+    interests: ["wireline transceivers", "SerDes", "mixed-signal ICs"]
+    bio: >
+      Mingyang Zhang received his B.S. degree in microelectronics from
+      Fudan University, Shanghai, China, in 2026. He is currently
+      pursuing the Ph.D. degree in electrical engineering and computer
+      science with the Terahertz Integrated Electronics Group at MIT.
+      His research interests include high-speed analog and mixed-signal
+      integrated circuits, wireline transceivers, clocking circuits,
+      and SerDes systems. He is a co-inventor on the patent
+      "Linear Equalizer and Associated Electronic Circuits and
+      Devices" (M. Zhang et al., Chinese Patent CN120956242B, 2026).
+
 masters_students:
 
   - slug: jason-li
