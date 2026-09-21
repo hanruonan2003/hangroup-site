@@ -210,6 +210,16 @@ masters_students:
       millimeter-wave integrated circuit (mmWave IC) design, and
       mixed-signal IC design.
 
+  - slug: ann-liu
+    name: "Ann Liu"
+    photo: "ann-liu.png"
+    interests: ["analog IC", "mixed-signal IC"]
+    bio: >
+      Ann Liu is an M.Eng student studying electrical engineering and
+      computer science. She previously interned with Analog Devices and
+      Cadence working on buck converters and ADCs, and her interests lie
+      in analog and mixed-signal IC design.
+
 undergrad_students:
 
   - slug: fansen-funata
