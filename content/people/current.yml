@@ -212,6 +212,7 @@ masters_students:
 
   - slug: ann-liu
     name: "Ann Liu"
+    email: "annliu22@mit.edu"
     photo: "ann-liu.png"
     interests: ["analog IC", "mixed-signal IC"]
     bio: >
