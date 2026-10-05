@@ -3,13 +3,16 @@
 Project conventions and editorial rules for the MIT Terahertz Integrated
 Electronics Group site. Read these before editing content.
 
-## Current PhD student ordering
+## Current member ordering
 
-Under `phd_students:` in `content/people/current.yml`, entries are ordered
-**by the year each student joined the group** (earliest first, most recent
-last). When adding a new PhD student, **append to the end** — never re-sort
-by name, alphabetical order, or any other criterion. The rendered card
-order on `/people/` follows this sequence directly.
+Within every role group in `content/people/current.yml` (`phd_students`,
+`masters_students`, `undergrad_students` incl. UROPs, `postdocs`), entries
+are ordered **by when each person joined the group** (earliest first, most
+recent last). When adding a new member, **append to the end** of their
+group — never re-sort by name, alphabetical order, or any other criterion.
+If the user says someone joined earlier, move them accordingly. The
+rendered card order on `/people/` follows this sequence directly (the
+loader's `order_index` overrides Astro's default alphabetical sort).
 
 ## Per-person personal publications
 

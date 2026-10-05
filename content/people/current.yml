@@ -223,6 +223,19 @@ masters_students:
 
 undergrad_students:
 
+  # Order: by year joined the group; append each new student to the end.
+
+  - slug: nate-leung
+    name: "Nate Leung"
+    email: "natelgrw@mit.edu"
+    photo: "nate-leung.jpg"
+    interests: ["Artificial Intelligence", "EDA"]
+    bio: >
+      Nate Leung is an MIT EECS undergraduate with research interests in
+      foundation models and high-performance machine learning workflows
+      for integrated circuit design. In his free time, he enjoys playing
+      the saxophone in the MIT Wind and Festival Jazz Ensembles.
+
   - slug: fansen-funata
     name: "Fansen Funata"
     photo: "fansen-funata.jpg"
