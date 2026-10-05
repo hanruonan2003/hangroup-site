@@ -194,6 +194,22 @@ phd_students:
       "Linear Equalizer and Associated Electronic Circuits and
       Devices" (M. Zhang et al., Chinese Patent CN120956242B, 2026).
 
+  - slug: connor-desrosiers
+    name: "Connor Desrosiers"
+    email: "cjdesros@mit.edu"
+    photo: "connor-desrosiers.jpg"
+    interests: ["microwave resonators", "quantum optics"]
+    awards:
+      - "2026 MIT Jacobs Presidential Fellowship"
+      - "2026 CU Boulder Chancellor's Recognition Award"
+    bio: >
+      Connor Desrosiers received his B.S. in Electrical Engineering from
+      the University of Colorado Boulder in 2026. He is currently
+      pursuing a Ph.D. in EECS in the Terahertz Integrated Electronics
+      Group at MIT. At CU, he was an undergraduate researcher in the Sun
+      Group at JILA, where he worked on designing microwave resonators
+      and photonic crystal cavities for quantum optics experiments.
+
 masters_students:
 
   - slug: jason-li
