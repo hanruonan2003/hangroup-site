@@ -14,6 +14,22 @@ If the user says someone joined earlier, move them accordingly. The
 rendered card order on `/people/` follows this sequence directly (the
 loader's `order_index` overrides Astro's default alphabetical sort).
 
+## No pronouns on the site
+
+Don't render pronouns anywhere (contact page, People page, profiles), even
+when pasted source material (an email signature, a bio) includes them.
+Treat them as source text, not a display request. Likewise, don't add new
+schema fields for identity metadata the site doesn't already show without
+asking first.
+
+## Pending follow-ups
+
+- `xu2026slic` in `content/publications/publications.bib` (SLIC, NeurIPS
+  2026) is provisional: its booktitle ends in "(accepted)" and it has no
+  DOI. After the December 2026 conference, remind the user; once they
+  supply the DOI, drop " (accepted)", add `doi`, and remove the `% TODO`
+  line above the entry. Never look up or invent the DOI.
+
 ## Per-person personal publications
 
 Each group member may optionally have a personal BibTeX file at
