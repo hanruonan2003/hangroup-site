@@ -261,4 +261,15 @@ undergrad_students:
       integrated circuits, and in my free time, I enjoy playing the
       guitar.
 
+  - slug: taylor-wagner
+    name: "Taylor Wagner"
+    email: "twagner5@mit.edu"
+    photo: "taylor-wagner.jpg"
+    interests: ["THz sensing", "quantum computing"]
+    bio: >
+      Taylor Wagner is an MIT EECS and Physics undergraduate with
+      interests in novel applications of mm-wave/THz circuits for sensing
+      and quantum computing. In his free time, he enjoys swimming as part
+      of the MIT swim team.
+
 postdocs: []
