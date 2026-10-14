@@ -64,7 +64,7 @@ Rules:
   badges anywhere.
 - When a person leaves the group:
   - **PhD or Postdoc** → create
-    `content/people/alumni/<slug>.yml` following the strict 14-field
+    `content/people/alumni/<slug>.yml` following the strict 16-field
     uniform schema documented in
     `content/people/alumni/_schema.yaml`, and delete their entry from
     `content/people/current.yml`. The per-file record drives both the
@@ -119,7 +119,7 @@ Rules:
   are usually sufficient.
 - **`placement_type`** drives the existing chip filter on `/people/`
   (`academia | industry | national_lab | startup`). It is one of the
-  14 uniform fields.
+  16 uniform fields.
 - **`year_graduated`** is derived in the loader from the last 4-digit
   year in `years_with_group` — don't store it twice.
 - **Loader wiring**: the `alumni` content collection (in

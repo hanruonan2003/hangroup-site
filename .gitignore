@@ -150,3 +150,6 @@ vite.config.ts.timestamp-*
 
 # Claude Code (per-user local config)
 .claude/settings.local.json
+
+# Claude Code local worktrees (never commit)
+.claude/worktrees/
