@@ -3,6 +3,14 @@
 Project conventions and editorial rules for the MIT Terahertz Integrated
 Electronics Group site. Read these before editing content.
 
+## Publishing workflow
+
+The user has given standing permission to publish without asking: after
+each change, build (`npm run build`) to confirm it succeeds, commit, merge
+into `main`, and push `main`. Pushing `main` triggers the GitHub Pages
+deploy to hangroup.mit.edu. If working on a feature branch, push that
+branch too and keep it in sync with `main`. Never force-push `main`.
+
 ## Current member ordering
 
 Within every role group in `content/people/current.yml` (`phd_students`,
