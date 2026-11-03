@@ -254,12 +254,15 @@ undergrad_students:
 
   - slug: fansen-funata
     name: "Fansen Funata"
+    email: "fansencf@mit.edu"
     photo: "fansen-funata.jpg"
     interests: ["physics", "integrated circuits"]
     bio: >
-      I'm Fansen, class of 2029. I am deeply interested in physics and
-      integrated circuits, and in my free time, I enjoy playing the
-      guitar.
+      Fansen Funata is an undergraduate in the class of 2029 with a
+      strong interest in physics and integrated circuits. Previously, he
+      interned at the Centre for Quantum Technologies in Singapore, where
+      he studied the quantum magic of hypergraph states. In his free
+      time, he enjoys playing the guitar.
 
   - slug: taylor-wagner
     name: "Taylor Wagner"
