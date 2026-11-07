@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
+<title id="t">SLIC: a small language model iteratively optimizing an analog circuit</title>
+<desc id="d">A small glowing model cube on the left exchanges three luminous loops with a glass panel on the right that shows a five-transistor operational transconductance amplifier schematic; behind it, frequency-response curves approach a dashed target over successive turns.</desc>
+<defs>
+  <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+    <stop offset="0" stop-color="#161b26"/><stop offset="0.55" stop-color="#0b0e15"/><stop offset="1" stop-color="#050609"/>
+  </radialGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9cc8ff" stop-opacity="0.16"/><stop offset="1" stop-color="#3a5f9a" stop-opacity="0.05"/>
+  </linearGradient>
+  <linearGradient id="glass2" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9cc8ff" stop-opacity="0.08"/><stop offset="1" stop-color="#3a5f9a" stop-opacity="0.02"/>
+  </linearGradient>
+  <linearGradient id="cubeTop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#5fb2ff" stop-opacity="0.55"/><stop offset="1" stop-color="#1d5fb0" stop-opacity="0.35"/>
+  </linearGradient>
+  <linearGradient id="cubeL" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1f62b8" stop-opacity="0.45"/><stop offset="1" stop-color="#0a2a55" stop-opacity="0.35"/>
+  </linearGradient>
+  <linearGradient id="cubeR" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#174d94" stop-opacity="0.5"/><stop offset="1" stop-color="#061c3c" stop-opacity="0.4"/>
+  </linearGradient>
+  <radialGradient id="core"><stop offset="0" stop-color="#e8f4ff"/><stop offset="0.35" stop-color="#7cc4ff"/><stop offset="1" stop-color="#2a7fff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="pool"><stop offset="0" stop-color="#3d8bff" stop-opacity="0.35"/><stop offset="1" stop-color="#3d8bff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="poolR"><stop offset="0" stop-color="#ff3b4f" stop-opacity="0.22"/><stop offset="1" stop-color="#ff3b4f" stop-opacity="0"/></radialGradient>
+  <linearGradient id="floorFade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="1"/>
+  </linearGradient>
+  <mask id="floorMask"><rect x="0" y="600" width="1600" height="300" fill="url(#floorFade)"/></mask>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowSoft" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="blurBig" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<g mask="url(#floorMask)" stroke="#6f8bb8" stroke-opacity="0.22" stroke-width="1.2" fill="none">
+<line x1="800" y1="470" x2="-4576.0" y2="900"/>
+<line x1="800" y1="470" x2="-4192.0" y2="900"/>
+<line x1="800" y1="470" x2="-3808.0" y2="900"/>
+<line x1="800" y1="470" x2="-3424.0" y2="900"/>
+<line x1="800" y1="470" x2="-3040.0" y2="900"/>
+<line x1="800" y1="470" x2="-2656.0" y2="900"/>
+<line x1="800" y1="470" x2="-2272.0" y2="900"/>
+<line x1="800" y1="470" x2="-1888.0" y2="900"/>
+<line x1="800" y1="470" x2="-1504.0" y2="900"/>
+<line x1="800" y1="470" x2="-1120.0" y2="900"/>
+<line x1="800" y1="470" x2="-736.0" y2="900"/>
+<line x1="800" y1="470" x2="-352.0" y2="900"/>
+<line x1="800" y1="470" x2="32.0" y2="900"/>
+<line x1="800" y1="470" x2="416.0" y2="900"/>
+<line x1="800" y1="470" x2="800.0" y2="900"/>
+<line x1="800" y1="470" x2="1184.0" y2="900"/>
+<line x1="800" y1="470" x2="1568.0" y2="900"/>
+<line x1="800" y1="470" x2="1952.0" y2="900"/>
+<line x1="800" y1="470" x2="2336.0" y2="900"/>
+<line x1="800" y1="470" x2="2720.0" y2="900"/>
+<line x1="800" y1="470" x2="3104.0" y2="900"/>
+<line x1="800" y1="470" x2="3488.0" y2="900"/>
+<line x1="800" y1="470" x2="3872.0" y2="900"/>
+<line x1="800" y1="470" x2="4256.0" y2="900"/>
+<line x1="800" y1="470" x2="4640.0" y2="900"/>
+<line x1="800" y1="470" x2="5024.0" y2="900"/>
+<line x1="800" y1="470" x2="5408.0" y2="900"/>
+<line x1="800" y1="470" x2="5792.0" y2="900"/>
+<line x1="800" y1="470" x2="6176.0" y2="900"/>
+<line x1="0" y1="641.3" x2="1600" y2="641.3"/>
+<line x1="0" y1="646.1" x2="1600" y2="646.1"/>
+<line x1="0" y1="654.9" x2="1600" y2="654.9"/>
+<line x1="0" y1="668.1" x2="1600" y2="668.1"/>
+<line x1="0" y1="685.9" x2="1600" y2="685.9"/>
+<line x1="0" y1="708.5" x2="1600" y2="708.5"/>
+<line x1="0" y1="736.2" x2="1600" y2="736.2"/>
+<line x1="0" y1="769.0" x2="1600" y2="769.0"/>
+<line x1="0" y1="807.2" x2="1600" y2="807.2"/>
+<line x1="0" y1="850.8" x2="1600" y2="850.8"/>
+<line x1="0" y1="900.0" x2="1600" y2="900.0"/>
+</g>
+<rect x="0" y="0" width="1600" height="600" fill="url(#bg)" opacity="0"/>
+<ellipse cx="430" cy="690" rx="230" ry="46" fill="url(#pool)"/>
+<ellipse cx="1140" cy="720" rx="330" ry="50" fill="url(#poolR)"/>
+<g transform="matrix(0.92 -0.10 0 1 1010 62)">
+<rect x="0" y="0" width="520" height="270" rx="10" fill="url(#glass2)" stroke="#9cc8ff" stroke-opacity="0.28" stroke-width="1.5"/>
+<g stroke="#9cc8ff" stroke-opacity="0.28" stroke-width="1.2"><line x1="40" y1="18" x2="40" y2="150"/><line x1="40" y1="150" x2="490" y2="150"/></g>
+<path d="M40 42 H300 Q 352 42 388 96 T 472 150" fill="none" stroke="#e8eef8" stroke-opacity="0.6" stroke-width="2" stroke-dasharray="8 8"/>
+<path d="M40 112 H160 Q 205 112 236 132 T 300 150" fill="none" stroke="#ff3b4f" stroke-opacity="0.3" stroke-width="2" filter="url(#glowSoft)"/>
+<path d="M40 80 H222 Q 272 80 307 116 T 382 150" fill="none" stroke="#ff3b4f" stroke-opacity="0.6" stroke-width="2.5" filter="url(#glowSoft)"/>
+<path d="M40 50 H286 Q 338 50 374 100 T 462 150" fill="none" stroke="#ff3b4f" stroke-opacity="1.0" stroke-width="3" filter="url(#glowSoft)"/>
+</g>
+<g transform="matrix(0.92 -0.10 0 1 900 230)">
+<rect x="0" y="0" width="560" height="460" rx="12" fill="url(#glass)" stroke="#bfe0ff" stroke-opacity="0.45" stroke-width="2"/>
+<rect x="6" y="6" width="548" height="448" rx="9" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/>
+<g class="sch" fill="none" stroke="#eef6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glowSoft)">
+<line x1="110" y1="50" x2="450" y2="50"/>
+<line x1="190" y1="410" x2="370" y2="410"/>
+<g stroke-width="2.5"><line x1="205" y1="422" x2="355" y2="422"/><line x1="225" y1="432" x2="335" y2="432"/></g>
+<line x1="170" y1="90" x2="170" y2="150"/>
+<polyline points="170,98 148,98 148,70"/>
+<polyline points="170,142 148,142 148,170"/>
+<line x1="180" y1="94" x2="180" y2="146"/>
+<circle cx="187" cy="120" r="6"/>
+<line x1="193" y1="120" x2="225" y2="120"/>
+<line x1="390" y1="90" x2="390" y2="150"/>
+<polyline points="390,98 412,98 412,70"/>
+<polyline points="390,142 412,142 412,170"/>
+<line x1="380" y1="94" x2="380" y2="146"/>
+<circle cx="373" cy="120" r="6"/>
+<line x1="367" y1="120" x2="335" y2="120"/>
+<line x1="148" y1="70" x2="148" y2="50"/><line x1="412" y1="70" x2="412" y2="50"/>
+<line x1="225" y1="120" x2="335" y2="120"/>
+<polyline points="280,120 280,178 192,178"/>
+<circle cx="280" cy="120" r="4.5" fill="#eef6ff"/>
+<line x1="214" y1="218" x2="214" y2="278"/>
+<polyline points="214,226 236,226 236,198"/>
+<polyline points="214,270 236,270 236,298"/>
+<line x1="204" y1="222" x2="204" y2="274"/>
+<line x1="204" y1="248" x2="159" y2="248"/>
+<line x1="346" y1="218" x2="346" y2="278"/>
+<polyline points="346,226 324,226 324,198"/>
+<polyline points="346,270 324,270 324,298"/>
+<line x1="356" y1="222" x2="356" y2="274"/>
+<line x1="356" y1="248" x2="401" y2="248"/>
+<polyline points="148,170 148,188 236,188 236,198"/>
+<polyline points="412,170 412,188 324,188 324,198"/>
+<circle cx="150" cy="248" r="7"/><circle cx="410" cy="248" r="7"/>
+<line x1="157" y1="248" x2="159" y2="248"/>
+<polyline points="412,188 480,188"/><circle cx="487" cy="188" r="7"/>
+<circle cx="412" cy="188" r="4.5" fill="#eef6ff"/>
+<polyline points="236,298 236,308 324,308 324,298"/>
+<line x1="258" y1="322" x2="258" y2="382"/>
+<polyline points="258,330 280,330 280,302"/>
+<polyline points="258,374 280,374 280,402"/>
+<line x1="248" y1="326" x2="248" y2="378"/>
+<line x1="248" y1="352" x2="203" y2="352"/>
+<line x1="280" y1="302" x2="280" y2="308"/><circle cx="280" cy="308" r="4.5" fill="#eef6ff"/>
+<line x1="280" y1="402" x2="280" y2="410"/>
+<circle cx="196" cy="352" r="7"/>
+</g>
+<g fill="none" stroke="#ff3b4f" stroke-width="3" filter="url(#glow)">
+<line x1="214" y1="218" x2="214" y2="278"/><line x1="346" y1="218" x2="346" y2="278"/>
+</g>
+<g fill="#ff6b7a" opacity="0.9" filter="url(#glowSoft)"><rect x="196" y="282" width="36" height="5" rx="2.5"/><rect x="328" y="282" width="36" height="5" rx="2.5"/></g>
+</g>
+<circle cx="430" cy="460" r="190" fill="#2a7fff" opacity="0.18" filter="url(#blurBig)"/>
+<polygon points="327.3,411.0 430.0,470.0 430.0,588.0 327.3,529.0" fill="url(#cubeL)"/>
+<polygon points="430.0,470.0 532.7,411.0 532.7,529.0 430.0,588.0" fill="url(#cubeR)"/>
+<g stroke="#8fd0ff" stroke-opacity="0.28" stroke-width="1.2">
+<line x1="327.3" y1="434.6" x2="430.0" y2="493.6"/>
+<line x1="347.9" y1="422.8" x2="347.9" y2="540.8"/>
+<line x1="327.3" y1="458.2" x2="430.0" y2="517.2"/>
+<line x1="368.4" y1="434.6" x2="368.4" y2="552.6"/>
+<line x1="327.3" y1="481.8" x2="430.0" y2="540.8"/>
+<line x1="388.9" y1="446.4" x2="388.9" y2="564.4"/>
+<line x1="327.3" y1="505.4" x2="430.0" y2="564.4"/>
+<line x1="409.5" y1="458.2" x2="409.5" y2="576.2"/>
+<line x1="430.0" y1="493.6" x2="532.7" y2="434.6"/>
+<line x1="450.5" y1="458.2" x2="450.5" y2="576.2"/>
+<line x1="430.0" y1="517.2" x2="532.7" y2="458.2"/>
+<line x1="471.1" y1="446.4" x2="471.1" y2="564.4"/>
+<line x1="430.0" y1="540.8" x2="532.7" y2="481.8"/>
+<line x1="491.6" y1="434.6" x2="491.6" y2="552.6"/>
+<line x1="430.0" y1="564.4" x2="532.7" y2="505.4"/>
+<line x1="512.1" y1="422.8" x2="512.1" y2="540.8"/>
+</g>
+<circle cx="430" cy="478" r="70" fill="url(#core)" opacity="0.95"/>
+<polygon points="430.0,352.0 532.7,411.0 430.0,470.0 327.3,411.0" fill="url(#cubeTop)"/>
+<g stroke="#bfe6ff" stroke-opacity="0.35" stroke-width="1.2">
+<line x1="404.3" y1="366.8" x2="507.0" y2="425.8"/>
+<line x1="455.7" y1="366.8" x2="353.0" y2="425.8"/>
+<line x1="378.7" y1="381.5" x2="481.3" y2="440.5"/>
+<line x1="481.3" y1="381.5" x2="378.7" y2="440.5"/>
+<line x1="353.0" y1="396.2" x2="455.7" y2="455.2"/>
+<line x1="507.0" y1="396.2" x2="404.3" y2="455.2"/>
+</g>
+<g fill="none" stroke="#9fd6ff" stroke-width="2.4" stroke-linejoin="round" filter="url(#glowSoft)"><polygon points="430.0,352.0 532.7,411.0 430.0,470.0 327.3,411.0"/><polygon points="327.3,411.0 430.0,470.0 430.0,588.0 327.3,529.0"/><polygon points="430.0,470.0 532.7,411.0 532.7,529.0 430.0,588.0"/></g>
+<line x1="344.5" y1="538.8" x2="344.5" y2="550.8" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="447.1" y1="578.2" x2="447.1" y2="590.2" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="361.6" y1="548.7" x2="361.6" y2="560.7" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="464.2" y1="568.3" x2="464.2" y2="580.3" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="378.7" y1="558.5" x2="378.7" y2="570.5" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="481.3" y1="558.5" x2="481.3" y2="570.5" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="395.8" y1="568.3" x2="395.8" y2="580.3" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="498.4" y1="548.7" x2="498.4" y2="560.7" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="412.9" y1="578.2" x2="412.9" y2="590.2" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<line x1="515.5" y1="538.8" x2="515.5" y2="550.8" stroke="#9fd6ff" stroke-opacity="0.6" stroke-width="3"/>
+<path d="M470 345 C 600 90, 820 90, 925 250" fill="none" stroke="#ff3b4f" stroke-opacity="0.28" stroke-width="2.2" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="605.8" cy="181.8" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<circle cx="732.1" cy="139.9" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<circle cx="849.8" cy="174.0" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<path d="M925 640 C 800 830, 600 830, 470 640" fill="none" stroke="#ff3b4f" stroke-opacity="0.28" stroke-width="2.2" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="796.2" cy="759.7" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<circle cx="674.8" cy="781.1" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<circle cx="555.2" cy="731.2" r="2.8" fill="#ffd2d7" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<polygon points="925,250 915.0,244.5 923.1,238.8" fill="#ff3b4f" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<polygon points="470,640 480.0,645.4 472.0,651.2" fill="#ff3b4f" fill-opacity="0.28" filter="url(#glowSoft)"/>
+<path d="M490 365 C 620 150, 800 150, 925 300" fill="none" stroke="#ff3b4f" stroke-opacity="0.55" stroke-width="3.0" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="617.7" cy="227.8" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<circle cx="732.4" cy="194.5" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<circle cx="844.2" cy="228.5" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<path d="M925 600 C 800 770, 620 770, 490 615" fill="none" stroke="#ff3b4f" stroke-opacity="0.55" stroke-width="3.0" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="800.5" cy="707.5" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<circle cx="686.3" cy="728.7" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<circle cx="573.2" cy="689.3" r="3.8" fill="#ffd2d7" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<polygon points="925,300 913.0,295.0 921.5,287.5" fill="#ff3b4f" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<polygon points="490,615 502.0,620.0 493.5,627.5" fill="#ff3b4f" fill-opacity="0.55" filter="url(#glowSoft)"/>
+<path d="M510 385 C 640 215, 790 215, 925 350" fill="none" stroke="#ff3b4f" stroke-opacity="1.0" stroke-width="4.0" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="631.5" cy="277.0" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<circle cx="736.8" cy="253.0" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<circle cx="842.5" cy="285.5" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<path d="M925 560 C 790 705, 640 705, 510 590" fill="none" stroke="#ff3b4f" stroke-opacity="1.0" stroke-width="4.0" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="800.4" cy="652.2" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<circle cx="694.5" cy="672.7" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<circle cx="590.1" cy="645.0" r="5.0" fill="#ffd2d7" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<polygon points="925,350 910.7,345.4 919.7,336.0" fill="#ff3b4f" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<polygon points="510,590 524.5,593.7 516.1,603.7" fill="#ff3b4f" fill-opacity="1.0" filter="url(#glowSoft)"/>
+<rect width="1600" height="900" fill="none" stroke="#000" stroke-opacity="0.35" stroke-width="80" filter="url(#blurBig)"/>
+</svg>
