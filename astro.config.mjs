@@ -9,4 +9,10 @@ export default defineConfig({
   // survives re-deploys even if the Pages settings UI is reset.
   site: 'https://hangroup.mit.edu',
   trailingSlash: 'always',
+  // Short MIT-domain links to project sites hosted elsewhere. Each emits a
+  // static page that forwards immediately (GitHub Pages has no server-side
+  // redirects).
+  redirects: {
+    '/slic': 'https://slic-agent.github.io/',
+  },
 });

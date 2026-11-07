@@ -4,6 +4,17 @@
 
 news:
 
+  - date: "2026-11-07"
+    title: "SLIC: small language models for analog circuit optimization accepted to NeurIPS 2026"
+    body: >
+      Yan Xu's paper "SLIC: Reinforcement Fine-Tuning Small LMs for
+      Multi-Turn Analog Circuit Optimization" has been accepted to NeurIPS
+      2026. The work is a collaboration with Prof. Duane Boning (MIT), IBM
+      Research, and Analog Devices.
+    links:
+      - url: "https://hangroup.mit.edu/slic/"
+        label: "Project page"
+
   - date: "2025-12-16"
     title: "Three students win 2026 NSF Graduate Research Fellowship"
     body: "Congratulations to Sanjay Chintapally, Tyler Weigand, and Nicholas (Sihyun) Lee on winning the 2026 National Science Foundation Graduate Research Fellowship."

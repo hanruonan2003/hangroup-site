@@ -54,8 +54,9 @@ const alumni = await getCollection("alumni");
 
 // (Stats section removed per design refresh.)
 
-// Selected work: first paper from each of 4 thrusts, then fill from highlights,
-// then most-recent fallback. Sorted newest-first for display.
+// Selected work: first paper with an image from each thrust, then fill from
+// highlights, then most-recent fallback. Sorted newest-first for display.
+// (A thrust paper without an `image` would render as an empty card.)
 const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
 const chosen = new Set<string>();
 const work: Array<typeof publications[number]> = [];
@@ -64,7 +65,7 @@ const thrustsByNum = [...thrusts].sort((a, b) => a.data.number - b.data.number);
 for (const t of thrustsByNum) {
   for (const key of t.data.publications) {
     const p = pubsByKey.get(key);
-    if (p && !chosen.has(key)) {
+    if (p && p.data.image && !chosen.has(key)) {
       chosen.add(key);
       work.push(p);
       break;

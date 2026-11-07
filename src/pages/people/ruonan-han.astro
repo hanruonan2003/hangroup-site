@@ -81,6 +81,11 @@ const piPubs = [...publications]
                 <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
               </h3>
               <p class="profile-pub__authors">{pd.authors_display}</p>
+              {pd.project && (
+                <p class="profile-pub__links mono">
+                  <a href={pd.project} target="_blank" rel="noopener noreferrer">Project page ↗</a>
+                </p>
+              )}
             </li>
           );
         })}
@@ -249,6 +254,15 @@ const piPubs = [...publications]
   }
 
   .profile-pub__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .profile-pub__links {
+    margin: 0.25rem 0 0;
+    font-size: 0.8rem;
+  }
+
+  .profile-pub__links a {
     color: var(--color-accent);
   }
 

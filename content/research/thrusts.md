@@ -1,6 +1,6 @@
 # Research Thrusts
 
-The group works across four broad thrusts. Each can be updated independently;
+The group works across six broad thrusts. Each can be updated independently;
 each one's `representative_publications` field lists the BibTeX citation keys
 from publications.bib that the build script should surface on the page.
 
@@ -194,3 +194,26 @@ thermodynamic limit of information transfer in the process.
 **Figures to include:** cryo-CMOS color-center quantum controller chip,
 bidirectional THz cryogenic datalink, CMOS-integrated NV-center
 magnetometer array.
+
+---
+
+## 6. AI for Circuit Design
+
+**Tag:** `ai-eda`
+
+**Current description:**
+
+Analog and RF circuit design still depends heavily on expert intuition
+and many rounds of simulation. We are exploring how machine learning
+can take on part of that loop while staying grounded in circuit
+physics. SLIC (NeurIPS 2026) uses reinforcement fine-tuning to teach
+small language models to optimize analog circuits over multiple rounds
+of design refinement. Complementary work builds large simulation
+datasets and surrogate models across many amplifier topologies for
+fast inverse design. The goal is design assistants that are accurate,
+inexpensive to run, and genuinely useful to working circuit designers.
+
+**Representative publications:**
+- xu2026slic
+
+**Figures to include:**

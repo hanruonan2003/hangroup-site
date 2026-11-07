@@ -315,6 +315,9 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                         {d.video && (
                           <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
                         )}
+                        {d.project && (
+                          <a href={d.project} class="entry__link" target="_blank" rel="noopener noreferrer">Project</a>
+                        )}
                       </span>
                     </div>
                   </li>
