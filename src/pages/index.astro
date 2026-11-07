@@ -102,15 +102,17 @@ const newsSorted = [...news]
   .sort((a, b) => newsSortKey(b.data.date) - newsSortKey(a.data.date))
   .slice(0, 3);
 
-// Where alumni go: filter to alumni with a known placement.
+// Where alumni go: every alumnus with a known placement, newest first. The
+// list shows ALUMNI_PAGE at a time and a small script rotates to the next
+// group every few seconds (first group is what renders without JS).
+const ALUMNI_PAGE = 5;
 const placedAlumni = [...alumni]
   .filter(
     (a) =>
       a.data.current_position.trim().length > 0 &&
       a.data.current_org.trim().length > 0,
   )
-  .sort((a, b) => (b.data.year_graduated ?? 0) - (a.data.year_graduated ?? 0))
-  .slice(0, 5);
+  .sort((a, b) => (b.data.year_graduated ?? 0) - (a.data.year_graduated ?? 0));
 
 ---
 
@@ -242,23 +244,92 @@ const placedAlumni = [...alumni]
           <em class="mono">{`{{TODO: add placements to content/people/alumni.yml so they appear here}}`}</em>
         </p>
       ) : (
-        <ul class="alumni-list">
-          {placedAlumni.map((a) => (
-            <li class="alumni-list__item">
+        <ul class="alumni-list" data-alumni-rotator data-page-size={ALUMNI_PAGE}>
+          {placedAlumni.map((a, i) => (
+            <li class:list={["alumni-list__item", { "alumni-list__item--last": i === Math.min(ALUMNI_PAGE, placedAlumni.length) - 1 }]} hidden={i >= ALUMNI_PAGE}>
               <p class="alumni-list__name">{a.data.name}</p>
               <p class="alumni-list__placement mono">
-                {a.data.current_position}
-                {a.data.current_org && (
-                  <>, <span>{a.data.current_org}</span></>
-                )}
+                {a.data.current_position}{a.data.current_org && <>, <span>{a.data.current_org}</span></>}
               </p>
             </li>
           ))}
         </ul>
       )}
+      {placedAlumni.length > ALUMNI_PAGE && (
+        <button type="button" class="alumni-rotator__toggle mono" data-alumni-toggle aria-pressed="false" hidden>
+          Pause
+        </button>
+      )}
     </section>
   </section>
 </BaseLayout>
+
+<script>
+  // Rotate the "Where alumni go" list: show one page of alumni at a time and
+  // advance every 3 s, wrapping around. Pauses on hover/focus, has a
+  // Pause/Play button (WCAG 2.2.2), and stays static under reduced motion.
+  const INTERVAL_MS = 3000;
+  const list = document.querySelector<HTMLUListElement>("[data-alumni-rotator]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-alumni-toggle]");
+  const items = list ? Array.from(list.querySelectorAll<HTMLLIElement>(".alumni-list__item")) : [];
+  const pageSize = Number(list?.dataset.pageSize ?? 5);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (list && toggle && items.length > pageSize && !reduceMotion) {
+    let start = 0;
+    let userPaused = false;
+    let hoverPaused = false;
+    let timer: number | undefined;
+
+    const show = (from: number) => {
+      const visible = new Set<number>();
+      for (let k = 0; k < pageSize; k++) visible.add((from + k) % items.length);
+      items.forEach((li, idx) => {
+        li.hidden = !visible.has(idx);
+        li.classList.toggle("alumni-list__item--last", false);
+      });
+      // keep the separator rule off the last visible row, in display order
+      const order = [...visible];
+      items[order[order.length - 1]].classList.add("alumni-list__item--last");
+      // render in rotation order so wrapped-around entries follow the newest ones
+      order.forEach((idx) => list.appendChild(items[idx]));
+    };
+
+    // Reserve the tallest page's height so the section doesn't jump.
+    let maxH = 0;
+    for (let s = 0; s < items.length; s += pageSize) {
+      show(s);
+      maxH = Math.max(maxH, list.offsetHeight);
+    }
+    list.style.minHeight = `${maxH}px`;
+    show(0);
+
+    const tick = () => {
+      if (userPaused || hoverPaused) return;
+      list.classList.add("alumni-list--fading");
+      window.setTimeout(() => {
+        start = (start + pageSize) % items.length;
+        show(start);
+        list.classList.remove("alumni-list--fading");
+      }, 250);
+    };
+    timer = window.setInterval(tick, INTERVAL_MS);
+
+    const section = list.closest("section");
+    section?.addEventListener("mouseenter", () => (hoverPaused = true));
+    section?.addEventListener("mouseleave", () => (hoverPaused = false));
+    section?.addEventListener("focusin", () => (hoverPaused = true));
+    section?.addEventListener("focusout", () => (hoverPaused = false));
+
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => {
+      userPaused = !userPaused;
+      toggle.setAttribute("aria-pressed", String(userPaused));
+      toggle.textContent = userPaused ? "Play" : "Pause";
+    });
+    window.addEventListener("pagehide", () => window.clearInterval(timer));
+  }
+</script>
 
 <style>
   /* Hero */
@@ -564,8 +635,33 @@ const placedAlumni = [...alumni]
     border-bottom: 0.5px solid var(--color-border);
   }
 
-  .alumni-list__item:last-child {
+  .alumni-list__item:last-child,
+  .alumni-list__item--last {
     border-bottom: 0;
+  }
+
+  .alumni-list {
+    transition: opacity 250ms ease;
+  }
+
+  .alumni-list--fading {
+    opacity: 0;
+  }
+
+  .alumni-rotator__toggle {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    background: none;
+    border: 0;
+    border-bottom: 0.5px solid var(--color-border);
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .alumni-rotator__toggle:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .alumni-list__name {
