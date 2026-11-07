@@ -9,8 +9,7 @@ news:
     body: >
       Yan Xu's paper "SLIC: Reinforcement Fine-Tuning Small LMs for
       Multi-Turn Analog Circuit Optimization" has been accepted to NeurIPS
-      2026. The work is a collaboration with Analog Devices, IBM Research,
-      and Prof. Duane Boning (MIT).
+      2026. The work is sponsored by Analog Devices and IBM.
     links:
       - url: "https://hangroup.mit.edu/slic/"
         label: "Project page"
