@@ -101,6 +101,12 @@ for (const [path, urlValue] of Object.entries(figureUrlModules)) {
                     <>
                       {i > 0 && <span class="thrust__pubs-sep" aria-hidden="true">, </span>}
                       <a class="thrust__pubs-link" href={url(`/publications/#${pd.key}`)}>{label}</a>
+                      {pd.project && (
+                        <>
+                          <span class="thrust__pubs-sep" aria-hidden="true"> · </span>
+                          <a class="thrust__pubs-link" href={pd.project} target="_blank" rel="noopener noreferrer">Project ↗</a>
+                        </>
+                      )}
                     </>
                   );
                 })}
