@@ -12,9 +12,11 @@ import { url } from "../lib/url.ts";
 // illustration is being authored.
 const TEMP_FIGURE_BY_KEY: Record<string, string> = {};
 
-// Maximum number of cards shown in the Selected Work grid. Driven by the
-// number of papers marked `highlight = {yes}` in publications.bib.
-const SELECTED_WORK_LIMIT = 9;
+// Selected Work shows every highlighted paper that has an image, so the grid
+// grows as papers are marked `highlight = {yes}` (with an `image`) in
+// publications.bib. If that ever yields fewer than this many cards, the
+// most recent papers with images fill the grid up to this minimum.
+const SELECTED_WORK_MIN = 6;
 
 // Eager glob of raster figures so Astro can statically process them via <Picture>.
 const figureModules = import.meta.glob<{ default: ImageMetadata }>(
@@ -54,8 +56,9 @@ const alumni = await getCollection("alumni");
 
 // (Stats section removed per design refresh.)
 
-// Selected work: first paper with an image from each thrust, then fill from
-// highlights, then most-recent fallback. Sorted newest-first for display.
+// Selected work: first paper with an image from each thrust, then every
+// highlighted paper with an image (no cap), then a most-recent fallback only
+// if the grid would be shorter than SELECTED_WORK_MIN. Sorted newest-first.
 // (A thrust paper without an `image` would render as an empty card.)
 const pubsByKey = new Map(publications.map((p) => [p.data.key, p]));
 const chosen = new Set<string>();
@@ -74,20 +77,19 @@ for (const t of thrustsByNum) {
 }
 
 const remainingHighlights = publications
-  .filter((p) => p.data.highlight && !chosen.has(p.data.key))
+  .filter((p) => p.data.highlight && p.data.image && !chosen.has(p.data.key))
   .sort((a, b) => b.data.sort_key - a.data.sort_key);
 for (const p of remainingHighlights) {
-  if (work.length >= SELECTED_WORK_LIMIT) break;
   chosen.add(p.data.key);
   work.push(p);
 }
 
-if (work.length < SELECTED_WORK_LIMIT) {
+if (work.length < SELECTED_WORK_MIN) {
   const remaining = [...publications]
-    .filter((p) => !chosen.has(p.data.key))
+    .filter((p) => p.data.image && !chosen.has(p.data.key))
     .sort((a, b) => b.data.sort_key - a.data.sort_key);
   for (const p of remaining) {
-    if (work.length >= SELECTED_WORK_LIMIT) break;
+    if (work.length >= SELECTED_WORK_MIN) break;
     chosen.add(p.data.key);
     work.push(p);
   }
