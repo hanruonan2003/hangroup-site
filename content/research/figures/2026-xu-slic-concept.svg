@@ -123,8 +123,6 @@
 <line x1="264" y1="423" x2="296" y2="423"/>
 <line x1="274" y1="432" x2="286" y2="432"/>
 </g>
-<g fill="none" stroke="#ff3b4f" stroke-width="3" filter="url(#glow)"><line x1="214" y1="218" x2="214" y2="278"/><line x1="346" y1="218" x2="346" y2="278"/></g>
-<g fill="#ff6b7a" opacity="0.9" filter="url(#glowSoft)"><rect x="196" y="284" width="36" height="5" rx="2.5"/><rect x="328" y="284" width="36" height="5" rx="2.5"/></g>
 </g>
 <circle cx="430" cy="465" r="200" fill="#2a7fff" opacity="0.16" filter="url(#blurBig)"/>
 <g stroke="#9fd6ff" stroke-opacity="0.65" stroke-width="5" stroke-linecap="round">
