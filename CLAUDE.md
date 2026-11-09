@@ -38,6 +38,14 @@ asking first.
   supply the DOI, drop " (accepted)", add `doi`, and remove the `% TODO`
   line above the entry. Never look up or invent the DOI.
 
+## SLIC card image
+
+`xu2026slic` uses Yan Xu's animated SVG
+(`content/research/figures/2026-xu-slic-card.svg`, with a static PNG
+fallback of the same name). The earlier hand-drawn illustration is kept as
+a backup, `2026-xu-slic-concept.{png,svg}` in the same folder; to restore
+it, set the entry's `image` back to `2026-xu-slic-concept.png`.
+
 ## Per-person personal publications
 
 Each group member may optionally have a personal BibTeX file at
