@@ -98,4 +98,9 @@ publications:
     - Nature
     - CICC
     - VLSI
+    - NeurIPS
   featured_venues_threshold: 3
+  # Venues kept out of the top row even if they pass the threshold; they
+  # stay filterable under "More venues".
+  venues_hidden_from_top:
+    - Patent

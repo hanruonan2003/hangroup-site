@@ -357,6 +357,7 @@ const site = defineCollection({
         year_window: z.number().int().min(1).default(10),
         featured_venues: z.array(z.string()).default([]),
         featured_venues_threshold: z.number().int().min(1).default(3),
+        venues_hidden_from_top: z.array(z.string()).default([]),
       })
       .default({}),
   }),

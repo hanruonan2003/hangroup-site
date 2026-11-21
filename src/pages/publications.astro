@@ -60,8 +60,9 @@ for (const p of sorted) {
 }
 
 const featuredSet = new Set(featuredVenues);
+const hiddenFromTop = new Set<string>(pubsConfig.venues_hidden_from_top);
 const autoTopVenues = [...venueCounts.entries()]
-  .filter(([v, c]) => c >= threshold && !featuredSet.has(v))
+  .filter(([v, c]) => c >= threshold && !featuredSet.has(v) && !hiddenFromTop.has(v))
   .sort((a, b) => b[1] - a[1])
   .map(([v]) => v);
 const topVenues = [...featuredVenues, ...autoTopVenues];
