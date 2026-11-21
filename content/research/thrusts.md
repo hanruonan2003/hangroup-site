@@ -201,6 +201,8 @@ magnetometer array.
 
 **Tag:** `ai-eda`
 
+**Figure:** 2026-xu-slic-results.svg
+
 **Current description:**
 
 Analog and RF circuit design still depends heavily on expert intuition
