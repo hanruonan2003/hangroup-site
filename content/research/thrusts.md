@@ -217,5 +217,6 @@ inexpensive to run, and genuinely useful to working circuit designers.
 
 **Representative publications:**
 - xu2026slic
+- skelic2025circuit
 
 **Figures to include:**
