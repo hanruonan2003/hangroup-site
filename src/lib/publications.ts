@@ -39,6 +39,8 @@ export interface NormalizedPublication {
   project?: string;
   /** Model / dataset hub page (e.g. Hugging Face). */
   huggingface?: string;
+  /** arXiv abstract page (preprint), separate from the venue DOI. */
+  arxiv?: string;
   doi?: string;
   pages?: string;
   note?: string;
@@ -145,6 +147,7 @@ export function parsePublicationsBib(text: string): NormalizedPublication[] {
       video: f.video,
       project: f.project,
       huggingface: f.huggingface,
+      arxiv: f.arxiv,
       doi: f.doi,
       pages: f.pages,
       note: f.note,

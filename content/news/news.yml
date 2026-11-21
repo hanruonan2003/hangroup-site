@@ -11,6 +11,8 @@ news:
       Multi-Turn Analog Circuit Optimization" has been accepted to NeurIPS
       2026. The work is sponsored by Analog Devices and IBM.
     links:
+      - url: "https://arxiv.org/abs/2611.13452"
+        label: "arXiv"
       - url: "https://hangroup.mit.edu/slic/"
         label: "Project Page"
       - url: "https://huggingface.co/slic-agent"

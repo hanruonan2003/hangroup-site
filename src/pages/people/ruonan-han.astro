@@ -81,11 +81,18 @@ const piPubs = [...publications]
                 <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
               </h3>
               <p class="profile-pub__authors">{pd.authors_display}</p>
-              {(pd.project || pd.huggingface) && (
+              {(pd.arxiv || pd.project || pd.huggingface) && (
                 <p class="profile-pub__links mono">
-                  {pd.project && <a href={pd.project} target="_blank" rel="noopener noreferrer">Project Page ↗</a>}
-                  {pd.project && pd.huggingface && <span aria-hidden="true"> · </span>}
-                  {pd.huggingface && <a href={pd.huggingface} target="_blank" rel="noopener noreferrer">Hugging Face ↗</a>}
+                  {[
+                    pd.arxiv && { href: pd.arxiv, label: "arXiv ↗" },
+                    pd.project && { href: pd.project, label: "Project Page ↗" },
+                    pd.huggingface && { href: pd.huggingface, label: "Hugging Face ↗" },
+                  ].filter(Boolean).map((l, i) => (
+                    <>
+                      {i > 0 && <span aria-hidden="true"> · </span>}
+                      <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
+                    </>
+                  ))}
                 </p>
               )}
             </li>

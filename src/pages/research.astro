@@ -100,20 +100,18 @@ for (const [path, urlValue] of Object.entries(figureUrlModules)) {
                   return (
                     <>
                       {i > 0 && <span class="thrust__pubs-sep" aria-hidden="true">, </span>}
-                      <a class="thrust__pubs-link" href={url(`/publications/#${pd.key}`)}>{label}</a>
-                      {pd.project && (
-                        <>
-                          <span class="thrust__pubs-sep" aria-hidden="true"> · </span>
-                          <a class="thrust__pubs-link" href={pd.project} target="_blank" rel="noopener noreferrer">Project Page ↗</a>
-                        </>
-                      )}
-                      {pd.huggingface && (
-                        <>
-                          <span class="thrust__pubs-sep" aria-hidden="true"> · </span>
-                          <a class="thrust__pubs-link" href={pd.huggingface} target="_blank" rel="noopener noreferrer">Hugging Face ↗</a>
-                        </>
-                      )}
-                    </>
+                      <a class="thrust__pubs-link" href={url(`/publications/#${pd.key}`)}>{label}</a>{(() => {
+                        const extra = [
+                          pd.arxiv && { href: pd.arxiv, label: "arXiv ↗" },
+                          pd.project && { href: pd.project, label: "Project Page ↗" },
+                          pd.huggingface && { href: pd.huggingface, label: "Hugging Face ↗" },
+                        ].filter(Boolean) as { href: string; label: string }[];
+                        if (extra.length === 0) return null;
+                        // Kept on one line: JSX newlines would render as spaces inside the parentheses.
+                        return (
+                          <><span class="thrust__pubs-sep" aria-hidden="true"> (</span>{extra.map((l, j) => (<>{j > 0 && <span class="thrust__pubs-sep" aria-hidden="true"> · </span>}<a class="thrust__pubs-link" href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a></>))}<span class="thrust__pubs-sep" aria-hidden="true">)</span></>
+                        );
+                      })()}</>
                   );
                 })}
               </p>

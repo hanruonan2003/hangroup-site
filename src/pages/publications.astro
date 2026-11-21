@@ -280,13 +280,16 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                       {d.highlight && (
                         <span class="entry__meta-item entry__meta-item--highlight">Highlight</span>
                       )}
-                      {(d.pdf || d.video || d.project || d.huggingface) && (
+                      {(d.pdf || d.video || d.arxiv || d.project || d.huggingface) && (
                         <span class="entry__inline-links mono">
                         {d.pdf && (
                           <a href={d.pdf} class="entry__link">PDF</a>
                         )}
                         {d.video && (
                           <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
+                        )}
+                        {d.arxiv && (
+                          <a href={d.arxiv} class="entry__link" target="_blank" rel="noopener noreferrer">arXiv ↗</a>
                         )}
                         {d.project && (
                           <a href={d.project} class="entry__link" target="_blank" rel="noopener noreferrer">Project Page ↗</a>
