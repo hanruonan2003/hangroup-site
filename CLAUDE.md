@@ -33,10 +33,10 @@ asking first.
 ## Pending follow-ups
 
 - `xu2026slic` in `content/publications/publications.bib` (SLIC, NeurIPS
-  2026) is provisional: its booktitle ends in "(accepted)" and it has no
-  DOI. After the December 2026 conference, remind the user; once they
-  supply the DOI, drop " (accepted)", add `doi`, and remove the `% TODO`
-  line above the entry. Never look up or invent the DOI.
+  2026) has no DOI yet. (The " (accepted)" suffix was removed from its
+  booktitle at the user's request on 2026-11-21.) After the December 2026
+  conference, remind the user; once they supply the DOI, add `doi` and
+  remove the `% TODO` line above the entry. Never look up or invent the DOI.
 
 ## SLIC card image
 
