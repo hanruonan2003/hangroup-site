@@ -392,6 +392,7 @@ const publications = defineCollection({
     pdf: z.string().optional(),
     video: z.string().optional(),
     project: z.string().optional(),
+    huggingface: z.string().optional(),
     doi: z.string().optional(),
     pages: z.string().optional(),
     note: z.string().optional(),

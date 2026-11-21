@@ -126,9 +126,11 @@ const looksLikeTodoBio = /^#\s*TODO/i.test(bioText.trim());
                   <a href={url(`/publications/#${pd.key}`)}>{pd.title}</a>
                 </h3>
                 <p class="profile-pub__authors">{pd.authors_display}</p>
-                {pd.project && (
+                {(pd.project || pd.huggingface) && (
                   <p class="profile-pub__links mono">
-                    <a href={pd.project} target="_blank" rel="noopener noreferrer">Project Page ↗</a>
+                    {pd.project && <a href={pd.project} target="_blank" rel="noopener noreferrer">Project Page ↗</a>}
+                    {pd.project && pd.huggingface && <span aria-hidden="true"> · </span>}
+                    {pd.huggingface && <a href={pd.huggingface} target="_blank" rel="noopener noreferrer">Hugging Face ↗</a>}
                   </p>
                 )}
               </li>

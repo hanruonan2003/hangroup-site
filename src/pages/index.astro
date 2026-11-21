@@ -229,6 +229,15 @@ const placedAlumni = [...alumni]
             <p class="news-item__date mono">{formatNewsDate(n.data.date)}</p>
             <h3 class="news-item__title">{n.data.title}</h3>
             {n.data.body && <p class="news-item__body">{n.data.body}</p>}
+            {n.data.links && n.data.links.length > 0 && (
+              <ul class="news-item__links mono">
+                {n.data.links.map((l) => (
+                  <li>
+                    <a href={l.url} target="_blank" rel="noopener noreferrer">{l.label} ↗</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
@@ -622,6 +631,27 @@ const placedAlumni = [...alumni]
     font-size: var(--text-sm);
     margin-bottom: var(--space-2);
     line-height: 1.4;
+  }
+
+  .news-item__links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .news-item__links a {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  .news-item__links a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 
   .news-item__body {

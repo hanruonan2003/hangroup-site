@@ -12,7 +12,9 @@ news:
       2026. The work is sponsored by Analog Devices and IBM.
     links:
       - url: "https://hangroup.mit.edu/slic/"
-        label: "Project page"
+        label: "Project Page"
+      - url: "https://huggingface.co/slic-agent"
+        label: "Hugging Face"
 
   - date: "2025-12-16"
     title: "Three students win 2026 NSF Graduate Research Fellowship"

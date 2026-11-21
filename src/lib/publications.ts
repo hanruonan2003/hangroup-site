@@ -37,6 +37,8 @@ export interface NormalizedPublication {
   video?: string;
   /** External project / demo website. */
   project?: string;
+  /** Model / dataset hub page (e.g. Hugging Face). */
+  huggingface?: string;
   doi?: string;
   pages?: string;
   note?: string;
@@ -142,6 +144,7 @@ export function parsePublicationsBib(text: string): NormalizedPublication[] {
       pdf: f.pdf,
       video: f.video,
       project: f.project,
+      huggingface: f.huggingface,
       doi: f.doi,
       pages: f.pages,
       note: f.note,

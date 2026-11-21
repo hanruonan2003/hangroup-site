@@ -280,6 +280,22 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                       {d.highlight && (
                         <span class="entry__meta-item entry__meta-item--highlight">Highlight</span>
                       )}
+                      {(d.pdf || d.video || d.project || d.huggingface) && (
+                        <span class="entry__inline-links mono">
+                        {d.pdf && (
+                          <a href={d.pdf} class="entry__link">PDF</a>
+                        )}
+                        {d.video && (
+                          <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
+                        )}
+                        {d.project && (
+                          <a href={d.project} class="entry__link" target="_blank" rel="noopener noreferrer">Project Page ↗</a>
+                        )}
+                        {d.huggingface && (
+                          <a href={d.huggingface} class="entry__link" target="_blank" rel="noopener noreferrer">Hugging Face ↗</a>
+                        )}
+                      </span>
+                      )}
                     </p>
                     <h3 class="entry__title">
                       {d.doi ? (
@@ -308,17 +324,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                           <span aria-hidden="true">— </span><em>{d.note}</em>
                         </span>
                       )}
-                      <span class="entry__inline-links mono">
-                        {d.pdf && (
-                          <a href={d.pdf} class="entry__link">PDF</a>
-                        )}
-                        {d.video && (
-                          <a href={d.video} class="entry__link" target="_blank" rel="noopener noreferrer">Video</a>
-                        )}
-                        {d.project && (
-                          <a href={d.project} class="entry__link" target="_blank" rel="noopener noreferrer">Project Page ↗</a>
-                        )}
-                      </span>
                     </div>
                   </li>
                 );
