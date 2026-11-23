@@ -20,6 +20,17 @@ news:
       - url: "https://news.mit.edu/2026/ai-driven-technique-could-help-engineers-design-analog-chips-faster-and-less-expensive-1123"
         label: "MIT News"
 
+  - date: "2026-06-08"
+    title: "MIT News features Pradyot Yadav's diamond-interposer GaN power amplifier (RFIC 2026)"
+    body: >
+      Pradyot Yadav (co-advised by Prof. Tomás Palacios) presented "4W
+      Heterogeneous Power Amplifier with GaN-on-Si Dielets in Single-Crystal
+      Diamond Interposer for 6G FR3 Applications" at IEEE RFIC 2026. MIT
+      News covered the work.
+    links:
+      - url: "https://news.mit.edu/2026/improving-high-power-electronics-performance-0608"
+        label: "MIT News"
+
   - date: "2026-02-20"
     title: "MIT News features Eunseok Lee's twin-PUF chip for hardware security (ISSCC 2026)"
     body: >
