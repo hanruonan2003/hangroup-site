@@ -278,9 +278,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
                       {d.keywords.map((k) => (
                         <span class="entry__meta-item entry__meta-item--topic">{formatTopic(k)}</span>
                       ))}
-                      {d.highlight && (
-                        <span class="entry__meta-item entry__meta-item--highlight">Highlight</span>
-                      )}
                       {(d.pdf || d.video || d.arxiv || d.project || d.huggingface) && (
                         <span class="entry__inline-links mono">
                         {d.pdf && (
@@ -898,9 +895,6 @@ const formatTopic = (k: string): string => k.replace(/-/g, " ");
     color: var(--color-fg-muted);
   }
 
-  .entry__meta-item--highlight {
-    color: var(--color-amber);
-  }
 
   .entry__title {
     font-size: var(--text-xs);

@@ -76,8 +76,9 @@ Rules:
   surnames). This catches accidental duplicates while letting genuine
   conference vs. journal pairs with distinct titles coexist.
 - The `keywords` and `highlight` fields on personal entries are ignored:
-  personal pubs don't get topic chips on the group page or highlight
-  badges anywhere.
+  personal pubs don't get topic chips on the group page and never enter
+  the home-page Selected work grid. (`highlight` only feeds that grid; no
+  "Highlight" badge is rendered anywhere.)
 - When a person leaves the group:
   - **PhD or Postdoc** → create
     `content/people/alumni/<slug>.yml` following the strict 16-field
