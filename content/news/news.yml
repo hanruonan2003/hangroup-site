@@ -17,6 +17,19 @@ news:
         label: "Project Page"
       - url: "https://huggingface.co/slic-agent"
         label: "Hugging Face"
+      - url: "https://news.mit.edu/2026/ai-driven-technique-could-help-engineers-design-analog-chips-faster-and-less-expensive-1123"
+        label: "MIT News"
+
+  - date: "2026-02-20"
+    title: "MIT News features Eunseok Lee's twin-PUF chip for hardware security (ISSCC 2026)"
+    body: >
+      Eunseok Lee presented "Self-Programmable Twin PUFs via Photovoltaic
+      Energy Harvesting During the Pre-Wafer-Dicing Stage" at ISSCC 2026,
+      in collaboration with Prof. Anantha Chandrakasan's group. MIT News
+      covered the work.
+    links:
+      - url: "https://news.mit.edu/2026/chip-processing-method-could-assist-cryptography-schemes-keep-data-secure-0220"
+        label: "MIT News"
 
   - date: "2025-12-16"
     title: "Three students win 2026 NSF Graduate Research Fellowship"
