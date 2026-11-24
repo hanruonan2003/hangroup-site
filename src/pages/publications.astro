@@ -26,8 +26,9 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 const pubsConfig = siteEntry.data.publications;
 
 // Year chips render in two tiers (see content/site/site.yml):
-//   1. Recent row = years in [currentYear - (year_window - 1), currentYear]
-//      that have at least one paper, sorted desc.
+//   1. Recent row = years from currentYear - (year_window - 1) onward that
+//      have at least one paper (incl. future years for accepted papers that
+//      haven't been presented yet, e.g. ISSCC in February), sorted desc.
 //   2. "Older ▾" disclosure = all years with papers before the window,
 //      sorted desc. Years with zero papers are NOT rendered (no empty
 //      chips for gap years like 2014).
@@ -36,7 +37,7 @@ const pubsConfig = siteEntry.data.publications;
 const yearWindow: number = pubsConfig.year_window;
 const currentYear = new Date().getFullYear();
 const windowStart = currentYear - (yearWindow - 1);
-const recentYears = years.filter((y) => y >= windowStart && y <= currentYear);
+const recentYears = years.filter((y) => y >= windowStart);
 const olderYears = years.filter((y) => y < windowStart);
 // DOM order: recent first (desc), then older (desc). CSS hides the older
 // chips by default; the "Older" toggle reveals them, and an .is-active
